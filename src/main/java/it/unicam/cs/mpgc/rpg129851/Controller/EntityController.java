@@ -1,5 +1,6 @@
 package it.unicam.cs.mpgc.rpg129851.Controller;
 
+import it.unicam.cs.mpgc.rpg129851.Launch.Main;
 import it.unicam.cs.mpgc.rpg129851.Model.*;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.*;
@@ -28,6 +29,7 @@ public class EntityController extends LoaderController {
             public void handle(long now) {
                 updateLocation();
                 updateAnimation(now);
+                loadHealthBar();
             }
         };
         timer.start();
@@ -61,8 +63,8 @@ public class EntityController extends LoaderController {
 
         collisionDetection(gameWorld, newX, newY);
 
-        if(!player.getHitbox(newX, oldY).intersects(hitboxHome)) {playerView.setLayoutX(newX);}
-        if(!player.getHitbox(playerView.getLayoutX(), newY).intersects(hitboxHome)) {playerView.setLayoutY(newY);}
+        if(!Main.player.getHitbox(newX, oldY).intersects(hitboxHome)) {playerView.setLayoutX(newX);}
+        if(!Main.player.getHitbox(playerView.getLayoutX(), newY).intersects(hitboxHome)) {playerView.setLayoutY(newY);}
     }
     private void collisionDetection(Pane obstacle, double x, double y) {
         if(x > obstacle.getWidth() - playerView.getViewport().getWidth()) {
@@ -76,10 +78,10 @@ public class EntityController extends LoaderController {
     public void keyDetectionY(KeyCode keyCode, KeyCode keyCode2) {
         if (keyPressed.contains(keyCode )  || keyPressed.contains(keyCode2)){
             if(keyCode == KeyCode.W || keyCode == KeyCode.UP){
-                newY -= player.getSpeed();
+                newY -= Main.player.getSpeed();
                 playerView.setImage(imageUp);
             }else if(keyCode == KeyCode.S || keyCode == KeyCode.DOWN){
-                newY += player.getSpeed();
+                newY += Main.player.getSpeed();
                 playerView.setImage(imageDown);
             }
             moving = true;
@@ -89,10 +91,10 @@ public class EntityController extends LoaderController {
     public void keyDetectionX(KeyCode keyCode, KeyCode keyCode2) {
         if (keyPressed.contains(keyCode)  || keyPressed.contains(keyCode2)){
             if(keyCode == KeyCode.A || keyCode == KeyCode.LEFT){
-                newX -= player.getSpeed();
+                newX -= Main.player.getSpeed();
                 playerView.setImage(imageLeft);
             }else if(keyCode == KeyCode.D || keyCode == KeyCode.RIGHT){
-                newX += player.getSpeed();
+                newX += Main.player.getSpeed();
                 playerView.setImage(imageRight);
             }
             moving = true;

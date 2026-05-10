@@ -5,11 +5,11 @@ import java.util.Random;
 
 public abstract class Entity {
     String name;
-    int hp;
+    int hp, maxHp;
     int strength;
     int defense;
-    public Entity(String name, int hp,  int strength, int defense) {
-        if(name == null || hp <= 0 || strength <= 0 || defense <= 0) {
+    public Entity(String name, int maxHp, int hp,  int strength, int defense) {
+        if(name == null || maxHp < hp || hp <= 0 || strength <= 0 || defense <= 0) {
             throw new IllegalArgumentException("Entity invalid");
         }else{
             this.name = name;
@@ -33,6 +33,9 @@ public abstract class Entity {
             System.out.println("COLPO CRITICO!");
         }
         target.takeDamage(finalDamage);
+    }
+    public int getMaxHp() {
+        return maxHp;
     }
     public double getHealthPercentage() {
         return (double) this.hp / 100;

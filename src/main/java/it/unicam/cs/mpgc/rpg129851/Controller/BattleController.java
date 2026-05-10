@@ -1,36 +1,60 @@
 package it.unicam.cs.mpgc.rpg129851.Controller;
 
+import it.unicam.cs.mpgc.rpg129851.Launch.Main;
 import it.unicam.cs.mpgc.rpg129851.Model.Entity;
 import it.unicam.cs.mpgc.rpg129851.Model.Orc;
-import it.unicam.cs.mpgc.rpg129851.Model.Player;
+import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Rectangle;
 
 import java.util.Objects;
 
 public class BattleController extends LoaderController {
     @FXML
-    private ImageView playerView, orcView;
+    private ImageView playerView, orcView, healthBarViewOrc, healthBarViewPlayer;
     @FXML
     private Image imageOrc, imagePlayer;
+    @FXML
+    private Rectangle healthBarOrc, healthBarPlayer;
     private final int FRAME_WIDTH = 64;
     private final int FRAME_HEIGHT = 64;
-    Player player;
-    Orc orc;
+    AnimationTimer timer;
     public void initialize(){
         super.initialize();
+        timer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                System.out.println(Main.player.getCurrentHp());
+            }
+        };
+        loadHealthBarOrc();
+        loadHealthBarPlayer();
         loadBackground();
+        timer.start();
+    }
+    public void loadHealthBarOrc(){
+        loadHealthBarImage();
+        healthBarViewOrc.setImage(imageHealthBar);
+        healthBarOrc.setWidth((double) (Main.orc.getHealthPercentage() * 130));
+        healthBarOrc.setLayoutX(healthBarViewOrc.getLayoutX() + 50);
+        healthBarOrc.setLayoutY(healthBarViewOrc.getLayoutY() + 113);
+        healthBarViewOrc.setSmooth(false);
+    }
+    public void loadHealthBarPlayer(){
+        loadHealthBarImage();
+        healthBarViewPlayer.setImage(imageHealthBar);
+        healthBarPlayer.setWidth((double) (Main.player.getHealthPercentage() * 130));
+        healthBarPlayer.setLayoutX(healthBarViewPlayer.getLayoutX() + 50);
+        healthBarPlayer.setLayoutY(healthBarViewPlayer.getLayoutY() + 113);
+        healthBarViewPlayer.setSmooth(false);
     }
     public void loadBackground(){
         loadBackground("forestBattle.png");
         backgroundView.setLayoutY(backgroundView.getLayoutY() - 170);
         backgroundView.setLayoutX(backgroundView.getLayoutX() + 30);
-    }
-    public void setData(Entity attacker, Entity defender) {
-        this.player = (Player)attacker;
-        this.orc = (Orc)defender;
     }
 
     public void loadEntity(){

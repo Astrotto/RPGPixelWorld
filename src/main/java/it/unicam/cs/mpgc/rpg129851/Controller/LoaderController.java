@@ -1,20 +1,30 @@
 package it.unicam.cs.mpgc.rpg129851.Controller;
 
+import it.unicam.cs.mpgc.rpg129851.Launch.Main;
+import it.unicam.cs.mpgc.rpg129851.Model.Entity;
 import it.unicam.cs.mpgc.rpg129851.Model.Orc;
 import it.unicam.cs.mpgc.rpg129851.Model.Player;
+import javafx.animation.FillTransition;
+import javafx.animation.ParallelTransition;
+import javafx.animation.ScaleTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+import javax.print.attribute.standard.Media;
+import java.applet.AudioClip;
+import java.net.URL;
 import java.util.Objects;
 
 public class LoaderController {
-    Player player = new Player( 1, 0, 2);
+
+
     public Rectangle healthBar, forest, home;
     public Image imageUp, imageDown, imageLeft, imageRight, imageOrc, imageExclamation, imageHealthBar;
     public ImageView playerView, healthBarView, backgroundView, orcView;
@@ -24,7 +34,6 @@ public class LoaderController {
     public void initialize() {
         loadImages();
         loadEntity();
-        loadHealthBar();
     }
 
     public void loadEntity(){
@@ -52,6 +61,7 @@ public class LoaderController {
     public void loadHealthBar(){
         loadHealthBarImage();
         healthBarView.setImage(imageHealthBar);
+        healthBar.setWidth((Main.player.getHealthPercentage() * 130));
         healthBar.setLayoutX(healthBarView.getLayoutX() + 50);
         healthBar.setLayoutY(healthBarView.getLayoutY() + 113);
         healthBarView.setSmooth(false);
@@ -75,4 +85,5 @@ public class LoaderController {
     public Image loadBackgroundImage(String backgroundName){
         return  new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/images/" + backgroundName)));
     }
+
 }

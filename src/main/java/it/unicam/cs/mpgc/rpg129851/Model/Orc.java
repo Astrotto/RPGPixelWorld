@@ -1,12 +1,13 @@
 package it.unicam.cs.mpgc.rpg129851.Model;
 
+import it.unicam.cs.mpgc.rpg129851.Interfaces.EntityHitbox;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 
-public class Orc extends Entity {
+public class Orc extends Entity implements EntityHitbox {
     int lootExp;
     public Orc(int lootExp, int hp, int strength, int defense) {
-        super("Orc", hp, strength, defense);
+        super("Orc", 65, hp, strength, defense);
         this.lootExp = lootExp;
     }
     public Bounds getHitbox(double x, double y) {

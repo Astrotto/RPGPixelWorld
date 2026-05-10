@@ -24,4 +24,5 @@
             </children>
         </Pane>
     </children>
+    <Rectangle fx:id="blackScreen" height="800" width="1540" fill="black" opacity="0"/>
 </AnchorPane>
