@@ -6,7 +6,7 @@ import javafx.geometry.Bounds;
 public class Orc extends Entity {
     int lootExp;
     public Orc(int lootExp, int hp, int strength, int defense) {
-        super("Orc", 150, hp, strength, defense);
+        super("Orc", hp, strength, defense);
         this.lootExp = lootExp;
     }
     public Bounds getHitbox(double x, double y) {

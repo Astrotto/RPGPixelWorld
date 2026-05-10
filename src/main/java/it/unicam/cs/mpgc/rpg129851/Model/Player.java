@@ -8,7 +8,7 @@ public class Player extends Entity {
     int experience;
     double speed;
     public Player(int level, int experience, double speed) {
-        super("Player", 200, 100, 25, 15);
+        super("Player", 100, 25, 15);
         if(level < 1 || experience < 0 || speed == 0) {
             throw new IllegalArgumentException("Player invalid");
         }else {
