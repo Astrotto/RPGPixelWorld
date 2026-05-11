@@ -2,6 +2,7 @@ package it.unicam.cs.mpgc.rpg129851.Controller;
 
 import it.unicam.cs.mpgc.rpg129851.Launch.Main;
 import it.unicam.cs.mpgc.rpg129851.Model.Entity;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -44,8 +45,8 @@ public class LoaderController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(("/it/unicam/cs/mpgc/rpg129851/" + map + ".fxml")));
             Parent root = loader.load();
             Stage stage = actualStage;
-            Scene forestScene = new Scene(root);
-            stage.setScene(forestScene);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
             stage.show();
             root.requestFocus();
         }catch(Exception e){

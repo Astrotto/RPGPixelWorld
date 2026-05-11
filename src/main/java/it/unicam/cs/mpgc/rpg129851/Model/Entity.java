@@ -30,7 +30,7 @@ public abstract class Entity {
         int baseDamage = this.getStrength() + (rand.nextInt(5) - 2);
         int finalDamage = baseDamage - target.defense;
         if(finalDamage <= 0) finalDamage = 1;
-        if(rand.nextInt(100) < 10) {
+        if(rand.nextInt(100) < 7) {
             finalDamage *= 2;
             Main.criticalHit = true;
         }

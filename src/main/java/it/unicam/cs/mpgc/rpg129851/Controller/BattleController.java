@@ -10,8 +10,10 @@ import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 import java.util.Objects;
+import java.util.Random;
 
 public class BattleController extends LoaderController {
     @FXML
@@ -87,4 +89,11 @@ public class BattleController extends LoaderController {
         imagePlayer = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/images/playerAttack.png")));
     }
 
+    public void run() {
+        Random random = new Random();
+        if(random.nextInt(100) < 10){
+            System.out.println("Sei scappato dall'orco");
+            changeMap((Stage) playerView.getScene().getWindow(), "forest-view");
+        }
+    }
 }

@@ -16,11 +16,13 @@ public class EntityController extends LoaderController {
     public final Set<KeyCode> keyPressed = new HashSet<>();
     public boolean moving = false;
     public double newX, newY;
-
     public Pane gameWorld;
     public AnimationTimer timer;
     private long lastChangeFrame = 0;
     private int actualFrame = 0;
+
+    public static double spawnX = -1;
+    public static double spawnY = -1;
 
     public void initialize() {
         super.initialize();
@@ -30,8 +32,15 @@ public class EntityController extends LoaderController {
                 updateLocation();
                 updateAnimation(now);
                 loadHealthBarPlayer();
+                if(spawnX != -1 || spawnY != -1) {
+                    playerView.setLayoutX(spawnX);
+                    playerView.setLayoutY(spawnY);
+                    spawnX = -1;
+                    spawnY = -1;
+                }
             }
         };
+
         timer.start();
     }
     public void updateAnimation(long actualHour) {
@@ -113,7 +122,11 @@ public class EntityController extends LoaderController {
         keyPressed.remove(event.getCode());
     }
 
+    public void setSpawnPoint(double x, double y){
+        spawnX = x;
+        spawnY = y;
 
+    }
 
 
 }

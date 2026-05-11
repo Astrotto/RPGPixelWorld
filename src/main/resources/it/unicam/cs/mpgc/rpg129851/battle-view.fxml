@@ -21,7 +21,7 @@
             <font>
                <Font size="16.0" />
             </font></Button>
-            <Button fx:id="btnRun" layoutX="1130.0" layoutY="659.0" mnemonicParsing="false" prefHeight="105.0" prefWidth="300.0" text="SCAPPA">
+            <Button fx:id="btnRun" layoutX="1130.0" layoutY="659.0" onAction="#run" mnemonicParsing="false" prefHeight="105.0" prefWidth="300.0" text="SCAPPA">
             <font>
                <Font size="16.0" />
             </font></Button>

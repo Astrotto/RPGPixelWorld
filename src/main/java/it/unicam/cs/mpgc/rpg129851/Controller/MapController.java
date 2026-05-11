@@ -1,8 +1,6 @@
 package it.unicam.cs.mpgc.rpg129851.Controller;
 
-
 import it.unicam.cs.mpgc.rpg129851.Launch.Main;
-import javafx.animation.AnimationTimer;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
@@ -15,12 +13,9 @@ public class MapController extends EntityController {
     private Rectangle blackScreen;
     public void initialize() {
         super.initialize();
-
         loadBackground("worldMap.png");
         loadHitboxHome();
-
-        playerView.setLayoutX(640);
-        playerView.setLayoutY(165);
+        setSpawnPoint(640, 165);
     }
 
     public void updateLocation() {
@@ -48,7 +43,6 @@ public class MapController extends EntityController {
             FadeTransition fadeOut = new FadeTransition(Duration.seconds(1.5), blackScreen);
             fadeOut.setFromValue(0.0);
             fadeOut.setToValue(1.0);
-
             fadeOut.setOnFinished(event -> {
                 joinForest();
             });
@@ -57,6 +51,7 @@ public class MapController extends EntityController {
     }
     private void joinForest(){
         changeMap((Stage)playerView.getScene().getWindow(), "forest-view");
+
     }
 
     private void loadHitboxHome(){
