@@ -59,7 +59,6 @@ public class ForestController extends EntityController {
         loadExclamation();
         orcView.setVisible(true);
         keyPressed.clear();
-        Main.player.takeDamage(25);
         timer.stop();
         FadeTransition fadeOut = new FadeTransition(Duration.seconds(2), blackScreen);
         fadeOut.setFromValue(0.0);

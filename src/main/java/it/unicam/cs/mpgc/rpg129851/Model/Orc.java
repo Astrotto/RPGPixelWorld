@@ -13,4 +13,7 @@ public class Orc extends Entity implements EntityHitbox {
     public Bounds getHitbox(double x, double y) {
         return new BoundingBox(x + 17, y + 15, 20, 22);
     }
+    public int getLootExp() {
+        return lootExp;
+    }
 }

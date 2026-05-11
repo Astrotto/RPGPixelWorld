@@ -19,8 +19,8 @@
         </Pane>
         <Pane prefHeight="188.0" prefWidth="265.0">
             <children>
-                <Rectangle fx:id="healthBar" arcHeight="5.0" arcWidth="5.0" fill="#27c400" height="7.0" stroke="BLACK" strokeType="INSIDE" width="130.0" />
-                <ImageView fx:id="healthBarView" fitHeight="202.0" fitWidth="233.0" layoutX="-7.0" layoutY="-100.0" pickOnBounds="true" preserveRatio="true" />
+                <Rectangle fx:id="healthBarPlayer" arcHeight="5.0" arcWidth="5.0" fill="#27c400" height="7.0" stroke="BLACK" strokeType="INSIDE" width="130.0" />
+                <ImageView fx:id="healthBarViewPlayer" fitHeight="202.0" fitWidth="233.0" layoutX="-7.0" layoutY="-100.0" pickOnBounds="true" preserveRatio="true" />
             </children>
         </Pane>
     </children>

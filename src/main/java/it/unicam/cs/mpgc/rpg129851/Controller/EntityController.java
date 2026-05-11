@@ -29,7 +29,7 @@ public class EntityController extends LoaderController {
             public void handle(long now) {
                 updateLocation();
                 updateAnimation(now);
-                loadHealthBar();
+                loadHealthBarPlayer();
             }
         };
         timer.start();
@@ -52,7 +52,6 @@ public class EntityController extends LoaderController {
 
         Bounds hitboxHome = home.getBoundsInParent();
 
-
         keyDetectionY(KeyCode.S, KeyCode.DOWN);
         keyDetectionY(KeyCode.W, KeyCode.UP);
         keyDetectionX(KeyCode.A, KeyCode.LEFT);
@@ -63,8 +62,12 @@ public class EntityController extends LoaderController {
 
         collisionDetection(gameWorld, newX, newY);
 
-        if(!Main.player.getHitbox(newX, oldY).intersects(hitboxHome)) {playerView.setLayoutX(newX);}
-        if(!Main.player.getHitbox(playerView.getLayoutX(), newY).intersects(hitboxHome)) {playerView.setLayoutY(newY);}
+        if(!Main.player.getHitbox(newX, oldY).intersects(hitboxHome)) {
+            playerView.setLayoutX(newX);
+        }
+        if(!Main.player.getHitbox(playerView.getLayoutX(), newY).intersects(hitboxHome)) {
+            playerView.setLayoutY(newY);
+        }
     }
     private void collisionDetection(Pane obstacle, double x, double y) {
         if(x > obstacle.getWidth() - playerView.getViewport().getWidth()) {

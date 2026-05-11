@@ -24,4 +24,7 @@ public class Player extends Entity implements EntityHitbox {
     public double getSpeed() {
         return speed;
     }
+    public void getExperience(int experience) {
+        this.experience += experience;
+    }
 }

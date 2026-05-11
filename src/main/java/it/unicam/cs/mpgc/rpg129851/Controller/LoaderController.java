@@ -2,11 +2,7 @@ package it.unicam.cs.mpgc.rpg129851.Controller;
 
 import it.unicam.cs.mpgc.rpg129851.Launch.Main;
 import it.unicam.cs.mpgc.rpg129851.Model.Entity;
-import it.unicam.cs.mpgc.rpg129851.Model.Orc;
-import it.unicam.cs.mpgc.rpg129851.Model.Player;
-import javafx.animation.FillTransition;
-import javafx.animation.ParallelTransition;
-import javafx.animation.ScaleTransition;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
@@ -17,17 +13,16 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-import javax.print.attribute.standard.Media;
-import java.applet.AudioClip;
-import java.net.URL;
 import java.util.Objects;
 
 public class LoaderController {
 
-
-    public Rectangle healthBar, forest, home;
+    @FXML
+    public Rectangle healthBarPlayer, forest, home, healthBarOrc;
+    @FXML
     public Image imageUp, imageDown, imageLeft, imageRight, imageOrc, imageExclamation, imageHealthBar;
-    public ImageView playerView, healthBarView, backgroundView, orcView;
+    @FXML
+    public ImageView playerView, healthBarViewPlayer, backgroundView, orcView, healthBarViewOrc;;
     public final int FRAME_WIDTH = 64;
     public final int FRAME_HEIGHT = 64;
 
@@ -58,13 +53,35 @@ public class LoaderController {
         }
     }
 
-    public void loadHealthBar(){
+    public void loadHealthBarPlayer(){
         loadHealthBarImage();
-        healthBarView.setImage(imageHealthBar);
-        healthBar.setWidth((Main.player.getHealthPercentage() * 130));
-        healthBar.setLayoutX(healthBarView.getLayoutX() + 50);
-        healthBar.setLayoutY(healthBarView.getLayoutY() + 113);
-        healthBarView.setSmooth(false);
+        healthBarViewPlayer.setImage(imageHealthBar);
+        healthBarPlayer.setWidth(Main.player.getHealthPercentage() * 130);
+        changeColorHealthBar(Main.player, healthBarPlayer);
+        healthBarPlayer.setLayoutX(healthBarViewPlayer.getLayoutX() + 50);
+        healthBarPlayer.setLayoutY(healthBarViewPlayer.getLayoutY() + 113);
+        healthBarViewPlayer.setSmooth(false);
+    }
+    public void loadHealthBarOrc(){
+        loadHealthBarImage();
+        healthBarViewOrc.setImage(imageHealthBar);
+        healthBarOrc.setWidth(Main.orc.getHealthPercentage() * 130);
+        changeColorHealthBar(Main.orc, healthBarOrc);
+        healthBarOrc.setLayoutX(healthBarViewOrc.getLayoutX() + 50);
+        healthBarOrc.setLayoutY(healthBarViewOrc.getLayoutY() + 113);
+        healthBarViewOrc.setSmooth(false);
+    }
+    public void changeColorHealthBar(Entity entity, Rectangle healthBar){
+        if(entity.getHealthPercentage() > 0.60){
+            healthBar.setFill(Color.GREEN);
+        }else if(entity.getHealthPercentage() <= 0.60 && entity.getHealthPercentage() >= 0.30){
+            healthBar.setFill(Color.ORANGE);
+        }else {
+            healthBar.setFill(Color.RED);
+        }
+    }
+    public void loadHealthBarImage(){
+        imageHealthBar = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/images/healthBar.png")));
     }
 
     public void loadImages() {
@@ -74,9 +91,7 @@ public class LoaderController {
         imageLeft = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/images/playerLeftSpritesheet.png")));
         imageRight = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/images/playerRightSpritesheet.png")));
     }
-    public void loadHealthBarImage(){
-        imageHealthBar = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/images/healthBar.png")));
-    }
+
     public void loadBackground(String nameMap){;
         backgroundView.setImage(loadBackgroundImage(nameMap));
         backgroundView.setSmooth(false);

@@ -1,5 +1,6 @@
 package it.unicam.cs.mpgc.rpg129851.Model;
 
+import it.unicam.cs.mpgc.rpg129851.Launch.Main;
 import javafx.geometry.Bounds;
 import java.util.Random;
 
@@ -14,6 +15,7 @@ public abstract class Entity {
         }else{
             this.name = name;
             this.hp = hp;
+            this.maxHp = maxHp;
             this.strength = strength;
             this.defense = defense;
         }
@@ -23,25 +25,29 @@ public abstract class Entity {
         this.hp -= damage;
         if(this.hp <= 0) hp = 0;
     }
-    public void attack(Entity target) {
+    public int attack(Entity target) {
         Random rand = new Random();
         int baseDamage = this.getStrength() + (rand.nextInt(5) - 2);
         int finalDamage = baseDamage - target.defense;
-        if(finalDamage <= 0) finalDamage = 0;
+        if(finalDamage <= 0) finalDamage = 1;
         if(rand.nextInt(100) < 10) {
             finalDamage *= 2;
-            System.out.println("COLPO CRITICO!");
+            Main.criticalHit = true;
         }
         target.takeDamage(finalDamage);
+        return finalDamage;
     }
     public int getMaxHp() {
         return maxHp;
     }
     public double getHealthPercentage() {
-        return (double) this.hp / 100;
+        return (double) getCurrentHp() / getMaxHp();
     }
     public int getCurrentHp() {
         return hp;
+    }
+    public String getName() {
+        return name;
     }
     public int getStrength() {
         return strength;
