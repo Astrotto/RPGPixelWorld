@@ -7,11 +7,9 @@ import java.util.Random;
 public abstract class Entity {
     String name;
     int hp, maxHp;
-    int strength;
-    int defense;
-    int level;
-    public Entity(String name, int level, int maxHp, int hp,  int strength, int defense) {
-        if(name == null || level < 0 || level > 3 || maxHp < hp || hp <= 0 || strength <= 0 || defense <= 0) {
+    int strength, defense, level, experience;
+    public Entity(String name, int level, int maxHp, int hp,  int strength, int defense, int experience) {
+        if(name == null || level < 0 || level > 3 || maxHp < hp || hp <= 0 || strength <= 0 || defense <= 0 || experience < 0) {
             throw new IllegalArgumentException("Entity invalid");
         }else{
             this.name = name;
@@ -20,14 +18,16 @@ public abstract class Entity {
             this.maxHp = maxHp;
             this.strength = strength;
             this.defense = defense;
+            this.experience = experience;
         }
     }
-    public Entity(String name, int level) {
-        if(name == null || level < 0 || level > 3) {
+    public Entity(String name, int level, int experience) {
+        if(name == null || level < 0 || level > 3 || experience < 0) {
             throw new IllegalArgumentException("Entity invalid");
         }else{
             this.name = name;
             this.level = level;
+            this.experience = experience;
         }
     }
     public abstract Bounds getHitbox(double x, double y);
@@ -76,6 +76,9 @@ public abstract class Entity {
         return this.defense;
     }
     public void setDefense(int defense) {this.defense = defense;}
+    public int getExperience() {return this.experience;}
+    public void setExperience(int experience) {this.experience = experience;}
+    public double getExperiencePercentage(){return (double) getExperience() / 100;}
     public boolean isAlive() {
         return this.hp > 0;
     }

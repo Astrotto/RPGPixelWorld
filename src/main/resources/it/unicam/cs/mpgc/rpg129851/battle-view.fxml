@@ -25,6 +25,22 @@
             <font>
                <Font size="16.0" />
             </font></Button>
+            <Rectangle fx:id="level3Orc" arcHeight="5.0" visible="false" arcWidth="5.0" fill="#FFDB58" height="9.0" stroke="BLACK"
+                       strokeType="INSIDE" width="8"/>
+            <Rectangle fx:id="level2Orc" arcHeight="5.0" visible="false" arcWidth="5.0" fill="#FFDB58" height="9.0" stroke="BLACK"
+                       strokeType="INSIDE" width="8"/>
+            <Rectangle fx:id="level1Orc" arcHeight="5.0" visible="false" arcWidth="5.0" fill="#FFDB58" height="9.0" stroke="BLACK"
+                       strokeType="INSIDE" width="8"/>
+            <Rectangle fx:id="level3Player" arcHeight="5.0" visible="false" arcWidth="5.0" fill="#FFDB58" height="9.0" stroke="BLACK"
+                       strokeType="INSIDE" width="8"/>
+            <Rectangle fx:id="level2Player" arcHeight="5.0" visible="false" arcWidth="5.0" fill="#FFDB58" height="9.0" stroke="BLACK"
+                       strokeType="INSIDE" width="8"/>
+            <Rectangle fx:id="level1Player" arcHeight="5.0" visible="false" arcWidth="5.0" fill="#FFDB58" height="9.0" stroke="BLACK"
+                       strokeType="INSIDE" width="8"/>
+            <Rectangle fx:id="experienceBarPlayer" arcHeight="5.0" arcWidth="5.0" fill="#007FFF" height="7.0" stroke="BLACK"
+                       strokeType="INSIDE" width="85"/>
+            <Rectangle fx:id="experienceBarOrc" arcHeight="5.0" arcWidth="5.0" fill="#007FFF" height="7.0" stroke="BLACK"
+                       strokeType="INSIDE" width="85"/>
             <Rectangle fx:id="healthBarOrc" arcHeight="5.0" arcWidth="5.0" fill="#27c400" height="7.0" layoutX="789.0" layoutY="122.0" stroke="BLACK" strokeType="INSIDE" width="130.0" />
             <Rectangle fx:id="healthBarPlayer" arcHeight="5.0" arcWidth="5.0" fill="#27c400" height="7.0" layoutX="65.0" layoutY="118.0" stroke="BLACK" strokeType="INSIDE" width="130.0" />
             <ImageView fx:id="healthBarViewOrc" fitHeight="202.0" fitWidth="233.0" layoutX="214.0" layoutY="250.0" pickOnBounds="true" preserveRatio="true" />

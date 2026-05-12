@@ -31,7 +31,6 @@ public class EntityController extends LoaderController {
             public void handle(long now) {
                 updateLocation();
                 updateAnimation(now);
-                loadHealthBarPlayer();
                 if(spawnX != -1 || spawnY != -1) {
                     playerView.setLayoutX(spawnX);
                     playerView.setLayoutY(spawnY);

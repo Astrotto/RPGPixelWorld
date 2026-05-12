@@ -19,7 +19,11 @@ import java.util.Objects;
 public class LoaderController {
 
     @FXML
-    public Rectangle healthBarPlayer, forest, home, healthBarOrc;
+    public Rectangle forest, home,
+            healthBarPlayer, healthBarOrc,
+            experienceBarPlayer, experienceBarOrc,
+            level1Player, level2Player, level3Player,
+            level1Orc, level2Orc, level3Orc;
     @FXML
     public Image imageUp, imageDown, imageLeft, imageRight, imageOrc, imageExclamation, imageHealthBar;
     @FXML
@@ -30,6 +34,9 @@ public class LoaderController {
     public void initialize() {
         loadImages();
         loadEntity();
+        loadHealthBarPlayer();
+        loadExperienceBarPlayer();
+        loadLevelPlayer();
     }
 
     public void loadEntity(){
@@ -57,10 +64,74 @@ public class LoaderController {
         loadHealthBarImage();
         healthBarViewPlayer.setImage(imageHealthBar);
         healthBarPlayer.setWidth(Main.player.getHealthPercentage() * 130);
+
         changeColorHealthBar(Main.player, healthBarPlayer);
         healthBarPlayer.setLayoutX(healthBarViewPlayer.getLayoutX() + 50);
         healthBarPlayer.setLayoutY(healthBarViewPlayer.getLayoutY() + 113);
+
         healthBarViewPlayer.setSmooth(false);
+    }
+    public void loadExperienceBarPlayer(){
+        experienceBarPlayer.setWidth(Main.player.getExperiencePercentage() * 85);
+        experienceBarPlayer.setLayoutX(healthBarViewPlayer.getLayoutX() + 45);
+        experienceBarPlayer.setLayoutY(healthBarViewPlayer.getLayoutY() + 122);
+    }
+    public void loadLevelPlayer(){
+        if(Main.player.getLevel() == 1){
+            loadLevel1Player();
+        }else if(Main.player.getLevel() == 2){
+            loadLevel2Player();
+        }else{
+            loadLevel3Player();
+        }
+    }
+    public void loadLevel1Player(){
+        level1Player.setVisible(true);
+        level1Player.setLayoutX(healthBarViewPlayer.getLayoutX() + 138);
+        level1Player.setLayoutY(healthBarViewPlayer.getLayoutY() + 122);
+    }
+    public void loadLevel2Player(){
+        loadLevel1Player();
+        level2Player.setVisible(true);
+        level2Player.setLayoutX(healthBarViewPlayer.getLayoutX() + 154);
+        level2Player.setLayoutY(healthBarViewPlayer.getLayoutY() + 122);
+    }
+    public void loadLevel3Player(){
+        loadLevel2Player();
+        level3Player.setVisible(true);
+        level3Player.setLayoutX(healthBarViewPlayer.getLayoutX() + 170);
+        level3Player.setLayoutY(healthBarViewPlayer.getLayoutY() + 122);
+    }
+    public void loadLevelOrc(){
+        if(Main.orcEncountered.getLevel() == 1){
+            loadLevel1Orc();
+        }else if(Main.orcEncountered.getLevel() == 2){
+            loadLevel2Orc();
+        }else{
+            loadLevel3Orc();
+        }
+    }
+    public void loadLevel1Orc(){
+        level1Orc.setVisible(true);
+        level1Orc.setLayoutX(healthBarViewOrc.getLayoutX() + 138);
+        level1Orc.setLayoutY(healthBarViewOrc.getLayoutY() + 122);
+    }
+    public void loadLevel2Orc(){
+        loadLevel1Orc();
+        level2Orc.setVisible(true);
+        level2Orc.setLayoutX(healthBarViewOrc.getLayoutX() + 154);
+        level2Orc.setLayoutY(healthBarViewOrc.getLayoutY() + 122);
+    }
+    public void loadLevel3Orc(){
+        loadLevel2Orc();
+        level3Orc.setVisible(true);
+        level3Orc.setLayoutX(healthBarViewOrc.getLayoutX() + 170);
+        level3Orc.setLayoutY(healthBarViewOrc.getLayoutY() + 122);
+    }
+    public void loadExperienceBarOrc(){
+        experienceBarOrc.setWidth(Main.orcEncountered.getExperiencePercentage() * 85);
+        experienceBarOrc.setLayoutX(healthBarViewOrc.getLayoutX() + 45);
+        experienceBarOrc.setLayoutY(healthBarViewOrc.getLayoutY() + 122);
     }
     public void loadHealthBarOrc(Orc orc){
         loadHealthBarImage();
@@ -81,7 +152,7 @@ public class LoaderController {
         }
     }
     public void loadHealthBarImage(){
-        imageHealthBar = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/images/healthBar.png")));
+        imageHealthBar = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/images/healthBarPlayer.png")));
     }
 
     public void loadImages() {

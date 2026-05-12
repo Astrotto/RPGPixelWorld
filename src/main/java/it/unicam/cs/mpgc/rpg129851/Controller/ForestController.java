@@ -75,12 +75,14 @@ public class ForestController extends EntityController {
         int numeroOrchi = rand.nextInt(4) + 1;
         for (int i = 0; i < numeroOrchi; i++) {
             int lvlOrc = rand.nextInt(3) + 1;
-            Orc orc = new Orc(lvlOrc, 45);
+            Orc orc = new Orc(lvlOrc);
 
             if(lvlOrc == 1){
                 loadImagesOrc1();
             }else if(lvlOrc == 2){
                 loadImagesOrc2();
+            }else{
+                loadImagesOrc3();
             }
             ImageView orcView = new ImageView(imageOrc);
 

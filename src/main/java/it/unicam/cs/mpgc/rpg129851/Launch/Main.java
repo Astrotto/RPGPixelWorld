@@ -8,21 +8,18 @@ import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Main extends Application {
-    public static final Player player = new Player(1, 0, 2);
-    //public static final Orc orc = new Orc(45,100, 25, 15);
+    public static final Player player = new Player(1, 80, 2);
     public static Map<Orc, ImageView> orcs = new HashMap<>();
     public static Orc orcEncountered;
 
     public static boolean criticalHit = false;
     @Override
     public void start(Stage primaryStage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/it/unicam/cs/mpgc/rpg129851/forest-view.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/it/unicam/cs/mpgc/rpg129851/map-view.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);

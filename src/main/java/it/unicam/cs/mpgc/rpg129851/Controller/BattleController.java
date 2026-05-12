@@ -3,9 +3,7 @@ package it.unicam.cs.mpgc.rpg129851.Controller;
 import it.unicam.cs.mpgc.rpg129851.Launch.Main;
 import it.unicam.cs.mpgc.rpg129851.Model.Entity;
 import it.unicam.cs.mpgc.rpg129851.Model.Orc;
-import it.unicam.cs.mpgc.rpg129851.Model.Player;
 import javafx.animation.AnimationTimer;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
@@ -20,7 +18,7 @@ public class BattleController extends LoaderController {
     private ImageView playerView, orcView;
     @FXML
     private Image imageOrc, imagePlayer;
-    int percentageOfEscape = 20;
+    int percentageOfEscape = 25;
 
     private final int FRAME_WIDTH = 64;
     private final int FRAME_HEIGHT = 64;
@@ -31,14 +29,16 @@ public class BattleController extends LoaderController {
             @Override
             public void handle(long now) {
                 loadHealthBarOrc(Main.orcEncountered);
+                loadExperienceBarOrc();
+                loadLevelOrc();
                 loadHealthBarPlayer();
+                loadExperienceBarPlayer();
                 deathControl(Main.player);
                 deathControl(Main.orcEncountered);
 
             }
         };
-        orcView.setImage(imageOrc);
-        orcView.setSmooth(false);
+        loadOrcEncountered(Main.orcEncountered);
         loadBackground();
         timer.start();
     }
@@ -64,11 +64,12 @@ public class BattleController extends LoaderController {
     public void deathControl(Entity entity){
         if(entity.getCurrentHp() <= 0){
             System.out.println(entity.getName() + " e morto!");
-            System.exit(0);
             if(entity instanceof Orc){
-                System.out.println(entity.getName() + " ha droppato " + ((Orc) entity).getLootExp() + " punti esperienza");
-                Main.player.getExperience(((Orc) entity).getLootExp());
+                System.out.println(entity.getName() + " ha droppato " + entity.getExperience() + " punti esperienza");
+                Main.player.earnExperience(entity.getExperience());
             }
+            timer.stop();
+            changeMap((Stage)playerView.getScene().getWindow(), "map-view");
         }
 
     }
@@ -90,10 +91,31 @@ public class BattleController extends LoaderController {
     }
 
     public void loadImages(){
-        imageOrc = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/images/orcAttack.png")));
         imagePlayer = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/images/playerAttack.png")));
     }
-
+    public void loadOrc1(){
+        imageOrc = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/images/orc1Attack.png")));
+    }
+    public void loadOrc2(){
+        imageOrc = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/images/orc2Attack.png")));
+    }
+    public void loadOrc3(){
+        imageOrc = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/images/orc3Attack.png")));
+    }
+    public void loadOrcEncountered(Orc orcEncountered){
+        switch (orcEncountered.getLevel()){
+            case 1:
+                loadOrc1();
+                break;
+            case 2:
+                loadOrc2();
+                break;
+            case 3:
+                loadOrc3();
+        }
+        orcView.setImage(imageOrc);
+        orcView.setSmooth(false);
+    }
     public void run() {
         Random random = new Random();
         if(random.nextInt(100) < percentageOfEscape){
