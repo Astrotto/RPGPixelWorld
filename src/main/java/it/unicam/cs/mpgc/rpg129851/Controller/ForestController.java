@@ -1,16 +1,18 @@
 package it.unicam.cs.mpgc.rpg129851.Controller;
 
 import it.unicam.cs.mpgc.rpg129851.Launch.Main;
+import it.unicam.cs.mpgc.rpg129851.Model.Orc;
 import javafx.animation.*;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 
@@ -18,13 +20,18 @@ public class ForestController extends EntityController {
     @FXML
     private ImageView exclamation;
     @FXML
-    private Rectangle blackScreen, leftExit, rightExit, upExit, downExit;
+    private Pane orcSpawn;
+    @FXML
+    private Rectangle blackScreen,
+            leftExit, rightExit, upExit, downExit,
+            spawnLeftDownCorner, spawnLeftUpCorner, spawnRightUpCorner, spawnRightDownCorner;
     private Bounds rightExitHitbox, leftExitHitbox, upExitHitbox, downExitHitbox;
 
     public void initialize() {
         super.initialize();
         loadBoundsHitbox();
         loadBackground("forestMap.png");
+        Main.orcs.clear();
         placeOrcRandomly();
     }
     public void updateLocation() {
@@ -33,7 +40,7 @@ public class ForestController extends EntityController {
         exitCollision(rightExitHitbox, 220, 380);
         exitCollision(upExitHitbox, 105, 225);
         exitCollision(downExitHitbox, 122, 470);
-        orcCollisionDetection();
+        orcCollisionDetection(Main.orcs);
     }
     public void exitCollision(Bounds exit, double x, double y){
         if(Main.player.getHitbox(newX, newY).intersects(exit)) {
@@ -57,33 +64,65 @@ public class ForestController extends EntityController {
         downExitHitbox = downExit.getBoundsInParent();
     }
     private void placeOrcRandomly(){
-        Random rand  = new Random();
-
-        double orcWidth = orcView.getBoundsInParent().getWidth();
-        double orcHeight = orcView.getBoundsInParent().getHeight();
-
-        double minX = forest.getLayoutX();
-        double maxX = minX + forest.getWidth() - orcWidth;
-
-        double minY = forest.getLayoutY();
-        double maxY = minY + forest.getHeight() - orcHeight;
-
-        double randomX = minX + (maxX - minX) * rand.nextDouble();
-        double randomY = minY + (maxY - minY) * rand.nextDouble();
-        orcView.setVisible(true);
-        orcView.setLayoutX(randomX);
-        orcView.setLayoutY(randomY);
+        placeOrcRandomlyInACorner(spawnLeftDownCorner);
+        placeOrcRandomlyInACorner(spawnLeftUpCorner);
+        placeOrcRandomlyInACorner(spawnRightUpCorner);
+        placeOrcRandomlyInACorner(spawnRightDownCorner);
     }
-    private void orcCollisionDetection(){
-        Bounds hitboxPlayer = Main.player.getHitbox(playerView.getLayoutX(), playerView.getLayoutY());
-        Bounds hitboxOrc = Main.orc.getHitbox(orcView.getLayoutX(), orcView.getLayoutY());
-        if(hitboxPlayer.intersects(hitboxOrc)) {
-            encounterEntity();
-        }else{
+    private void placeOrcRandomlyInACorner(Rectangle spawnCorner) {
+        Random rand = new Random();
+
+        int numeroOrchi = rand.nextInt(4) + 1;
+        for (int i = 0; i < numeroOrchi; i++) {
+            int lvlOrc = rand.nextInt(3) + 1;
+            Orc orc = new Orc(lvlOrc, 45);
+
+            if(lvlOrc == 1){
+                loadImagesOrc1();
+            }else if(lvlOrc == 2){
+                loadImagesOrc2();
+            }
+            ImageView orcView = new ImageView(imageOrc);
+
+            Main.orcs.put(orc, orcView);
+
+            orcView.setFitWidth(130);
+            orcView.setFitHeight(124);
+            orcView.setPreserveRatio(true);
+
+            double orcWidth = orcView.getBoundsInParent().getWidth();
+            double orcHeight = orcView.getBoundsInParent().getHeight();
+
+            double minX = spawnCorner.getLayoutX();
+            double maxX = minX + spawnCorner.getWidth() - orcWidth;
+
+            double minY = spawnCorner.getLayoutY();
+            double maxY = minY + spawnCorner.getHeight() - orcHeight;
+
+            double randomX = minX + (maxX - minX) * rand.nextDouble();
+            double randomY = minY + (maxY - minY) * rand.nextDouble();
+
             //orcView.setVisible(false);
+
+            orcView.setLayoutX(randomX);
+            orcView.setLayoutY(randomY);
+
+            orcSpawn.getChildren().add(orcView);
         }
     }
-    private void encounterEntity() {
+
+
+    private void orcCollisionDetection(Map<Orc, ImageView> orcMap){
+        Bounds hitboxPlayer = Main.player.getHitbox(playerView.getLayoutX(), playerView.getLayoutY());
+        orcMap.forEach((orc, orcView) -> {
+            Bounds hitboxOrc = orc.getHitbox(orcView.getLayoutX(), orcView.getLayoutY());
+            if(hitboxPlayer.intersects(hitboxOrc)) {
+                Main.setOrcEncountered(orc);
+                encounterEntity(orcView);
+            }
+        });
+    }
+    private void encounterEntity(ImageView orcView) {
         loadExclamation();
         orcView.setVisible(true);
         keyPressed.clear();

@@ -5,12 +5,20 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Main extends Application {
     public static final Player player = new Player(1, 0, 2);
-    public static final Orc orc = new Orc(45,65, 20, 10);
+    //public static final Orc orc = new Orc(45,100, 25, 15);
+    public static Map<Orc, ImageView> orcs = new HashMap<>();
+    public static Orc orcEncountered;
+
     public static boolean criticalHit = false;
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -21,6 +29,9 @@ public class Main extends Application {
         primaryStage.setTitle("My RPG");
         primaryStage.show();
         root.requestFocus();
+    }
+    public static void setOrcEncountered(Orc orc){
+        orcEncountered = orc;
     }
     public static void main(String[] args) {
         launch(args);

@@ -9,15 +9,25 @@ public abstract class Entity {
     int hp, maxHp;
     int strength;
     int defense;
-    public Entity(String name, int maxHp, int hp,  int strength, int defense) {
-        if(name == null || maxHp < hp || hp <= 0 || strength <= 0 || defense <= 0) {
+    int level;
+    public Entity(String name, int level, int maxHp, int hp,  int strength, int defense) {
+        if(name == null || level < 0 || level > 3 || maxHp < hp || hp <= 0 || strength <= 0 || defense <= 0) {
             throw new IllegalArgumentException("Entity invalid");
         }else{
             this.name = name;
+            this.level = level;
             this.hp = hp;
             this.maxHp = maxHp;
             this.strength = strength;
             this.defense = defense;
+        }
+    }
+    public Entity(String name, int level) {
+        if(name == null || level < 0 || level > 3) {
+            throw new IllegalArgumentException("Entity invalid");
+        }else{
+            this.name = name;
+            this.level = level;
         }
     }
     public abstract Bounds getHitbox(double x, double y);
@@ -28,7 +38,7 @@ public abstract class Entity {
     public int attack(Entity target) {
         Random rand = new Random();
         int baseDamage = this.getStrength() + (rand.nextInt(5) - 2);
-        int finalDamage = baseDamage - target.defense;
+        int finalDamage = baseDamage - target.getDefense();
         if(finalDamage <= 0) finalDamage = 1;
         if(rand.nextInt(100) < 7) {
             finalDamage *= 2;
@@ -37,25 +47,36 @@ public abstract class Entity {
         target.takeDamage(finalDamage);
         return finalDamage;
     }
+    public abstract void updateStats(int level);
+    public void setStats(int maxHp, int hp, int strength, int defense) {
+        this.maxHp = maxHp;
+        this.hp = hp;
+        this.strength = strength;
+        this.defense = defense;
+    }
+    public int getLevel(){return this.level;}
     public int getMaxHp() {
-        return maxHp;
+        return this.maxHp;
     }
     public double getHealthPercentage() {
         return (double) getCurrentHp() / getMaxHp();
     }
     public int getCurrentHp() {
-        return hp;
+        return this.hp;
     }
+    public void setHp(int hp) {this.hp = hp;}
     public String getName() {
-        return name;
+        return this.name;
     }
     public int getStrength() {
-        return strength;
+        return this.strength;
     }
+    public void setStrength(int strength) {this.strength = strength;}
     public int getDefense() {
-        return defense;
+        return this.defense;
     }
+    public void setDefense(int defense) {this.defense = defense;}
     public boolean isAlive() {
-        return hp > 0;
+        return this.hp > 0;
     }
 }

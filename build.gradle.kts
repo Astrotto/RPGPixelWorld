@@ -2,8 +2,8 @@ plugins {
     java
     application
     id("org.javamodularity.moduleplugin") version "1.8.15"
-    id("org.openjfx.javafxplugin") version "0.0.13"
-    id("org.beryx.jlink") version "2.25.0"
+    id("org.openjfx.javafxplugin") version "0.1.0"
+    id("org.beryx.jlink") version "3.1.1"
 }
 
 group = "it.unicam.cs.mpgc.rpg129851"
@@ -17,7 +17,7 @@ val junitVersion = "5.12.1"
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(23)
+        languageVersion = JavaLanguageVersion.of(25)
     }
 }
 
@@ -26,15 +26,17 @@ tasks.withType<JavaCompile> {
 }
 
 application {
-    mainModule.set("it.unicam.cs.mpgc.rpg129851.")
-    mainClass.set("it.unicam.cs.mpgc.rpg129851.Launch.HelloApplication")
+    mainModule.set("it.unicam.cs.mpgc.rpg129851")
+    mainClass.set("it.unicam.cs.mpgc.rpg129851.Launch.Main")
 }
 
 javafx {
-    version = "21.0.6"
+    version = "26"
     modules = listOf("javafx.controls", "javafx.fxml")
 }
-
+tasks.withType<JavaExec> {
+    jvmArgs("--enable-native-access=ALL-UNNAMED")
+}
 dependencies {
     implementation("org.controlsfx:controlsfx:11.2.1")
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")

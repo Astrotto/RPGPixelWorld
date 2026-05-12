@@ -20,6 +20,7 @@ public class BattleController extends LoaderController {
     private ImageView playerView, orcView;
     @FXML
     private Image imageOrc, imagePlayer;
+    int percentageOfEscape = 20;
 
     private final int FRAME_WIDTH = 64;
     private final int FRAME_HEIGHT = 64;
@@ -29,18 +30,22 @@ public class BattleController extends LoaderController {
         timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                loadHealthBarOrc();
+                loadHealthBarOrc(Main.orcEncountered);
                 loadHealthBarPlayer();
                 deathControl(Main.player);
-                deathControl(Main.orc);
+                deathControl(Main.orcEncountered);
+
             }
         };
+        orcView.setImage(imageOrc);
+        orcView.setSmooth(false);
         loadBackground();
         timer.start();
     }
+
     public void attack(){
-        attack(Main.player, Main.orc);
-        attack(Main.orc, Main.player);
+        attack(Main.player, Main.orcEncountered);
+        attack(Main.orcEncountered, Main.player);
     }
     private void attack(Entity attacker, Entity defender){
         int damage;
@@ -50,9 +55,9 @@ public class BattleController extends LoaderController {
             damage = attacker.attack(defender);
             if (Main.criticalHit) {
                 Main.criticalHit = false;
-                System.out.println(attacker.getName() + " ha inflitto " + damage + " danni a " + defender.getName() + " con un COLPO CRITICO!");
+                System.out.println(attacker.getName() + " di LVL" + attacker.getLevel() + " ha inflitto " + damage + " danni a " + defender.getName() + " con un COLPO CRITICO!");
             } else {
-                System.out.println(attacker.getName() + " ha inflitto " + damage + " danni a " + defender.getName());
+                System.out.println(attacker.getName()  + " di LVL" + attacker.getLevel() + " ha inflitto " + damage + " danni a " + defender.getName());
             }
         }
     }
@@ -91,9 +96,12 @@ public class BattleController extends LoaderController {
 
     public void run() {
         Random random = new Random();
-        if(random.nextInt(100) < 10){
+        if(random.nextInt(100) < percentageOfEscape){
             System.out.println("Sei scappato dall'orco");
             changeMap((Stage) playerView.getScene().getWindow(), "forest-view");
+        }else{
+            percentageOfEscape += 15;
+            attack(Main.orcEncountered, Main.player);
         }
     }
 }

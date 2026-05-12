@@ -2,7 +2,7 @@ package it.unicam.cs.mpgc.rpg129851.Controller;
 
 import it.unicam.cs.mpgc.rpg129851.Launch.Main;
 import it.unicam.cs.mpgc.rpg129851.Model.Entity;
-import javafx.application.Platform;
+import it.unicam.cs.mpgc.rpg129851.Model.Orc;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -23,7 +23,7 @@ public class LoaderController {
     @FXML
     public Image imageUp, imageDown, imageLeft, imageRight, imageOrc, imageExclamation, imageHealthBar;
     @FXML
-    public ImageView playerView, healthBarViewPlayer, backgroundView, orcView, healthBarViewOrc;;
+    public ImageView playerView, healthBarViewPlayer, backgroundView, healthBarViewOrc;;
     public final int FRAME_WIDTH = 64;
     public final int FRAME_HEIGHT = 64;
 
@@ -34,8 +34,7 @@ public class LoaderController {
 
     public void loadEntity(){
         playerView.setImage(imageDown);
-        orcView.setImage(imageOrc);
-        orcView.setSmooth(false);
+
         playerView.setViewport(new Rectangle2D(0,0,FRAME_WIDTH,FRAME_HEIGHT));
         playerView.setSmooth(false);
     }
@@ -63,11 +62,11 @@ public class LoaderController {
         healthBarPlayer.setLayoutY(healthBarViewPlayer.getLayoutY() + 113);
         healthBarViewPlayer.setSmooth(false);
     }
-    public void loadHealthBarOrc(){
+    public void loadHealthBarOrc(Orc orc){
         loadHealthBarImage();
         healthBarViewOrc.setImage(imageHealthBar);
-        healthBarOrc.setWidth(Main.orc.getHealthPercentage() * 130);
-        changeColorHealthBar(Main.orc, healthBarOrc);
+        healthBarOrc.setWidth(orc.getHealthPercentage() * 130);
+        changeColorHealthBar(orc, healthBarOrc);
         healthBarOrc.setLayoutX(healthBarViewOrc.getLayoutX() + 50);
         healthBarOrc.setLayoutY(healthBarViewOrc.getLayoutY() + 113);
         healthBarViewOrc.setSmooth(false);
@@ -86,13 +85,20 @@ public class LoaderController {
     }
 
     public void loadImages() {
-        imageOrc = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/images/orcoDown.png")));
         imageUp = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/images/playerUpSpritesheet.png")));
         imageDown = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/images/playerDownSpritesheet.png")));
         imageLeft = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/images/playerLeftSpritesheet.png")));
         imageRight = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/images/playerRightSpritesheet.png")));
     }
-
+    public void loadImagesOrc1(){
+        imageOrc = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/images/orc1Down.png")));
+    }
+    public void loadImagesOrc2(){
+        imageOrc = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/images/orc2Down.png")));
+    }
+    public void loadImagesOrc3(){
+        imageOrc = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/images/orc3Down.png")));
+    }
     public void loadBackground(String nameMap){;
         backgroundView.setImage(loadBackgroundImage(nameMap));
         backgroundView.setSmooth(false);
