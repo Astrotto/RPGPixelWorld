@@ -74,7 +74,15 @@ public class ForestController extends EntityController {
 
         int numeroOrchi = rand.nextInt(4) + 1;
         for (int i = 0; i < numeroOrchi; i++) {
-            int lvlOrc = rand.nextInt(3) + 1;
+            int randomLevel = rand.nextInt(10) + 1;
+            int lvlOrc = 0;
+            if(randomLevel <= 6){
+                lvlOrc = 1;
+            }else if(randomLevel <= 9){
+                lvlOrc = 2;
+            }else{
+                lvlOrc = 3;
+            }
             Orc orc = new Orc(lvlOrc);
 
             if(lvlOrc == 1){

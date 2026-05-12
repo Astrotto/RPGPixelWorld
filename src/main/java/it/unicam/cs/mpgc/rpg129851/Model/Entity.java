@@ -64,7 +64,13 @@ public abstract class Entity {
     public int getCurrentHp() {
         return this.hp;
     }
-    public void setHp(int hp) {this.hp = hp;}
+    public void addHp(int hp) {
+        if(this.hp + hp <= maxHp) {
+            this.hp += hp;
+        }else{
+            this.hp = maxHp;
+        }
+    }
     public String getName() {
         return this.name;
     }

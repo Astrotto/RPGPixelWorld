@@ -23,6 +23,11 @@ public class BattleController extends LoaderController {
     private final int FRAME_WIDTH = 64;
     private final int FRAME_HEIGHT = 64;
     AnimationTimer timer;
+    private boolean attackingPlayer = false, attackingOrc = false;
+    private long lastChangeFrame = 0;
+    private int actualFrame = 0;
+
+
     public void initialize(){
         super.initialize();
         timer = new AnimationTimer() {
@@ -35,6 +40,9 @@ public class BattleController extends LoaderController {
                 loadExperienceBarPlayer();
                 deathControl(Main.player);
                 deathControl(Main.orcEncountered);
+                updateAnimationPlayer(now);
+                updateAnimationOrc(now);
+
 
             }
         };
@@ -45,7 +53,9 @@ public class BattleController extends LoaderController {
 
     public void attack(){
         attack(Main.player, Main.orcEncountered);
+        attackingPlayer = true;
         attack(Main.orcEncountered, Main.player);
+        attackingOrc = true;
     }
     private void attack(Entity attacker, Entity defender){
         int damage;
@@ -59,6 +69,7 @@ public class BattleController extends LoaderController {
             } else {
                 System.out.println(attacker.getName()  + " di LVL" + attacker.getLevel() + " ha inflitto " + damage + " danni a " + defender.getName());
             }
+            //
         }
     }
     public void deathControl(Entity entity){
@@ -124,6 +135,33 @@ public class BattleController extends LoaderController {
         }else{
             percentageOfEscape += 15;
             attack(Main.orcEncountered, Main.player);
+            attackingOrc = true;
+        }
+    }
+    private void updateAnimationPlayer(long actualHour){
+        if(!attackingPlayer){
+            playerView.setViewport(new Rectangle2D(0,0,FRAME_WIDTH,FRAME_HEIGHT));
+        }else if(actualHour - lastChangeFrame > 100_000_000){
+            actualFrame = (actualFrame + 1) % 8;
+            if(actualFrame == 7){
+                attackingPlayer = false;
+            }
+            double xMovement = actualFrame * FRAME_WIDTH;
+            playerView.setViewport(new Rectangle2D(xMovement, 0, FRAME_WIDTH, FRAME_HEIGHT));
+            lastChangeFrame = actualHour;
+        }
+    }
+    private void updateAnimationOrc(long actualHour){
+        if(!attackingOrc){
+            orcView.setViewport(new Rectangle2D(0,0,FRAME_WIDTH,FRAME_HEIGHT));
+        }else if(actualHour - lastChangeFrame > 100_000_000){
+            actualFrame = (actualFrame + 1) % 8;
+            if(actualFrame == 7){
+                attackingOrc = false;
+            }
+            double xMovement = actualFrame * FRAME_WIDTH;
+            orcView.setViewport(new Rectangle2D(xMovement, 0, FRAME_WIDTH, FRAME_HEIGHT));
+            lastChangeFrame = actualHour;
         }
     }
 }

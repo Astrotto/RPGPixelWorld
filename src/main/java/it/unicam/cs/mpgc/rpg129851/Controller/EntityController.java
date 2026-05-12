@@ -1,7 +1,6 @@
 package it.unicam.cs.mpgc.rpg129851.Controller;
 
 import it.unicam.cs.mpgc.rpg129851.Launch.Main;
-import it.unicam.cs.mpgc.rpg129851.Model.*;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.*;
 import javafx.geometry.*;
@@ -30,7 +29,7 @@ public class EntityController extends LoaderController {
             @Override
             public void handle(long now) {
                 updateLocation();
-                updateAnimation(now);
+                loadAnimation(now);
                 if(spawnX != -1 || spawnY != -1) {
                     playerView.setLayoutX(spawnX);
                     playerView.setLayoutY(spawnY);
@@ -42,7 +41,7 @@ public class EntityController extends LoaderController {
 
         timer.start();
     }
-    public void updateAnimation(long actualHour) {
+    public void loadAnimation(long actualHour) {
         if(!moving){
             playerView.setViewport(new Rectangle2D(0,0,FRAME_WIDTH,FRAME_HEIGHT));
         }else if(actualHour - lastChangeFrame > 100_000_000){

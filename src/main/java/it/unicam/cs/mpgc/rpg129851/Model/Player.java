@@ -23,11 +23,13 @@ public class Player extends Entity implements EntityHitbox {
     public void updateStats(int level) {
         switch (level){
             case 2:
-                setStats(120, 120, 35, 25);
+                addHp(20);
+                setStats(110, 110, 35, 25);
                 setExperience(45);
                 break;
             case 3:
-                setStats(140, 140, 45, 40);
+                addHp(30);
+                setStats(125, 125, 45, 40);
                 setExperience(65);
         }
     }

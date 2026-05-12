@@ -25,11 +25,15 @@ public class LoaderController {
             level1Player, level2Player, level3Player,
             level1Orc, level2Orc, level3Orc;
     @FXML
-    public Image imageUp, imageDown, imageLeft, imageRight, imageOrc, imageExclamation, imageHealthBar;
+    public Image imageUp, imageDown, imageLeft, imageRight, imageOrc,
+            imageExclamation, imageHealthBar, imagePlayerAttack;
     @FXML
     public ImageView playerView, healthBarViewPlayer, backgroundView, healthBarViewOrc;;
     public final int FRAME_WIDTH = 64;
     public final int FRAME_HEIGHT = 64;
+    private long lastChangeFrame = 0;
+    private int actualFrame = 0;
+    public boolean moving = false;
 
     public void initialize() {
         loadImages();
@@ -179,4 +183,10 @@ public class LoaderController {
         return  new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/images/" + backgroundName)));
     }
 
+    public void loadPlayerAttack(){
+        imagePlayerAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/images/playerUpSpritesheet.png")));
+        for(int i = 0; i <= 8; i++){
+            playerView.setViewport(new Rectangle2D(i * FRAME_WIDTH, 0, FRAME_WIDTH, FRAME_HEIGHT));
+        }
+    }
 }
