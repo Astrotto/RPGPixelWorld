@@ -75,4 +75,7 @@ public abstract class Entity {
     public boolean isAlive() {
         return this.hp > 0;
     }
+    public int getMaxExp(){
+        return maxExperience;
+    }
 }

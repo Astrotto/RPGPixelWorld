@@ -21,8 +21,6 @@ public class BattleController extends LoaderController {
     @FXML
     private ImageView playerView, orcView;
     @FXML
-    private Image imageOrc, imagePlayer;
-    @FXML
     private Button btnAttack, btnRun;
     int percentageOfEscape = 25;
 
@@ -79,9 +77,8 @@ public class BattleController extends LoaderController {
                 Main.criticalHit = false;
                 System.out.println(attacker.getName() + " di LVL" + attacker.getLevel() + " ha inflitto " + damage + " danni a " + defender.getName() + " con un COLPO CRITICO!");
             } else {
-                System.out.println(attacker.getStrength()  + " di LVL" + attacker.getLevel() + " ha inflitto " + damage + " danni a " + defender.getName());
+                System.out.println(attacker.getMaxExp()  + " di LVL" + attacker.getLevel() + " ha inflitto " + damage + " danni a " + defender.getName());
             }
-            //
         }
     }
     public void deathControl(Entity entity){
@@ -100,6 +97,7 @@ public class BattleController extends LoaderController {
         }
 
     }
+
     public void loadBackground(){
         loadBackground("battleMap.png");
         backgroundView.setLayoutY(backgroundView.getLayoutY() - 170);
@@ -107,8 +105,8 @@ public class BattleController extends LoaderController {
     }
 
     public void loadEntity(){
-        orcView.setImage(imageOrc);
-        playerView.setImage(imagePlayer);
+        orcView.setImage(imageOrcAttack);
+        playerView.setImage(imagePlayerAttack);
 
         orcView.setViewport(new Rectangle2D(0, 0, FRAME_WIDTH, FRAME_HEIGHT));
         orcView.setSmooth(false);
@@ -117,17 +115,15 @@ public class BattleController extends LoaderController {
         playerView.setSmooth(false);
     }
 
-    public void loadImages(){
-        imagePlayer = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/playerImages/knightAttack.png")));
-    }
+
     public void loadOrc1(){
-        imageOrc = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcLV1Images/armoredOrcAttack.png")));
+        imageOrcAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcLV1Images/armoredOrcAttack.png")));
     }
     public void loadOrc2(){
-        imageOrc = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcLV2Images/eliteOrcAttack.png")));
+        imageOrcAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcLV2Images/eliteOrcAttack.png")));
     }
     public void loadOrc3(){
-        imageOrc = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcLV3Images/riderOrcAttack.png")));
+        imageOrcAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcLV3Images/riderOrcAttack.png")));
     }
     public void loadOrcEncountered(Orc orcEncountered){
         switch (orcEncountered.getLevel()){
@@ -140,7 +136,7 @@ public class BattleController extends LoaderController {
             case 3:
                 loadOrc3();
         }
-        orcView.setImage(imageOrc);
+        orcView.setImage(imageOrcAttack);
         orcView.setSmooth(false);
     }
     public void run() {
@@ -182,8 +178,8 @@ public class BattleController extends LoaderController {
         if(!attackingOrc){
             orcView.setViewport(new Rectangle2D(0,0,100,100));
         }else if(actualHour - lastChangeFrame > 100_000_000){
-            actualFrame = (actualFrame + 1) % 8;
-            if(actualFrame == 7){
+            actualFrame = (actualFrame + 1) % 11;
+            if(actualFrame == 10){
                 attackingOrc = false;
             }
             double xMovement = actualFrame * 100;

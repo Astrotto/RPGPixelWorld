@@ -24,7 +24,7 @@ public class Player extends Entity implements EntityHitbox {
     public void updateStats(int level) {
         switch (level){
             case 1:
-                setStats(100, 100, 95, 15);
+                setStats(100, 100, 25, 15);
                 break;
             case 2:
                 setStats(110, 110, 35, 25);

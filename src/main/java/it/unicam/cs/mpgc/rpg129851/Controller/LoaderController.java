@@ -25,27 +25,22 @@ public class LoaderController {
             level1Player, level2Player, level3Player,
             level1Orc, level2Orc, level3Orc;
     @FXML
-    public Image imageUp, imageDown, imageLeft, imageRight, imageOrc,
-            imageExclamation, imageHealthBar, imagePlayerAttack;
+    public Image imageLeft, imageRight, imageOrc,
+                 imageExclamation, imageHealthBar,
+                 imageOrcAttack, imagePlayerAttack;
     @FXML
     public ImageView playerView, healthBarViewPlayer, backgroundView, healthBarViewOrc;;
     public final int FRAME_WIDTH = 100;
     public final int FRAME_HEIGHT = 100;
-    private long lastChangeFrame = 0;
-    private int actualFrame = 0;
-    public boolean moving = false;
 
     public void initialize() {
-        loadImages();
+        loadLevelPlayer();
         loadEntity();
         loadHealthBarPlayer();
         loadExperienceBarPlayer();
-        loadLevelPlayer();
     }
 
     public void loadEntity(){
-        playerView.setImage(imageDown);
-
         playerView.setViewport(new Rectangle2D(0,0,FRAME_WIDTH,FRAME_HEIGHT));
         playerView.setSmooth(false);
     }
@@ -83,10 +78,13 @@ public class LoaderController {
     public void loadLevelPlayer(){
         if(Main.player.getLevel() == 1){
             loadLevel1Player();
+            loadImagesKnightLV1();
         }else if(Main.player.getLevel() == 2){
             loadLevel2Player();
+            loadImagesKnightLV2();
         }else{
             loadLevel3Player();
+            loadImagesKnightLV3();
         }
     }
     public void loadLevel1Player(){
@@ -159,9 +157,23 @@ public class LoaderController {
         imageHealthBar = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/healthBarPlayer.png")));
     }
 
-    public void loadImages() {
-        imageRight = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/playerImages/knightWalkRight.png")));
-        imageLeft = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/playerImages/knightWalkLeft.png")));
+    public void loadImagesKnightLV1() {
+        imageRight = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/knightLV1Images/knightWalkRight.png")));
+        imageLeft = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/knightLV1Images/knightWalkLeft.png")));
+        imagePlayerAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/knightLV1Images/knightAttack.png")));
+
+    }
+    public void loadImagesKnightLV2() {
+        imageRight = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/knightLV2Images/templarKnightWalkRight.png")));
+        imageLeft = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/knightLV2Images/templarKnightWalkLeft.png")));
+        imagePlayerAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/knightLV2Images/templarKnightAttack.png")));
+
+    }
+    public void loadImagesKnightLV3() {
+        imageRight = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/knightLV3Images/lancerWalkRight.png")));
+        imageLeft = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/knightLV3Images/lancerWalkLeft.png")));
+        imagePlayerAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/knightLV3Images/lancerAttack.png")));
+
     }
     public void loadImagesOrc1(){
         imageOrc = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcLV1Images/armoredOrc.png")));
