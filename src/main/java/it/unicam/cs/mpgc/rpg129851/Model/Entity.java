@@ -8,25 +8,11 @@ public abstract class Entity {
     String name;
     int hp, maxHp;
     int strength, defense, level, experience;
-    public Entity(String name, int level, int maxHp, int hp,  int strength, int defense, int experience) {
-        if(name == null || level < 0 || level > 3 || maxHp < hp || hp <= 0 || strength <= 0 || defense <= 0 || experience < 0) {
+    public Entity(String name, int experience) {
+        if(name == null ||  experience < 0) {
             throw new IllegalArgumentException("Entity invalid");
         }else{
             this.name = name;
-            this.level = level;
-            this.hp = hp;
-            this.maxHp = maxHp;
-            this.strength = strength;
-            this.defense = defense;
-            this.experience = experience;
-        }
-    }
-    public Entity(String name, int level, int experience) {
-        if(name == null || level < 0 || level > 3 || experience < 0) {
-            throw new IllegalArgumentException("Entity invalid");
-        }else{
-            this.name = name;
-            this.level = level;
             this.experience = experience;
         }
     }

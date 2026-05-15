@@ -38,14 +38,14 @@ public class EntityController extends LoaderController {
                 }
             }
         };
-
+        playerView.setImage(imageLeft);
         timer.start();
     }
     public void loadAnimation(long actualHour) {
         if(!moving){
             playerView.setViewport(new Rectangle2D(0,0,FRAME_WIDTH,FRAME_HEIGHT));
         }else if(actualHour - lastChangeFrame > 100_000_000){
-            actualFrame = (actualFrame + 1) % 6;
+            actualFrame = (actualFrame + 1) % 8;
             double xMovement = actualFrame * FRAME_WIDTH;
             playerView.setViewport(new Rectangle2D(xMovement, 0, FRAME_WIDTH, FRAME_HEIGHT));
             lastChangeFrame = actualHour;
@@ -54,8 +54,8 @@ public class EntityController extends LoaderController {
     public void updateLocation() {
         newX = playerView.getLayoutX();
         newY = playerView.getLayoutY();
-        double oldY = newY;
         moving = false;
+        double oldY = newY;
 
         Bounds hitboxHome = home.getBoundsInParent();
 
@@ -64,15 +64,14 @@ public class EntityController extends LoaderController {
         keyDetectionX(KeyCode.A, KeyCode.LEFT);
         keyDetectionX(KeyCode.D, KeyCode.RIGHT);
 
-        if(newX < 0) newX = 0;
-        if(newY < 0) newY = 0;
+        if(newX < -60) newX = -60;
+        if(newY < -60) newY = -60;
 
         collisionDetection(gameWorld, newX, newY);
-
-        if(!Main.player.getHitbox(newX, oldY).intersects(hitboxHome)) {
+        if(!Main.player.getHitbox(newX + 70, oldY + 55).intersects(hitboxHome)) {
             playerView.setLayoutX(newX);
         }
-        if(!Main.player.getHitbox(playerView.getLayoutX(), newY).intersects(hitboxHome)) {
+        if(!Main.player.getHitbox(playerView.getLayoutX() + 70, newY + 55).intersects(hitboxHome)) {
             playerView.setLayoutY(newY);
         }
     }
@@ -89,10 +88,8 @@ public class EntityController extends LoaderController {
         if (keyPressed.contains(keyCode )  || keyPressed.contains(keyCode2)){
             if(keyCode == KeyCode.W || keyCode == KeyCode.UP){
                 newY -= Main.player.getSpeed();
-                playerView.setImage(imageUp);
             }else if(keyCode == KeyCode.S || keyCode == KeyCode.DOWN){
                 newY += Main.player.getSpeed();
-                playerView.setImage(imageDown);
             }
             moving = true;
         }
@@ -109,6 +106,7 @@ public class EntityController extends LoaderController {
             }
             moving = true;
         }
+
     }
     @FXML
     void manageKeyPressed(KeyEvent event) {

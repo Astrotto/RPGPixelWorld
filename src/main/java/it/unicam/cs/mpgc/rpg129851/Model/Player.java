@@ -8,11 +8,13 @@ public class Player extends Entity implements EntityHitbox {
     private double speed;
     private int maxExperience = 100;
     public Player(int level, int experience, double speed) {
-        super("Player", level , 100, 100, 25, 15, experience);
-        if(speed == 0) {
+        super("Player" , experience);
+        if(speed == 0 || level <= 0 || level > 3) {
             throw new IllegalArgumentException("Player invalid");
         }else {
             this.speed = speed;
+            this.level = level;
+            updateStats(level);
         }
     }
     public Bounds getHitbox(double x, double y) {
@@ -22,15 +24,14 @@ public class Player extends Entity implements EntityHitbox {
     @Override
     public void updateStats(int level) {
         switch (level){
+            case 1:
+                setStats(100, 100, 25, 15);
+                break;
             case 2:
-                addHp(20);
                 setStats(110, 110, 35, 25);
-                setExperience(45);
                 break;
             case 3:
-                addHp(30);
                 setStats(125, 125, 45, 40);
-                setExperience(65);
         }
     }
 
@@ -41,9 +42,10 @@ public class Player extends Entity implements EntityHitbox {
         if(this.experience + experience >= maxExperience) {
             if(level < 3) {
                 this.level++;
+                updateStats(this.level);
                 this.maxExperience = 200;
             }
-            this.experience = this.experience + experience - 100;
+            this.experience = this.experience + experience - this.maxHp;
         }else{
             this.experience += experience;
         }

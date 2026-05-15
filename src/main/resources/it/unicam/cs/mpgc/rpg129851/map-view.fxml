@@ -13,11 +13,10 @@
     <Pane fx:id="gameWorld" prefHeight="800.0" prefWidth="1540.0">
         <Rectangle fx:id="forest" arcHeight="5.0" arcWidth="5.0" fill="#096100" height="200.0" layoutX="55.0"
                    layoutY="290.0" stroke="BLACK" opacity="0.00" strokeType="INSIDE" width="170.0"/>
-        <Rectangle fx:id="home" arcHeight="5.0" arcWidth="5.0" fill="#ff1f1f" height="124.0" layoutX="363.0"
-                   layoutY="8.0" opacity="0.00" stroke="BLACK" strokeType="INSIDE" width="130.0"/>
-        <ImageView fx:id="playerView" fitHeight="80.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true"/>
-        <ImageView fx:id="orcView" fitHeight="80.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true"
-                   visible="false"/>
+        <Rectangle fx:id="home" arcHeight="5.0" arcWidth="5.0" fill="#ff1f1f" height="115.0"
+                   opacity="0.00" stroke="BLACK" strokeType="INSIDE" width="130.0"/>
+        <ImageView fx:id="playerView" fitHeight="160" fitWidth="160.0" pickOnBounds="true" preserveRatio="true"/>
+
     </Pane>
     <Pane prefHeight="188.0" prefWidth="265.0">
         <Rectangle fx:id="level3Player" arcHeight="5.0" visible="false" arcWidth="5.0" fill="#FFDB58" height="9.0" stroke="BLACK"

@@ -15,27 +15,15 @@ public class MapController extends EntityController {
         super.initialize();
         loadBackground("worldMap.png");
         loadHitboxHome();
-        setSpawnPoint(640, 165);
+        setSpawnPoint(600, 120);
     }
 
     public void updateLocation() {
         super.updateLocation();
-        collisionDetectionHome();
         collisionDetectionForest();
     }
-    public void collisionDetectionHome() {
-        Bounds hitboxHome = home.getBoundsInParent();
-        double oldY = newY;
-
-        if(!Main.player.getHitbox(newX, oldY).intersects(hitboxHome)) {
-            playerView.setLayoutX(newX);
-        }
-        if(!Main.player.getHitbox(playerView.getLayoutX(), newY).intersects(hitboxHome)) {
-            playerView.setLayoutY(newY);
-        }
-    }
     private void collisionDetectionForest(){
-        Bounds hitboxPlayer = Main.player.getHitbox(playerView.getLayoutX(), playerView.getLayoutY());
+        Bounds hitboxPlayer = Main.player.getHitbox(playerView.getLayoutX() + 70, playerView.getLayoutY() + 55);
         Bounds hitboxForest = forest.getBoundsInParent();
         if(hitboxPlayer.intersects(hitboxForest)){
             keyPressed.clear();
@@ -51,12 +39,11 @@ public class MapController extends EntityController {
     }
     private void joinForest(){
         changeMap((Stage)playerView.getScene().getWindow(), "forest-view");
-
     }
 
     private void loadHitboxHome(){
-        home.setLayoutX(570);
-        home.setLayoutY(55);
+        home.setLayoutX(590);
+        home.setLayoutY(65);
     }
 
 }

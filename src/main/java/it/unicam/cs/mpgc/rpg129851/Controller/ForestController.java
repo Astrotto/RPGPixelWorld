@@ -5,6 +5,7 @@ import it.unicam.cs.mpgc.rpg129851.Model.Orc;
 import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -36,14 +37,14 @@ public class ForestController extends EntityController {
     }
     public void updateLocation() {
         super.updateLocation();
-        exitCollision(leftExitHitbox, 8, 370);
+        exitCollision(leftExitHitbox, -10, 370);
         exitCollision(rightExitHitbox, 220, 380);
         exitCollision(upExitHitbox, 105, 225);
         exitCollision(downExitHitbox, 122, 470);
         orcCollisionDetection(Main.orcs);
     }
     public void exitCollision(Bounds exit, double x, double y){
-        if(Main.player.getHitbox(newX, newY).intersects(exit)) {
+        if(Main.player.getHitbox(newX + 70, newY + 55).intersects(exit)) {
             timer.stop();
             keyPressed.clear();
             FadeTransition fadeOut = new FadeTransition(Duration.seconds(1.5), blackScreen);
@@ -51,7 +52,7 @@ public class ForestController extends EntityController {
             fadeOut.setToValue(1.0);
             fadeOut.setOnFinished(event -> {
                 changeMap((Stage)playerView.getScene().getWindow(), "map-view");
-                setSpawnPoint(x, y);
+                setSpawnPoint(x - 40, y - 40);
             });
             fadeOut.play();
 
@@ -93,11 +94,11 @@ public class ForestController extends EntityController {
                 loadImagesOrc3();
             }
             ImageView orcView = new ImageView(imageOrc);
-
+            orcView.setViewport(new Rectangle2D(0, 0 , 100, 100));
             Main.orcs.put(orc, orcView);
 
-            orcView.setFitWidth(130);
-            orcView.setFitHeight(124);
+            orcView.setFitWidth(260);
+            orcView.setFitHeight(260);
             orcView.setPreserveRatio(true);
 
             double orcWidth = orcView.getBoundsInParent().getWidth();
@@ -123,9 +124,9 @@ public class ForestController extends EntityController {
 
 
     private void orcCollisionDetection(Map<Orc, ImageView> orcMap){
-        Bounds hitboxPlayer = Main.player.getHitbox(playerView.getLayoutX(), playerView.getLayoutY());
+        Bounds hitboxPlayer = Main.player.getHitbox(playerView.getLayoutX() + 70, playerView.getLayoutY() + 55);
         orcMap.forEach((orc, orcView) -> {
-            Bounds hitboxOrc = orc.getHitbox(orcView.getLayoutX(), orcView.getLayoutY());
+            Bounds hitboxOrc = orc.getHitbox(orcView.getLayoutX() + 70, orcView.getLayoutY() + 55);
             if(hitboxPlayer.intersects(hitboxOrc)) {
                 Main.setOrcEncountered(orc);
                 encounterEntity(orcView);
@@ -152,13 +153,13 @@ public class ForestController extends EntityController {
     }
     private void loadExclamation(){
         loadExclamationImage();
-        exclamation.setX(playerView.getLayoutX() + 20);
-        exclamation.setY(playerView.getLayoutY() - 20);
+        exclamation.setX(playerView.getLayoutX() + 90);
+        exclamation.setY(playerView.getLayoutY() + 55);
         exclamation.setRotate(5);
         exclamation.setImage(imageExclamation);
     }
     private void loadExclamationImage(){
-        imageExclamation = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/images/exclamation.png")));
+        imageExclamation = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/exclamation.png")));
     }
 
 }

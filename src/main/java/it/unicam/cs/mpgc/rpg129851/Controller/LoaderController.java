@@ -29,8 +29,8 @@ public class LoaderController {
             imageExclamation, imageHealthBar, imagePlayerAttack;
     @FXML
     public ImageView playerView, healthBarViewPlayer, backgroundView, healthBarViewOrc;;
-    public final int FRAME_WIDTH = 64;
-    public final int FRAME_HEIGHT = 64;
+    public final int FRAME_WIDTH = 100;
+    public final int FRAME_HEIGHT = 100;
     private long lastChangeFrame = 0;
     private int actualFrame = 0;
     public boolean moving = false;
@@ -156,23 +156,21 @@ public class LoaderController {
         }
     }
     public void loadHealthBarImage(){
-        imageHealthBar = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/images/healthBarPlayer.png")));
+        imageHealthBar = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/healthBarPlayer.png")));
     }
 
     public void loadImages() {
-        imageUp = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/images/playerUpSpritesheet.png")));
-        imageDown = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/images/playerDownSpritesheet.png")));
-        imageLeft = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/images/playerLeftSpritesheet.png")));
-        imageRight = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/images/playerRightSpritesheet.png")));
+        imageRight = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/playerImages/knightWalkRight.png")));
+        imageLeft = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/playerImages/knightWalkLeft.png")));
     }
     public void loadImagesOrc1(){
-        imageOrc = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/images/orc1Down.png")));
+        imageOrc = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcLV1Images/armoredOrc.png")));
     }
     public void loadImagesOrc2(){
-        imageOrc = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/images/orc2Down.png")));
+        imageOrc = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcLV2Images/eliteOrc.png")));
     }
     public void loadImagesOrc3(){
-        imageOrc = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/images/orc3Down.png")));
+        imageOrc = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcLV3Images/riderOrc.png")));
     }
     public void loadBackground(String nameMap){;
         backgroundView.setImage(loadBackgroundImage(nameMap));
@@ -180,13 +178,7 @@ public class LoaderController {
     }
 
     public Image loadBackgroundImage(String backgroundName){
-        return  new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/images/" + backgroundName)));
+        return  new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/mapImages/" + backgroundName)));
     }
 
-    public void loadPlayerAttack(){
-        imagePlayerAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/images/playerUpSpritesheet.png")));
-        for(int i = 0; i <= 8; i++){
-            playerView.setViewport(new Rectangle2D(i * FRAME_WIDTH, 0, FRAME_WIDTH, FRAME_HEIGHT));
-        }
-    }
 }

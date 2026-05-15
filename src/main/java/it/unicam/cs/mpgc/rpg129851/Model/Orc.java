@@ -6,10 +6,11 @@ import javafx.geometry.Bounds;
 
 public class Orc extends Entity implements EntityHitbox {
     public Orc(int level) {
-        super("Orc", level, 0);
+        super("Orc", 0);
         if(level <= 0 || level > 3){
             throw new IllegalArgumentException("Lvl must be between 1 and 3");
         }else{
+            this.level = level;
             updateStats(level);
         }
     }
