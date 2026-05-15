@@ -5,8 +5,7 @@ import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 
 public class Player extends Entity implements EntityHitbox {
-    private double speed;
-    private int maxExperience = 100;
+    private final double speed;
     public Player(int level, int experience, double speed) {
         super("Player" , experience);
         if(speed == 0 || level <= 0 || level > 3) {
@@ -25,7 +24,7 @@ public class Player extends Entity implements EntityHitbox {
     public void updateStats(int level) {
         switch (level){
             case 1:
-                setStats(100, 100, 25, 15);
+                setStats(100, 100, 95, 15);
                 break;
             case 2:
                 setStats(110, 110, 35, 25);
@@ -39,18 +38,17 @@ public class Player extends Entity implements EntityHitbox {
         return speed;
     }
     public void earnExperience(int experience) {
-        if(this.experience + experience >= maxExperience) {
+        if(this.experience + experience >= this.maxExperience) {
+            this.experience = this.experience + experience - this.maxExperience;
             if(level < 3) {
                 this.level++;
                 updateStats(this.level);
                 this.maxExperience = 200;
+            }else if(level == 3) {
+                this.experience = this.maxExperience;
             }
-            this.experience = this.experience + experience - this.maxHp;
         }else{
             this.experience += experience;
-        }
-        if(level == 3) {
-            this.experience = maxExperience;
         }
     }
 }

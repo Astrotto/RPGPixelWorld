@@ -8,6 +8,7 @@ public abstract class Entity {
     String name;
     int hp, maxHp;
     int strength, defense, level, experience;
+    public int maxExperience = 100;
     public Entity(String name, int experience) {
         if(name == null ||  experience < 0) {
             throw new IllegalArgumentException("Entity invalid");
@@ -37,8 +38,8 @@ public abstract class Entity {
     public void setStats(int maxHp, int hp, int strength, int defense) {
         this.maxHp = maxHp;
         this.hp = hp;
-        this.strength = strength;
-        this.defense = defense;
+        setStrength(strength);
+        setDefense(defense);
     }
     public int getLevel(){return this.level;}
     public int getMaxHp() {
@@ -70,7 +71,7 @@ public abstract class Entity {
     public void setDefense(int defense) {this.defense = defense;}
     public int getExperience() {return this.experience;}
     public void setExperience(int experience) {this.experience = experience;}
-    public double getExperiencePercentage(){return (double) getExperience() / 100;}
+    public double getExperiencePercentage(){return (double) getExperience() / this.maxExperience;}
     public boolean isAlive() {
         return this.hp > 0;
     }

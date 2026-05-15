@@ -85,7 +85,7 @@ public class BattleController extends LoaderController {
         }
     }
     public void deathControl(Entity entity){
-        if(entity.getCurrentHp() <= 0){
+        if(!entity.isAlive()){
             if(entity instanceof Player){
                 //System.exit(0);
             }
@@ -93,7 +93,7 @@ public class BattleController extends LoaderController {
             if(entity instanceof Orc){
                 System.out.println(entity.getName() + " ha droppato " + entity.getExperience() + " punti esperienza");
                 Main.player.earnExperience(entity.getExperience());
-                Main.player.addHp(15);
+                Main.player.addHp(15); //da mettere 10 senno troppo facile
             }
             timer.stop();
             changeMap((Stage)playerView.getScene().getWindow(), "forest-view");
