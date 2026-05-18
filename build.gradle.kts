@@ -39,6 +39,9 @@ tasks.withType<JavaExec> {
 }
 dependencies {
     implementation("org.controlsfx:controlsfx:11.2.1")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.2")
+    implementation("org.json:json:20240303")
+    implementation("com.google.code.gson:gson:2.8.2")
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 }

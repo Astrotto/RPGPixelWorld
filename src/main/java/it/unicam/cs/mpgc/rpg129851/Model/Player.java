@@ -4,8 +4,12 @@ import it.unicam.cs.mpgc.rpg129851.Interfaces.EntityHitbox;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Player extends Entity implements EntityHitbox {
     private final double speed;
+    private List<Potion> potions;
     public Player(int level, int experience, double speed) {
         super("Player" , experience);
         if(speed == 0 || level <= 0 || level > 3) {
@@ -13,13 +17,28 @@ public class Player extends Entity implements EntityHitbox {
         }else {
             this.speed = speed;
             this.level = level;
+            this.potions = new ArrayList<Potion>();
             updateStats(level);
         }
     }
     public Bounds getHitbox(double x, double y) {
         return new BoundingBox(x + 15, y + 21, 14, 20);
     }
-
+    public void addPotion(Potion potion) {
+        if(this.potions == null) {
+            throw new IllegalArgumentException("Potion is null");
+        }else{
+            this.potions.add(potion);
+        }
+    }
+    public void usePotion(Potion potion) {
+        if(this.potions == null) {
+            throw new IllegalArgumentException("Potion is null");
+        }else{
+            this.addHp(potion.getHealth());
+            this.potions.remove(potion);
+        }
+    }
     @Override
     public void updateStats(int level) {
         switch (level){
@@ -30,10 +49,9 @@ public class Player extends Entity implements EntityHitbox {
                 setStats(110, 110, 35, 25);
                 break;
             case 3:
-                setStats(125, 125, 45, 40);
+                setStats(125, 125, 45, 35);
         }
     }
-
     public double getSpeed() {
         return speed;
     }

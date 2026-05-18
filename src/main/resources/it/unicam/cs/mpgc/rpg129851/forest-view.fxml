@@ -3,6 +3,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Rectangle?>
 
 <AnchorPane maxHeight="800.0" maxWidth="1540.0" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#manageKeyPressed" onKeyReleased="#manageKeyReleased" prefHeight="800.0" prefWidth="1540.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.mpgc.rpg129851.Controller.ForestController">
@@ -26,18 +27,18 @@
     </Pane>
     <Pane prefHeight="188.0" prefWidth="265.0">
         <children>
-            <Rectangle fx:id="level3Player" arcHeight="5.0" visible="false" arcWidth="5.0" fill="#FFDB58" height="9.0" stroke="BLACK"
-                       strokeType="INSIDE" width="8"/>
-            <Rectangle fx:id="level2Player" arcHeight="5.0" visible="false" arcWidth="5.0" fill="#FFDB58" height="9.0" stroke="BLACK"
-                       strokeType="INSIDE" width="8"/>
-            <Rectangle fx:id="level1Player" arcHeight="5.0" visible="false" arcWidth="5.0" fill="#FFDB58" height="9.0" stroke="BLACK"
-                       strokeType="INSIDE" width="8"/>
-            <Rectangle fx:id="experienceBarPlayer" arcHeight="5.0" arcWidth="5.0" fill="#007FFF" height="7.0" stroke="BLACK"
-                       strokeType="INSIDE" width="85"/>
+            <Rectangle fx:id="level3Player" arcHeight="5.0" arcWidth="5.0" fill="#FFDB58" height="9.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="8" />
+            <Rectangle fx:id="level2Player" arcHeight="5.0" arcWidth="5.0" fill="#FFDB58" height="9.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="8" />
+            <Rectangle fx:id="level1Player" arcHeight="5.0" arcWidth="5.0" fill="#FFDB58" height="9.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="8" />
+            <Rectangle fx:id="experienceBarPlayer" arcHeight="5.0" arcWidth="5.0" fill="#007FFF" height="7.0" stroke="BLACK" strokeType="INSIDE" width="85" />
             <Rectangle fx:id="healthBarPlayer" arcHeight="5.0" arcWidth="5.0" fill="#27c400" height="7.0" stroke="BLACK" strokeType="INSIDE" width="130.0" />
             <ImageView fx:id="healthBarViewPlayer" fitHeight="202.0" fitWidth="233.0" layoutX="-7.0" layoutY="-100.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="potionLV1View" fitHeight="150.0" fitWidth="150.0" layoutX="-40.0" layoutY="680.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="potionLV2View" fitHeight="150.0" fitWidth="150.0" layoutX="20.0" layoutY="680.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="potionLV3View" fitHeight="150.0" fitWidth="150.0" layoutX="80.0" layoutY="680.0" pickOnBounds="true" preserveRatio="true" />
         </children>
     </Pane>
     <ImageView fx:id="exclamation" fitHeight="55.0" fitWidth="56.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
     <Rectangle fx:id="blackScreen" fill="black" height="800" opacity="0" width="1540" />
+    <Circle fx:id="forestSpirit" fill="DODGERBLUE" layoutX="600.0" layoutY="390.0" opacity="0.00" radius="45.0" stroke="BLACK" strokeType="INSIDE" />
 </AnchorPane>

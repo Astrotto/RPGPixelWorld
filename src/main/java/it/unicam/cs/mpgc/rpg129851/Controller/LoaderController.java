@@ -26,10 +26,11 @@ public class LoaderController {
             level1Orc, level2Orc, level3Orc;
     @FXML
     public Image imageLeft, imageRight, imageOrc,
-                 imageExclamation, imageHealthBar,
+                 imageExclamation, imageHealthBar, inventory,
                  imageOrcAttack, imagePlayerAttack;
     @FXML
-    public ImageView playerView, healthBarViewPlayer, backgroundView, healthBarViewOrc;;
+    public ImageView playerView, healthBarViewPlayer, backgroundView, healthBarViewOrc,
+                     potionLV1View, potionLV2View, potionLV3View;
     public final int FRAME_WIDTH = 100;
     public final int FRAME_HEIGHT = 100;
 
@@ -156,7 +157,12 @@ public class LoaderController {
     public void loadHealthBarImage(){
         imageHealthBar = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/healthBarPlayer.png")));
     }
-
+    public void loadInventory(){
+        inventory = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/inventoryImage.png")));
+        potionLV1View.setImage(inventory);
+        potionLV2View.setImage(inventory);
+        potionLV3View.setImage(inventory);
+    }
     public void loadImagesKnightLV1() {
         imageRight = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/knightLV1Images/knightWalkRight.png")));
         imageLeft = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/knightLV1Images/knightWalkLeft.png")));
@@ -183,6 +189,15 @@ public class LoaderController {
     }
     public void loadImagesOrc3(){
         imageOrc = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcLV3Images/riderOrc.png")));
+    }
+    public void loadOrc1Attack(){
+        imageOrcAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcLV1Images/armoredOrcAttack.png")));
+    }
+    public void loadOrc2Attack(){
+        imageOrcAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcLV2Images/eliteOrcAttack.png")));
+    }
+    public void loadOrc3Attack(){
+        imageOrcAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcLV3Images/riderOrcAttack.png")));
     }
     public void loadBackground(String nameMap){;
         backgroundView.setImage(loadBackgroundImage(nameMap));

@@ -12,14 +12,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main extends Application {
-    public static Player player = new Player(1, 0, 2);
+    public static Player player = new Player(3, 0, 2);
     public static Map<Orc, ImageView> orcs = new HashMap<>();
     public static Orc orcEncountered;
+    public static ForestSpirit guardian = new ForestSpirit();
 
     public static boolean criticalHit = false;
     @Override
     public void start(Stage primaryStage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/it/unicam/cs/mpgc/rpg129851/map-view.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/it/unicam/cs/mpgc/rpg129851/forest-view.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);

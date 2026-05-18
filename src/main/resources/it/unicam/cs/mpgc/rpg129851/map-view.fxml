@@ -31,6 +31,12 @@
                    strokeType="INSIDE" width="130.0"/>
         <ImageView fx:id="healthBarViewPlayer" fitHeight="202.0" fitWidth="233.0" layoutX="-7.0" layoutY="-100.0"
                    pickOnBounds="true" preserveRatio="true"/>
+        <ImageView fx:id="potionLV1View" fitHeight="150.0" fitWidth="150.0" layoutX="-40.0" layoutY="680.0"
+                   pickOnBounds="true" preserveRatio="true"/>
+        <ImageView fx:id="potionLV2View" fitHeight="150.0" fitWidth="150.0" layoutX="20.0" layoutY="680.0"
+                   pickOnBounds="true" preserveRatio="true"/>
+        <ImageView fx:id="potionLV3View" fitHeight="150.0" fitWidth="150.0" layoutX="80.0" layoutY="680.0"
+                   pickOnBounds="true" preserveRatio="true"/>
     </Pane>
     <Rectangle fx:id="blackScreen" height="800" width="1540" fill="black" opacity="0"/>
 </AnchorPane>

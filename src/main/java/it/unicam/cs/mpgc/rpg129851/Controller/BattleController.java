@@ -63,7 +63,7 @@ public class BattleController extends LoaderController {
         attackingOrc = true;
         actualFrame = 0;
 
-        PauseTransition cooldown = new PauseTransition(Duration.seconds(2));
+        PauseTransition cooldown = new PauseTransition(Duration.seconds(2.3));
         cooldown.setOnFinished(event -> btnAttack.setDisable(false));
         cooldown.play();
     }
@@ -77,14 +77,14 @@ public class BattleController extends LoaderController {
                 Main.criticalHit = false;
                 System.out.println(attacker.getName() + " di LVL" + attacker.getLevel() + " ha inflitto " + damage + " danni a " + defender.getName() + " con un COLPO CRITICO!");
             } else {
-                System.out.println(attacker.getMaxExp()  + " di LVL" + attacker.getLevel() + " ha inflitto " + damage + " danni a " + defender.getName());
+                System.out.println(attacker.getName()  + " di LVL" + attacker.getLevel() + " ha inflitto " + damage + " danni a " + defender.getName());
             }
         }
     }
     public void deathControl(Entity entity){
         if(!entity.isAlive()){
             if(entity instanceof Player){
-                //System.exit(0);
+                System.exit(0);
             }
             System.out.println(entity.getName() + " e morto!");
             if(entity instanceof Orc){
@@ -116,25 +116,17 @@ public class BattleController extends LoaderController {
     }
 
 
-    public void loadOrc1(){
-        imageOrcAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcLV1Images/armoredOrcAttack.png")));
-    }
-    public void loadOrc2(){
-        imageOrcAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcLV2Images/eliteOrcAttack.png")));
-    }
-    public void loadOrc3(){
-        imageOrcAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcLV3Images/riderOrcAttack.png")));
-    }
+
     public void loadOrcEncountered(Orc orcEncountered){
         switch (orcEncountered.getLevel()){
             case 1:
-                loadOrc1();
+                loadOrc1Attack();
                 break;
             case 2:
-                loadOrc2();
+                loadOrc2Attack();
                 break;
             case 3:
-                loadOrc3();
+                loadOrc3Attack();
         }
         orcView.setImage(imageOrcAttack);
         orcView.setSmooth(false);
@@ -176,14 +168,14 @@ public class BattleController extends LoaderController {
     }
     private void updateAnimationOrc(long actualHour){
         if(!attackingOrc){
-            orcView.setViewport(new Rectangle2D(0,0,100,100));
+            orcView.setViewport(new Rectangle2D(0,0,FRAME_WIDTH,FRAME_HEIGHT));
         }else if(actualHour - lastChangeFrame > 100_000_000){
             actualFrame = (actualFrame + 1) % 11;
             if(actualFrame == 10){
                 attackingOrc = false;
             }
-            double xMovement = actualFrame * 100;
-            orcView.setViewport(new Rectangle2D(xMovement, 0, 100, 100));
+            double xMovement = actualFrame * FRAME_WIDTH;
+            orcView.setViewport(new Rectangle2D(xMovement, 0, FRAME_WIDTH, FRAME_HEIGHT));
             lastChangeFrame = actualHour;
         }
     }
