@@ -8,9 +8,7 @@ public class Quest {
     public String reward;
     public Quest(){}
 
-    public String getTask(){
-        return task;
-    }
+    public String getTask(){return task;}
     public String getWho(){
         return who;
     }
@@ -24,6 +22,7 @@ public class Quest {
         return reward;
     }
     public String toString(){
-        return "La quest e': " + task + " " + howMuch + " " + who + " LV" + level + " per ricevere " + reward;
+        return "La quest e': " + this.getTask() + " " + this.getHowMuch() + " " +
+                this.getWho() + " LV" + this.getLevel() + " per ricevere " + this.getReward();
     }
 }

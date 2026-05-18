@@ -26,10 +26,11 @@ public class LoaderController {
             level1Orc, level2Orc, level3Orc;
     @FXML
     public Image imageLeft, imageRight, imageOrc,
-                 imageExclamation, imageHealthBar, inventory,
+                 imageExclamation, imageHealthBar, inventory, potionLV1, potionLV2, potionLV3,
                  imageOrcAttack, imagePlayerAttack;
     @FXML
     public ImageView playerView, healthBarViewPlayer, backgroundView, healthBarViewOrc,
+                     slotPotionLV1View, slotPotionLV2View, slotPotionLV3View,
                      potionLV1View, potionLV2View, potionLV3View;
     public final int FRAME_WIDTH = 100;
     public final int FRAME_HEIGHT = 100;
@@ -159,9 +160,21 @@ public class LoaderController {
     }
     public void loadInventory(){
         inventory = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/inventoryImage.png")));
-        potionLV1View.setImage(inventory);
-        potionLV2View.setImage(inventory);
-        potionLV3View.setImage(inventory);
+        potionLV1 = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/potionImages/noPotionLV1.png")));
+        potionLV2 = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/potionImages/noPotionLV2.png")));
+        potionLV3 = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/potionImages/noPotionLV3.png")));
+        slotPotionLV1View.setImage(inventory);
+        slotPotionLV1View.setSmooth(false);
+        slotPotionLV2View.setImage(inventory);
+        slotPotionLV2View.setSmooth(false);
+        slotPotionLV3View.setImage(inventory);
+        slotPotionLV3View.setSmooth(false);
+        potionLV1View.setImage(potionLV1);
+        potionLV1View.setSmooth(false);
+        potionLV2View.setImage(potionLV2);
+        potionLV2View.setSmooth(false);
+        potionLV3View.setImage(potionLV3);
+        potionLV3View.setSmooth(false);
     }
     public void loadImagesKnightLV1() {
         imageRight = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/knightLV1Images/knightWalkRight.png")));
