@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Player extends Entity implements EntityHitbox {
     private final double speed;
-    private List<Potion> potions;
+    private Inventory inventory;
     public Player(int level, int experience, double speed) {
         super("Player" , experience);
         if(speed == 0 || level <= 0 || level > 3) {
@@ -17,7 +17,7 @@ public class Player extends Entity implements EntityHitbox {
         }else {
             this.speed = speed;
             this.level = level;
-            this.potions = new ArrayList<Potion>();
+            this.inventory = new Inventory();
             updateStats(level);
         }
     }
@@ -25,18 +25,18 @@ public class Player extends Entity implements EntityHitbox {
         return new BoundingBox(x + 15, y + 21, 14, 20);
     }
     public void addPotion(Potion potion) {
-        if(this.potions == null) {
+        if(this.inventory == null) {
             throw new IllegalArgumentException("Potion is null");
         }else{
-            this.potions.add(potion);
+            this.inventory.addPotion(potion);
         }
     }
     public void usePotion(Potion potion) {
-        if(this.potions == null) {
+        if(this.inventory == null) {
             throw new IllegalArgumentException("Potion is null");
         }else{
             this.addHp(potion.getHealth());
-            this.potions.remove(potion);
+            this.inventory.removePotion(potion);
         }
     }
     @Override
@@ -68,5 +68,8 @@ public class Player extends Entity implements EntityHitbox {
         }else{
             this.experience += experience;
         }
+    }
+    public Inventory getInventory() {
+        return inventory;
     }
 }

@@ -38,7 +38,6 @@ public class EntityController extends LoaderController {
                 }
             }
         };
-        loadInventory();
         playerView.setImage(imageLeft);
         timer.start();
     }

@@ -5,7 +5,7 @@ public class Quest {
     public int howMuch;
     public String who;
     public int level;
-    public String reward;
+    public int potionRewardLevel;
     public Quest(){}
 
     public String getTask(){return task;}
@@ -15,14 +15,17 @@ public class Quest {
     public int getHowMuch(){
         return howMuch;
     }
+    public void decreaseHowMuch(){
+        this.howMuch--;
+    }
     public int getLevel(){
         return level;
     }
-    public String getReward(){
-        return reward;
+    public int getPotionRewardLevel(){
+        return potionRewardLevel;
     }
     public String toString(){
         return "La quest e': " + this.getTask() + " " + this.getHowMuch() + " " +
-                this.getWho() + " LV" + this.getLevel() + " per ricevere " + this.getReward();
+                this.getWho() + " LV" + this.getLevel() + " per ricevere una pozione LV" + this.getPotionRewardLevel();
     }
 }

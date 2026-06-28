@@ -4,17 +4,19 @@ import it.unicam.cs.mpgc.rpg129851.Launch.Main;
 import it.unicam.cs.mpgc.rpg129851.Model.Entity;
 import it.unicam.cs.mpgc.rpg129851.Model.Orc;
 import it.unicam.cs.mpgc.rpg129851.Model.Player;
+
 import javafx.animation.AnimationTimer;
 import javafx.animation.PauseTransition;
+
 import javafx.fxml.FXML;
+
 import javafx.geometry.Rectangle2D;
+
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
-import java.util.Objects;
+import javafx.util.Duration;
 import java.util.Random;
 
 public class BattleController extends LoaderController {
@@ -55,6 +57,7 @@ public class BattleController extends LoaderController {
 
     public void attack(){
         btnAttack.setDisable(true);
+        btnRun.setDisable(true);
 
         attack(Main.player, Main.orcEncountered);
         attackingPlayer = true;
@@ -63,9 +66,7 @@ public class BattleController extends LoaderController {
         attackingOrc = true;
         actualFrame = 0;
 
-        PauseTransition cooldown = new PauseTransition(Duration.seconds(2.3));
-        cooldown.setOnFinished(event -> btnAttack.setDisable(false));
-        cooldown.play();
+        cooldownActivation(btnRun, btnAttack);
     }
     private void attack(Entity attacker, Entity defender){
         int damage;
@@ -88,14 +89,14 @@ public class BattleController extends LoaderController {
             }
             System.out.println(entity.getName() + " e morto!");
             if(entity instanceof Orc){
+                ForestController.questCompletedControl();
                 System.out.println(entity.getName() + " ha droppato " + entity.getExperience() + " punti esperienza");
                 Main.player.earnExperience(entity.getExperience());
-                Main.player.addHp(15); //da mettere 10 senno troppo facile
+                Main.player.addHp(20);
+                timer.stop();
+                changeMap((Stage)playerView.getScene().getWindow(), "forest-view");
             }
-            timer.stop();
-            changeMap((Stage)playerView.getScene().getWindow(), "forest-view");
         }
-
     }
 
     public void loadBackground(){
@@ -115,25 +116,14 @@ public class BattleController extends LoaderController {
         playerView.setSmooth(false);
     }
 
-
-
     public void loadOrcEncountered(Orc orcEncountered){
-        switch (orcEncountered.getLevel()){
-            case 1:
-                loadOrc1Attack();
-                break;
-            case 2:
-                loadOrc2Attack();
-                break;
-            case 3:
-                loadOrc3Attack();
-        }
+        loadOrcAttack(orcEncountered);
         orcView.setImage(imageOrcAttack);
         orcView.setSmooth(false);
     }
     public void run() {
-
         btnRun.setDisable(true);
+        btnAttack.setDisable(true);
 
         Random random = new Random();
         if(random.nextInt(100) < percentageOfEscape){
@@ -144,16 +134,10 @@ public class BattleController extends LoaderController {
             attack(Main.orcEncountered, Main.player);
             attackingOrc = true;
         }
-
-        PauseTransition cooldown = new PauseTransition(Duration.seconds(1.5));
-
-        cooldown.setOnFinished(event -> btnRun.setDisable(false));
-
-        cooldown.play();
-
+        cooldownActivation(btnRun, btnAttack);
     }
     private void updateAnimationPlayer(long actualHour){
-        playerView.setScaleX(-1);
+        orcView.setScaleX(-1);
         if(!attackingPlayer){
             playerView.setViewport(new Rectangle2D(0,0,FRAME_WIDTH,FRAME_HEIGHT));
         }else if(actualHour - lastChangeFrame > 100_000_000){
@@ -178,5 +162,13 @@ public class BattleController extends LoaderController {
             orcView.setViewport(new Rectangle2D(xMovement, 0, FRAME_WIDTH, FRAME_HEIGHT));
             lastChangeFrame = actualHour;
         }
+    }
+    private void cooldownActivation(Button button1, Button button2){
+        PauseTransition cooldown = new PauseTransition(Duration.seconds(2.5));
+        cooldown.setOnFinished(event ->{
+            button1.setDisable(false);
+            button2.setDisable(false);
+        });
+        cooldown.play();
     }
 }

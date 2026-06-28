@@ -26,8 +26,9 @@ public class LoaderController {
             level1Orc, level2Orc, level3Orc;
     @FXML
     public Image imageLeft, imageRight, imageOrc,
-                 imageExclamation, imageHealthBar, inventory, potionLV1, potionLV2, potionLV3,
-                 imageOrcAttack, imagePlayerAttack;
+                 imageExclamation, imageHealthBar,
+                 imageOrcAttack, imagePlayerAttack
+                ;
     @FXML
     public ImageView playerView, healthBarViewPlayer, backgroundView, healthBarViewOrc,
                      slotPotionLV1View, slotPotionLV2View, slotPotionLV3View,
@@ -40,6 +41,7 @@ public class LoaderController {
         loadEntity();
         loadHealthBarPlayer();
         loadExperienceBarPlayer();
+        loadInventory();
     }
 
     public void loadEntity(){
@@ -146,6 +148,9 @@ public class LoaderController {
         healthBarOrc.setLayoutY(healthBarViewOrc.getLayoutY() + 113);
         healthBarViewOrc.setSmooth(false);
     }
+    public void loadHealthBarImage(){
+        imageHealthBar = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/healthBarPlayer.png")));
+    }
     public void changeColorHealthBar(Entity entity, Rectangle healthBar){
         if(entity.getHealthPercentage() > 0.60){
             healthBar.setFill(Color.GREEN);
@@ -155,27 +160,39 @@ public class LoaderController {
             healthBar.setFill(Color.RED);
         }
     }
-    public void loadHealthBarImage(){
-        imageHealthBar = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/healthBarPlayer.png")));
+    private void loadInventory(){
+        InventoryController.loadInventory();
+        InventoryController.setSlotPotions(slotPotionLV1View);
+        InventoryController.setSlotPotions(slotPotionLV2View);
+        InventoryController.setSlotPotions(slotPotionLV3View);
+        InventoryController.setPotionsView(potionLV1View, InventoryController.noPotionLV1);
+        InventoryController.setPotionsView(potionLV2View, InventoryController.noPotionLV2);
+        InventoryController.setPotionsView(potionLV3View, InventoryController.noPotionLV3);
+
     }
-    public void loadInventory(){
-        inventory = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/inventoryImage.png")));
-        potionLV1 = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/potionImages/noPotionLV1.png")));
-        potionLV2 = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/potionImages/noPotionLV2.png")));
-        potionLV3 = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/potionImages/noPotionLV3.png")));
-        slotPotionLV1View.setImage(inventory);
-        slotPotionLV1View.setSmooth(false);
-        slotPotionLV2View.setImage(inventory);
-        slotPotionLV2View.setSmooth(false);
-        slotPotionLV3View.setImage(inventory);
-        slotPotionLV3View.setSmooth(false);
-        potionLV1View.setImage(potionLV1);
-        potionLV1View.setSmooth(false);
-        potionLV2View.setImage(potionLV2);
-        potionLV2View.setSmooth(false);
-        potionLV3View.setImage(potionLV3);
-        potionLV3View.setSmooth(false);
+    public void setPotionObtained(){
+        if(!Main.player.getInventory().isEmpty()){
+            Main.player.getInventory().getPotions().forEach(potion -> {
+                switch (potion.getLevel()){
+                    case 1:
+                        potionLV1View.setImage(InventoryController.potionLV1);
+
+                        /*
+                         * aggiungi text che si crea qui!!!
+                         */
+
+
+                        break;
+                    case 2:
+                        potionLV2View.setImage(InventoryController.potionLV2);
+                        break;
+                    case 3:
+                        potionLV3View.setImage(InventoryController.potionLV3);
+                }
+            });
+        }
     }
+
     public void loadImagesKnightLV1() {
         imageRight = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/knightLV1Images/knightWalkRight.png")));
         imageLeft = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/knightLV1Images/knightWalkLeft.png")));
@@ -194,23 +211,27 @@ public class LoaderController {
         imagePlayerAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/knightLV3Images/lancerAttack.png")));
 
     }
-    public void loadImagesOrc1(){
-        imageOrc = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcLV1Images/armoredOrc.png")));
+    public void loadImagesOrc(int level){
+        if(level == 1){
+            imageOrc = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcLV1Images/armoredOrc.png")));
+        }else if(level == 2){
+            imageOrc = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcLV2Images/eliteOrc.png")));
+        }else{
+            imageOrc = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcLV3Images/riderOrc.png")));
+        }
     }
-    public void loadImagesOrc2(){
-        imageOrc = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcLV2Images/eliteOrc.png")));
-    }
-    public void loadImagesOrc3(){
-        imageOrc = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcLV3Images/riderOrc.png")));
-    }
-    public void loadOrc1Attack(){
-        imageOrcAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcLV1Images/armoredOrcAttack.png")));
-    }
-    public void loadOrc2Attack(){
-        imageOrcAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcLV2Images/eliteOrcAttack.png")));
-    }
-    public void loadOrc3Attack(){
-        imageOrcAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcLV3Images/riderOrcAttack.png")));
+
+    public void loadOrcAttack(Orc orcEncountered){
+        switch (orcEncountered.getLevel()){
+            case 1:
+                imageOrcAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcLV1Images/armoredOrcAttack.png")));
+                break;
+            case 2:
+                imageOrcAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcLV2Images/eliteOrcAttack.png")));
+                break;
+            case 3:
+                imageOrcAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcLV3Images/riderOrcAttack.png")));
+        }
     }
     public void loadBackground(String nameMap){;
         backgroundView.setImage(loadBackgroundImage(nameMap));

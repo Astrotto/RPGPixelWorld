@@ -9,6 +9,7 @@ import java.util.List;
 
 public class ForestSpirit {
     public List<Quest> quests;
+    public Quest questReceived;
     public ForestSpirit() {
         this.quests = new ArrayList<>();
         loadQuests();
@@ -35,7 +36,14 @@ public class ForestSpirit {
         }
     }
     public Quest getRandomQuest(){
-        return quests.get((int) (Math.random() * quests.size()));
+        this.questReceived = quests.get((int) (Math.random() * quests.size()));
+        return this.questReceived;
+    }
+    public Quest getQuestReceived(){
+        return this.questReceived;
+    }
+    public Potion getPotionReward(int level){
+        return new Potion(level);
     }
     public List<Quest> getQuests(){
         return quests;

@@ -1,4 +1,4 @@
-package it.unicam.cs.mpgc.rpg129851.Launch;
+ package it.unicam.cs.mpgc.rpg129851.Launch;
 
 import it.unicam.cs.mpgc.rpg129851.Model.*;
 import javafx.application.Application;

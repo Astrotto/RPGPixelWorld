@@ -4,45 +4,33 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="800.0" maxWidth="1540.0" minHeight="-Infinity" minWidth="-Infinity"
-            onKeyPressed="#manageKeyPressed" onKeyReleased="#manageKeyReleased" prefHeight="800.0" prefWidth="1540.0"
-            xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="it.unicam.cs.mpgc.rpg129851.Controller.MapController">
-    <ImageView fx:id="backgroundView" fitHeight="800.0" fitWidth="1540.0" pickOnBounds="true" preserveRatio="true"/>
+<AnchorPane maxHeight="800.0" maxWidth="1540.0" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#manageKeyPressed" onKeyReleased="#manageKeyReleased" prefHeight="800.0" prefWidth="1540.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.mpgc.rpg129851.Controller.MapController">
+    <ImageView fx:id="backgroundView" fitHeight="800.0" fitWidth="1540.0" pickOnBounds="true" preserveRatio="true" />
     <Pane fx:id="gameWorld" prefHeight="800.0" prefWidth="1540.0">
-        <Rectangle fx:id="forest" arcHeight="5.0" arcWidth="5.0" fill="#096100" height="200.0" layoutX="55.0"
-                   layoutY="290.0" stroke="BLACK" opacity="0.00" strokeType="INSIDE" width="170.0"/>
-        <Rectangle fx:id="home" arcHeight="5.0" arcWidth="5.0" fill="#ff1f1f" height="115.0"
-                   opacity="0.00" stroke="BLACK" strokeType="INSIDE" width="130.0"/>
-        <ImageView fx:id="playerView" fitHeight="160" fitWidth="160.0" pickOnBounds="true" preserveRatio="true"/>
+        <Rectangle fx:id="forest" arcHeight="5.0" arcWidth="5.0" fill="#096100" height="200.0" layoutX="55.0" layoutY="290.0" opacity="0.00" stroke="BLACK" strokeType="INSIDE" width="170.0" />
+        <Rectangle fx:id="home" arcHeight="5.0" arcWidth="5.0" fill="#ff1f1f" height="115.0" opacity="0.00" stroke="BLACK" strokeType="INSIDE" width="130.0" />
+        <ImageView fx:id="playerView" fitHeight="160" fitWidth="160.0" pickOnBounds="true" preserveRatio="true" />
 
     </Pane>
     <Pane prefHeight="188.0" prefWidth="265.0">
-        <Rectangle fx:id="level3Player" arcHeight="5.0" visible="false" arcWidth="5.0" fill="#FFDB58" height="9.0" stroke="BLACK"
-                   strokeType="INSIDE" width="8"/>
-        <Rectangle fx:id="level2Player" arcHeight="5.0" visible="false" arcWidth="5.0" fill="#FFDB58" height="9.0" stroke="BLACK"
-                   strokeType="INSIDE" width="8"/>
-        <Rectangle fx:id="level1Player" arcHeight="5.0" visible="false" arcWidth="5.0" fill="#FFDB58" height="9.0" stroke="BLACK"
-                   strokeType="INSIDE" width="8"/>
-        <Rectangle fx:id="experienceBarPlayer" arcHeight="5.0" arcWidth="5.0" fill="#007FFF" height="7.0" stroke="BLACK"
-                   strokeType="INSIDE" width="85"/>
-        <Rectangle fx:id="healthBarPlayer" arcHeight="5.0" arcWidth="5.0" fill="#27c400" height="7.0" stroke="BLACK"
-                   strokeType="INSIDE" width="130.0"/>
-        <ImageView fx:id="healthBarViewPlayer" fitHeight="202.0" fitWidth="233.0" layoutX="-7.0" layoutY="-100.0"
-                   pickOnBounds="true" preserveRatio="true"/>
-        <ImageView fx:id="slotPotionLV1View" fitHeight="150.0" fitWidth="150.0" layoutX="-30.0" layoutY="680.0"
-                   pickOnBounds="true" preserveRatio="true"/>
-        <ImageView fx:id="slotPotionLV2View" fitHeight="150.0" fitWidth="150.0" layoutX="30.0" layoutY="680.0"
-                   pickOnBounds="true" preserveRatio="true"/>
-        <ImageView fx:id="slotPotionLV3View" fitHeight="150.0" fitWidth="150.0" layoutX="90.0" layoutY="680.0"
-                   pickOnBounds="true" preserveRatio="true"/>
-        <ImageView fx:id="potionLV1View" fitHeight="35.0" fitWidth="35.0" layoutX="28.0" layoutY="738.0"
-                   pickOnBounds="true" preserveRatio="true"/>
-        <ImageView fx:id="potionLV2View" fitHeight="35.0" fitWidth="35.0" layoutX="88.0" layoutY="738.0"
-                   pickOnBounds="true" preserveRatio="true"/>
-        <ImageView fx:id="potionLV3View" fitHeight="35.0" fitWidth="35.0" layoutX="148.0" layoutY="738.0"
-                   pickOnBounds="true" preserveRatio="true"/>
+        <Rectangle fx:id="level3Player" arcHeight="5.0" arcWidth="5.0" fill="#FFDB58" height="9.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="8" />
+        <Rectangle fx:id="level2Player" arcHeight="5.0" arcWidth="5.0" fill="#FFDB58" height="9.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="8" />
+        <Rectangle fx:id="level1Player" arcHeight="5.0" arcWidth="5.0" fill="#FFDB58" height="9.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="8" />
+        <Rectangle fx:id="experienceBarPlayer" arcHeight="5.0" arcWidth="5.0" fill="#007FFF" height="7.0" stroke="BLACK" strokeType="INSIDE" width="85" />
+        <Rectangle fx:id="healthBarPlayer" arcHeight="5.0" arcWidth="5.0" fill="#27c400" height="7.0" stroke="BLACK" strokeType="INSIDE" width="130.0" />
+        <ImageView fx:id="healthBarViewPlayer" fitHeight="202.0" fitWidth="233.0" layoutX="-7.0" layoutY="-100.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="slotPotionLV1View" fitHeight="150.0" fitWidth="150.0" layoutX="-30.0" layoutY="680.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="slotPotionLV2View" fitHeight="150.0" fitWidth="150.0" layoutX="30.0" layoutY="680.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="slotPotionLV3View" fitHeight="150.0" fitWidth="150.0" layoutX="90.0" layoutY="680.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="potionLV1View" fitHeight="35.0" fitWidth="35.0" layoutX="28.0" layoutY="738.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="potionLV2View" fitHeight="35.0" fitWidth="35.0" layoutX="88.0" layoutY="738.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="potionLV3View" fitHeight="35.0" fitWidth="35.0" layoutX="148.0" layoutY="738.0" pickOnBounds="true" preserveRatio="true" />
+        </Pane>
+    <Pane fx:id="amount">
+        <Text fx:id="amountLV2" fill="WHITE" layoutX="112.0" layoutY="772.0" smooth="false" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.8" text="X1" />
+        <Text fx:id="amountLV3" fill="WHITE" layoutX="172.0" layoutY="772.0" smooth="false" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.8" text="X1" />
     </Pane>
-    <Rectangle fx:id="blackScreen" height="800" width="1540" fill="black" opacity="0"/>
+    <Rectangle fx:id="blackScreen" fill="black" height="800" opacity="0" width="1540" />
 </AnchorPane>

@@ -1,7 +1,6 @@
 package it.unicam.cs.mpgc.rpg129851.Controller;
 
 import it.unicam.cs.mpgc.rpg129851.Launch.Main;
-import it.unicam.cs.mpgc.rpg129851.Model.ForestSpirit;
 import it.unicam.cs.mpgc.rpg129851.Model.Orc;
 import javafx.animation.*;
 import javafx.fxml.FXML;
@@ -29,6 +28,7 @@ public class ForestController extends EntityController {
             leftExit, rightExit, upExit, downExit,
             spawnLeftDownCorner, spawnLeftUpCorner, spawnRightUpCorner, spawnRightDownCorner;
     private Bounds rightExitHitbox, leftExitHitbox, upExitHitbox, downExitHitbox;
+    private static boolean questReceived = false, questSolved = false;
 
     public void initialize() {
         super.initialize();
@@ -58,7 +58,6 @@ public class ForestController extends EntityController {
                 setSpawnPoint(x - 40, y - 40);
             });
             fadeOut.play();
-
         }
     }
     private void loadBoundsHitbox(){
@@ -78,9 +77,10 @@ public class ForestController extends EntityController {
         int numeroOrchi = rand.nextInt(4) + 1;
 
         for (int i = 0; i < numeroOrchi; i++) {
+            Orc orc = generateOrc();
             orcView = new ImageView(imageOrc);
             orcView.setViewport(new Rectangle2D(0, 0 , 100, 100));
-            Main.orcs.put(generateOrc(), orcView);
+            Main.orcs.put(orc, orcView);
 
             orcView.setFitWidth(260);
             orcView.setFitHeight(260);
@@ -122,13 +122,7 @@ public class ForestController extends EntityController {
         }
         Orc orc = new Orc(lvlOrc);
 
-        if(lvlOrc == 1){
-            loadImagesOrc1();
-        }else if(lvlOrc == 2){
-            loadImagesOrc2();
-        }else{
-            loadImagesOrc3();
-        }
+        loadImagesOrc(lvlOrc);
 
         return orc;
     }
@@ -174,8 +168,27 @@ public class ForestController extends EntityController {
         Bounds hitboxPlayer = Main.player.getHitbox(playerView.getLayoutX() + 70, playerView.getLayoutY() + 55);
         Bounds hitboxForestSpirit = forestSpirit.getBoundsInParent();
         if(hitboxPlayer.intersects(hitboxForestSpirit)) {
-            //System.out.println("ciao");
-            System.out.println(Main.guardian.getRandomQuest().toString());
+            if(!questReceived){
+                System.out.println(Main.guardian.getRandomQuest().toString());
+                questReceived = true;
+            }
+        }
+    }
+    public static void questCompletedControl(){
+        if(questReceived){
+            if(Main.orcEncountered.getLevel() == Main.guardian.getQuestReceived().getLevel() && Main.guardian.getQuestReceived().getHowMuch() >= 1){
+                Main.guardian.getQuestReceived().decreaseHowMuch();
+                System.out.println("DECREMENTO" + Main.guardian.getQuestReceived().getHowMuch());
+                if(Main.guardian.getQuestReceived().getHowMuch() < 1) {
+                    System.out.println("Hai completato la quest");
+                    Main.player.addPotion(Main.guardian.getPotionReward(Main.guardian.getQuestReceived().getPotionRewardLevel()));
+                    if(Main.player.getInventory().getPotionAmount(Main.guardian.getQuestReceived().getPotionRewardLevel()) > 1){
+
+                    }
+                    questSolved = true;
+                    questReceived = false;
+                }
+            }
         }
     }
 

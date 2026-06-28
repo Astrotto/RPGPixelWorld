@@ -23,4 +23,7 @@ public class Potion {
     public int getHealth(){
         return this.health;
     }
+    public int getLevel(){
+        return this.level;
+    }
 }
