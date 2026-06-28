@@ -1,9 +1,11 @@
 package it.unicam.cs.mpgc.rpg129851.Controller;
 
 import it.unicam.cs.mpgc.rpg129851.Launch.Main;
+import javafx.animation.AnimationTimer;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -22,6 +24,17 @@ public class MapController extends EntityController {
         super.updateLocation();
         collisionDetectionForest();
     }
+    public void collisionDetection(Rectangle obstacle, double x, double y) {
+        Bounds hitbox = obstacle.getBoundsInParent();
+
+        if(!Main.player.getHitbox(newX + 70, y + 55).intersects(hitbox)) {
+            playerView.setLayoutX(newX);
+        }
+        if(!Main.player.getHitbox(playerView.getLayoutX() + 70, newY + 55).intersects(hitbox)) {
+            playerView.setLayoutY(newY);
+        }
+    }
+
     private void collisionDetectionForest(){
         Bounds hitboxPlayer = Main.player.getHitbox(playerView.getLayoutX() + 70, playerView.getLayoutY() + 55);
         Bounds hitboxForest = forest.getBoundsInParent();

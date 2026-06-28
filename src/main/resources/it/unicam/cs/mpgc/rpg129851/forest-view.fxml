@@ -19,7 +19,8 @@
             <Rectangle fx:id="upExit" arcHeight="5.0" arcWidth="5.0" fill="#ff1f1f" height="10.0" layoutX="595" layoutY="20.0" opacity="0.00" stroke="BLACK" strokeType="INSIDE" width="40.0" />
             <Rectangle fx:id="rightExit" arcHeight="5.0" arcWidth="5.0" fill="#ff1f1f" height="40.0" layoutX="1450" layoutY="470.0" opacity="0.00" stroke="BLACK" strokeType="INSIDE" width="10.0" />
             <Rectangle fx:id="leftExit" arcHeight="5.0" arcWidth="5.0" fill="#ff1f1f" height="40.0" layoutX="20" layoutY="230.0" opacity="0.00" stroke="BLACK" strokeType="INSIDE" width="10.0" />
-            <Rectangle fx:id="home" arcHeight="5.0" arcWidth="5.0" fill="#ff1f1f" height="90.0" layoutX="1140.0" layoutY="10.0" opacity="0.00" stroke="BLACK" strokeType="INSIDE" width="110.0" />
+            <Rectangle fx:id="home" arcHeight="5.0" arcWidth="5.0" fill="#ff1f1f" height="0.0" layoutX="1140.0" layoutY="10.0" opacity="0.00" stroke="BLACK" strokeType="INSIDE" width="0.0" />
+            <Rectangle fx:id="graveyard" arcHeight="5.0" arcWidth="5.0" fill="#ff1f1f" height="0.0" layoutX="1140.0" layoutY="10.0" opacity="0.00" stroke="BLACK" strokeType="INSIDE" width="0.0" />
             <ImageView fx:id="playerView" fitHeight="260.0" fitWidth="260.0" pickOnBounds="true" preserveRatio="true" />
         </children>
     </Pane>
@@ -27,22 +28,28 @@
 
     </Pane>
     <Pane prefHeight="188.0" prefWidth="265.0">
-        <children>
-            <Rectangle fx:id="level3Player" arcHeight="5.0" arcWidth="5.0" fill="#FFDB58" height="9.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="8" />
-            <Rectangle fx:id="level2Player" arcHeight="5.0" arcWidth="5.0" fill="#FFDB58" height="9.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="8" />
-            <Rectangle fx:id="level1Player" arcHeight="5.0" arcWidth="5.0" fill="#FFDB58" height="9.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="8" />
-            <Rectangle fx:id="experienceBarPlayer" arcHeight="5.0" arcWidth="5.0" fill="#007FFF" height="7.0" stroke="BLACK" strokeType="INSIDE" width="85" />
-            <Rectangle fx:id="healthBarPlayer" arcHeight="5.0" arcWidth="5.0" fill="#27c400" height="7.0" stroke="BLACK" strokeType="INSIDE" width="130.0" />
-            <ImageView fx:id="healthBarViewPlayer" fitHeight="202.0" fitWidth="233.0" layoutX="-7.0" layoutY="-100.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="slotPotionLV1View" fitHeight="150.0" fitWidth="150.0" layoutX="-30.0" layoutY="680.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="slotPotionLV2View" fitHeight="150.0" fitWidth="150.0" layoutX="30.0" layoutY="680.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="slotPotionLV3View" fitHeight="150.0" fitWidth="150.0" layoutX="90.0" layoutY="680.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="potionLV1View" fitHeight="35.0" fitWidth="35.0" layoutX="28.0" layoutY="738.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="potionLV2View" fitHeight="35.0" fitWidth="35.0" layoutX="88.0" layoutY="738.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="potionLV3View" fitHeight="35.0" fitWidth="35.0" layoutX="148.0" layoutY="738.0" pickOnBounds="true" preserveRatio="true" />
-        </children>
+        <Rectangle fx:id="level3Player" arcHeight="5.0" arcWidth="5.0" fill="#FFDB58" height="9.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="8" />
+        <Rectangle fx:id="level2Player" arcHeight="5.0" arcWidth="5.0" fill="#FFDB58" height="9.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="8" />
+        <Rectangle fx:id="level1Player" arcHeight="5.0" arcWidth="5.0" fill="#FFDB58" height="9.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="8" />
+        <Rectangle fx:id="experienceBarPlayer" arcHeight="5.0" arcWidth="5.0" fill="#007FFF" height="7.0" stroke="BLACK" strokeType="INSIDE" width="85" />
+        <Rectangle fx:id="healthBarPlayer" arcHeight="5.0" arcWidth="5.0" fill="#27c400" height="7.0" stroke="BLACK" strokeType="INSIDE" width="130.0" />
+        <ImageView fx:id="healthBarViewPlayer" fitHeight="202.0" fitWidth="233.0" layoutX="-7.0" layoutY="-100.0" pickOnBounds="true" preserveRatio="true" />
+    </Pane>
+    <Pane>
+        <ImageView fx:id="slotPotionLV1View" fitHeight="150.0" fitWidth="150.0" layoutX="-30.0" layoutY="680.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="slotPotionLV2View" fitHeight="150.0" fitWidth="150.0" layoutX="30.0" layoutY="680.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="slotPotionLV3View" fitHeight="150.0" fitWidth="150.0" layoutX="90.0" layoutY="680.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="potionLV1View" fitHeight="35.0" fitWidth="35.0" layoutX="28.0" layoutY="738.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="potionLV2View" fitHeight="35.0" fitWidth="35.0" layoutX="88.0" layoutY="738.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="potionLV3View" fitHeight="35.0" fitWidth="35.0" layoutX="148.0" layoutY="738.0" pickOnBounds="true" preserveRatio="true" />
+    </Pane>
+    <Pane>
+        <Text fx:id="amountLV1" fill="WHITE" layoutX="52.0" layoutY="772.0" smooth="false" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.8" text="X1" />
+        <Text fx:id="amountLV2" fill="WHITE" layoutX="112.0" layoutY="772.0" smooth="false" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.8" text="X1" />
+        <Text fx:id="amountLV3" fill="WHITE" layoutX="172.0" layoutY="772.0" smooth="false" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.8" text="X1" />
     </Pane>
     <ImageView fx:id="exclamation" fitHeight="55.0" fitWidth="56.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
     <Rectangle fx:id="blackScreen" fill="black" height="800" opacity="0" width="1540" />
     <Circle fx:id="forestSpirit" fill="DODGERBLUE" layoutX="600.0" layoutY="390.0" opacity="0.00" radius="45.0" stroke="BLACK" strokeType="INSIDE" />
+
 </AnchorPane>

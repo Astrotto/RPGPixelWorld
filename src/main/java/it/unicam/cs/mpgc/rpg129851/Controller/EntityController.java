@@ -6,6 +6,7 @@ import javafx.fxml.*;
 import javafx.geometry.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -19,7 +20,6 @@ public class EntityController extends LoaderController {
     public AnimationTimer timer;
     private long lastChangeFrame = 0;
     private int actualFrame = 0;
-
     public static double spawnX = -1;
     public static double spawnY = -1;
 
@@ -29,6 +29,7 @@ public class EntityController extends LoaderController {
             @Override
             public void handle(long now) {
                 updateLocation();
+                setPotionObtained();
                 loadAnimation(now);
                 if(spawnX != -1 || spawnY != -1) {
                     playerView.setLayoutX(spawnX);
@@ -57,8 +58,6 @@ public class EntityController extends LoaderController {
         moving = false;
         double oldY = newY;
 
-        Bounds hitboxHome = home.getBoundsInParent();
-
         keyDetectionY(KeyCode.S, KeyCode.DOWN);
         keyDetectionY(KeyCode.W, KeyCode.UP);
         keyDetectionX(KeyCode.A, KeyCode.LEFT);
@@ -68,12 +67,11 @@ public class EntityController extends LoaderController {
         if(newY < -60) newY = -60;
 
         collisionDetection(gameWorld, newX, newY);
-        if(!Main.player.getHitbox(newX + 70, oldY + 55).intersects(hitboxHome)) {
-            playerView.setLayoutX(newX);
-        }
-        if(!Main.player.getHitbox(playerView.getLayoutX() + 70, newY + 55).intersects(hitboxHome)) {
-            playerView.setLayoutY(newY);
-        }
+        if(newY < 300) {
+            System.out.println(newY);
+            collisionDetection(home, newX, newY, oldY);
+        }else
+            collisionDetection(graveyard, newX, newY, oldY);
     }
     private void collisionDetection(Pane obstacle, double x, double y) {
         if(x > obstacle.getWidth() - playerView.getViewport().getWidth()) {
@@ -83,6 +81,17 @@ public class EntityController extends LoaderController {
             newY = obstacle.getHeight() - playerView.getViewport().getHeight();
         }
     }
+    public void collisionDetection(Rectangle obstacle, double x, double y, double oldY) {
+        Bounds hitbox = obstacle.getBoundsInParent();
+
+        if(!Main.player.getHitbox(newX + 70, oldY + 55).intersects(hitbox)) {
+            playerView.setLayoutX(newX);
+        }
+        if(!Main.player.getHitbox(playerView.getLayoutX() + 70, newY + 55).intersects(hitbox)) {
+            playerView.setLayoutY(newY);
+        }
+    }
+
 
     public void keyDetectionY(KeyCode keyCode, KeyCode keyCode2) {
         if (keyPressed.contains(keyCode )  || keyPressed.contains(keyCode2)){

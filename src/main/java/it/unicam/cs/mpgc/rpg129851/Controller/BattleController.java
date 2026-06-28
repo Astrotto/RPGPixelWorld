@@ -171,4 +171,8 @@ public class BattleController extends LoaderController {
         });
         cooldown.play();
     }
+    @FXML
+    private void potionUsed(){
+        System.out.println("potion used");
+    }
 }

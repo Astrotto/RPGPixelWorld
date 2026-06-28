@@ -7,6 +7,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.text.Text?>
 <AnchorPane maxHeight="800.0" maxWidth="1540.0" prefHeight="800.0" prefWidth="1540.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.mpgc.rpg129851.Controller.BattleController">
     <Pane prefHeight="600.0" prefWidth="1500.0">
         <children>
@@ -17,11 +18,7 @@
             <font>
                <Font size="16.0" />
             </font></Button>
-            <Button fx:id="btnPotion" layoutX="620.0" layoutY="659.0" mnemonicParsing="false" prefHeight="105.0" prefWidth="300.0" text="POZIONE">
-            <font>
-               <Font size="16.0" />
-            </font></Button>
-            <Button fx:id="btnRun" layoutX="1130.0" layoutY="659.0" onAction="#run" mnemonicParsing="false" prefHeight="105.0" prefWidth="300.0" text="SCAPPA">
+            <Button fx:id="btnRun" layoutX="620.0" layoutY="659.0" onAction="#run" mnemonicParsing="false" prefHeight="105.0" prefWidth="300.0" text="SCAPPA">
             <font>
                <Font size="16.0" />
             </font></Button>
@@ -46,5 +43,18 @@
             <ImageView fx:id="healthBarViewPlayer" fitHeight="202.0" fitWidth="233.0" layoutX="250.0" layoutY="250.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="healthBarViewOrc" fitHeight="202.0" fitWidth="233.0" layoutX="1060.0" layoutY="250.0" pickOnBounds="true" preserveRatio="true" />
         </children>
+    </Pane>
+    <Pane>
+        <ImageView fx:id="slotPotionLV1View" fitHeight="180.0" fitWidth="180.0" layoutX="-10.0" layoutY="530.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="slotPotionLV2View" fitHeight="180.0" fitWidth="180.0" layoutX="70.0" layoutY="530.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="slotPotionLV3View" fitHeight="180.0" fitWidth="180.0" layoutX="150.0" layoutY="530.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="potionLV1View" fitHeight="43.0" fitWidth="43.0" layoutX="60.0" layoutY="600.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="potionLV2View" fitHeight="43.0" fitWidth="43.0" layoutX="140.0" layoutY="600.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="potionLV3View" fitHeight="43.0" fitWidth="43.0" layoutX="219.0" layoutY="600.0" pickOnBounds="true" preserveRatio="true" />
+    </Pane>
+    <Pane>
+        <Text fx:id="amountLV1" fill="WHITE" layoutX="90.0" layoutY="640.0" smooth="false" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.8" text="0" />
+        <Text fx:id="amountLV2" fill="WHITE" layoutX="170.0" layoutY="640.0" smooth="false" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.8" text="0" />
+        <Text fx:id="amountLV3" fill="WHITE" layoutX="250.0" layoutY="640.0" smooth="false" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.8" text="0" />
     </Pane>
 </AnchorPane>

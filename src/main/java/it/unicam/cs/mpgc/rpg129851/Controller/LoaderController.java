@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.Objects;
@@ -19,7 +20,7 @@ import java.util.Objects;
 public class LoaderController {
 
     @FXML
-    public Rectangle forest, home,
+    public Rectangle forest, home, graveyard,
             healthBarPlayer, healthBarOrc,
             experienceBarPlayer, experienceBarOrc,
             level1Player, level2Player, level3Player,
@@ -33,6 +34,7 @@ public class LoaderController {
     public ImageView playerView, healthBarViewPlayer, backgroundView, healthBarViewOrc,
                      slotPotionLV1View, slotPotionLV2View, slotPotionLV3View,
                      potionLV1View, potionLV2View, potionLV3View;
+    public Text amountLV1, amountLV2, amountLV3;
     public final int FRAME_WIDTH = 100;
     public final int FRAME_HEIGHT = 100;
 
@@ -176,21 +178,27 @@ public class LoaderController {
                 switch (potion.getLevel()){
                     case 1:
                         potionLV1View.setImage(InventoryController.potionLV1);
-
-                        /*
-                         * aggiungi text che si crea qui!!!
-                         */
-
-
+                        loadAmount(amountLV1, Main.player.getInventory().getPotionAmount(potion.getLevel()));
                         break;
                     case 2:
                         potionLV2View.setImage(InventoryController.potionLV2);
+                        loadAmount(amountLV2, Main.player.getInventory().getPotionAmount(potion.getLevel()));
                         break;
                     case 3:
                         potionLV3View.setImage(InventoryController.potionLV3);
+                        loadAmount(amountLV3, Main.player.getInventory().getPotionAmount(potion.getLevel()));
                 }
             });
+        }else{
+            loadAmount(amountLV1, 0);
+            loadAmount(amountLV2, 0);
+            loadAmount(amountLV3, 0);
         }
+    }
+
+    public void loadAmount(Text text, int amount){
+        //String nPotions = "X" + amount;
+        text.setText("" + amount);
     }
 
     public void loadImagesKnightLV1() {
