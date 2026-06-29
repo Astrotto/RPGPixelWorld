@@ -15,9 +15,6 @@ public class Quest {
     public int getHowMuch(){
         return howMuch;
     }
-    public void decreaseHowMuch(){
-        this.howMuch--;
-    }
     public int getLevel(){
         return level;
     }

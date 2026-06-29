@@ -5,6 +5,7 @@ import it.unicam.cs.mpgc.rpg129851.Model.Entity;
 import it.unicam.cs.mpgc.rpg129851.Model.Orc;
 import it.unicam.cs.mpgc.rpg129851.Model.Player;
 
+import it.unicam.cs.mpgc.rpg129851.Model.Potion;
 import javafx.animation.AnimationTimer;
 import javafx.animation.PauseTransition;
 
@@ -32,7 +33,6 @@ public class BattleController extends LoaderController {
     private boolean attackingPlayer = false, attackingOrc = false;
     private long lastChangeFrame = 0;
     private int actualFrame = 0;
-
 
     public void initialize(){
         super.initialize();
@@ -173,6 +173,15 @@ public class BattleController extends LoaderController {
     }
     @FXML
     private void potionUsed(){
-        System.out.println("potion used");
+        if(potionLV1View.isPressed()) {
+            if(Main.player.getInventory().getPotionAmount(1) >= 1)
+                Main.player.usePotion(1);
+        }else if(potionLV2View.isPressed()) {
+            if(Main.player.getInventory().getPotionAmount(2) >= 1)
+                Main.player.usePotion(2);
+        }else{
+            if(Main.player.getInventory().getPotionAmount(3) >= 1)
+                Main.player.usePotion(3);
+        }
     }
 }

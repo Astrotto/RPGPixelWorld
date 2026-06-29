@@ -176,15 +176,12 @@ public class ForestController extends EntityController {
     }
     public static void questCompletedControl(){
         if(questReceived){
+            int howMuch = Main.guardian.getQuestReceived().getHowMuch();
             if(Main.orcEncountered.getLevel() == Main.guardian.getQuestReceived().getLevel() && Main.guardian.getQuestReceived().getHowMuch() >= 1){
-                Main.guardian.getQuestReceived().decreaseHowMuch();
-                System.out.println("DECREMENTO" + Main.guardian.getQuestReceived().getHowMuch());
-                if(Main.guardian.getQuestReceived().getHowMuch() < 1) {
+                howMuch--;
+                if(howMuch < 1) {
                     System.out.println("Hai completato la quest");
                     Main.player.addPotion(Main.guardian.getPotionReward(Main.guardian.getQuestReceived().getPotionRewardLevel()));
-                    if(Main.player.getInventory().getPotionAmount(Main.guardian.getQuestReceived().getPotionRewardLevel()) > 1){
-
-                    }
                     questSolved = true;
                     questReceived = false;
                 }

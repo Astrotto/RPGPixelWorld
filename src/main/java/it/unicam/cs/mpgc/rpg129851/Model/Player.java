@@ -31,12 +31,12 @@ public class Player extends Entity implements EntityHitbox {
             this.inventory.addPotion(potion);
         }
     }
-    public void usePotion(Potion potion) {
+    public void usePotion(int level) {
         if(this.inventory == null) {
             throw new IllegalArgumentException("Potion is null");
         }else{
-            this.addHp(potion.getHealth());
-            this.inventory.removePotion(potion);
+            this.addHp(new Potion(level).getHealth());
+            this.inventory.removePotion(level);
         }
     }
     @Override

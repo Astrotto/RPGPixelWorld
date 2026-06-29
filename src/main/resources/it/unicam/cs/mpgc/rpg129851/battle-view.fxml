@@ -44,15 +44,17 @@
             <ImageView fx:id="healthBarViewOrc" fitHeight="202.0" fitWidth="233.0" layoutX="1060.0" layoutY="250.0" pickOnBounds="true" preserveRatio="true" />
         </children>
     </Pane>
-    <Pane>
+    <Pane mouseTransparent="true">
         <ImageView fx:id="slotPotionLV1View" fitHeight="180.0" fitWidth="180.0" layoutX="-10.0" layoutY="530.0" pickOnBounds="true" preserveRatio="true" />
         <ImageView fx:id="slotPotionLV2View" fitHeight="180.0" fitWidth="180.0" layoutX="70.0" layoutY="530.0" pickOnBounds="true" preserveRatio="true" />
         <ImageView fx:id="slotPotionLV3View" fitHeight="180.0" fitWidth="180.0" layoutX="150.0" layoutY="530.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="potionLV1View" fitHeight="43.0" fitWidth="43.0" layoutX="60.0" layoutY="600.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="potionLV2View" fitHeight="43.0" fitWidth="43.0" layoutX="140.0" layoutY="600.0" pickOnBounds="true" preserveRatio="true" />
-        <ImageView fx:id="potionLV3View" fitHeight="43.0" fitWidth="43.0" layoutX="219.0" layoutY="600.0" pickOnBounds="true" preserveRatio="true" />
     </Pane>
     <Pane>
+        <ImageView fx:id="potionLV1View" onMousePressed="#potionUsed" fitHeight="43.0" fitWidth="43.0" layoutX="60.0" layoutY="600.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="potionLV2View" onMousePressed="#potionUsed" fitHeight="43.0" fitWidth="43.0" layoutX="140.0" layoutY="600.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="potionLV3View" onMousePressed="#potionUsed" fitHeight="43.0" fitWidth="43.0" layoutX="219.0" layoutY="600.0" pickOnBounds="true" preserveRatio="true" />
+    </Pane>
+    <Pane mouseTransparent="true">
         <Text fx:id="amountLV1" fill="WHITE" layoutX="90.0" layoutY="640.0" smooth="false" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.8" text="0" />
         <Text fx:id="amountLV2" fill="WHITE" layoutX="170.0" layoutY="640.0" smooth="false" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.8" text="0" />
         <Text fx:id="amountLV3" fill="WHITE" layoutX="250.0" layoutY="640.0" smooth="false" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.8" text="0" />

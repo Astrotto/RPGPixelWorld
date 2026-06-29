@@ -16,8 +16,13 @@ public class Inventory {
     public void addPotion(Potion potion) {
         inventory.add(potion);
     }
-    public void removePotion(Potion potion) {
-        inventory.remove(potion);
+    public void removePotion(int level) {
+        for(int i = 0; i < inventory.size(); i++) {
+            if(inventory.get(i).getLevel() == level) {
+                inventory.remove(i);
+                break;
+            }
+        }
     }
     public boolean isEmpty() {
         return inventory.isEmpty();

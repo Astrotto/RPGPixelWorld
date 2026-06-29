@@ -68,7 +68,6 @@ public class EntityController extends LoaderController {
 
         collisionDetection(gameWorld, newX, newY);
         if(newY < 300) {
-            System.out.println(newY);
             collisionDetection(home, newX, newY, oldY);
         }else
             collisionDetection(graveyard, newX, newY, oldY);

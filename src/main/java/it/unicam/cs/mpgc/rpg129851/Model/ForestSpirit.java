@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ForestSpirit {
-    public List<Quest> quests;
-    public Quest questReceived;
+    private List<Quest> quests;
+    private Quest questReceived;
     public ForestSpirit() {
         this.quests = new ArrayList<>();
         loadQuests();
