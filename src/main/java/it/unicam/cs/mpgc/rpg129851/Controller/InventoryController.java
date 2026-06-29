@@ -1,6 +1,5 @@
 package it.unicam.cs.mpgc.rpg129851.Controller;
 
-import it.unicam.cs.mpgc.rpg129851.Launch.Main;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -34,8 +33,8 @@ public class InventoryController {
         slotPotion.setImage(inventory);
         slotPotion.setSmooth(false);
     }
-    public static void setPotionsView(ImageView potionsView, Image noPotion){
-        potionsView.setImage(noPotion);
+    public static void setPotionsView(ImageView potionsView, Image potionImage){
+        potionsView.setImage(potionImage);
         potionsView.setSmooth(false);
     }
 

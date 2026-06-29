@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
@@ -23,8 +24,6 @@ import java.util.Random;
 public class BattleController extends LoaderController {
     @FXML
     private ImageView playerView, orcView;
-    @FXML
-    private Button btnAttack, btnRun;
     int percentageOfEscape = 25;
 
     private final int FRAME_WIDTH = 100;
@@ -48,17 +47,17 @@ public class BattleController extends LoaderController {
                 updateAnimationOrc(now);
                 deathControl(Main.player);
                 deathControl(Main.orcEncountered);
+                loadButtons();
+                setPotionObtained();
             }
         };
+        loadButtonImages();
         loadOrcEncountered(Main.orcEncountered);
         loadBackground();
         timer.start();
     }
 
     public void attack(){
-        btnAttack.setDisable(true);
-        btnRun.setDisable(true);
-
         attack(Main.player, Main.orcEncountered);
         attackingPlayer = true;
         actualFrame = 0;
@@ -122,9 +121,6 @@ public class BattleController extends LoaderController {
         orcView.setSmooth(false);
     }
     public void run() {
-        btnRun.setDisable(true);
-        btnAttack.setDisable(true);
-
         Random random = new Random();
         if(random.nextInt(100) < percentageOfEscape){
             System.out.println("Sei scappato dall'orco");
@@ -163,9 +159,13 @@ public class BattleController extends LoaderController {
             lastChangeFrame = actualHour;
         }
     }
-    private void cooldownActivation(Button button1, Button button2){
+    private void cooldownActivation(ImageView button1, ImageView button2){
+        button1.setDisable(true);
+        button2.setDisable(true);
+        loadButtonDisabled();
         PauseTransition cooldown = new PauseTransition(Duration.seconds(2.5));
         cooldown.setOnFinished(event ->{
+            loadButtonImages();
             button1.setDisable(false);
             button2.setDisable(false);
         });
@@ -176,12 +176,18 @@ public class BattleController extends LoaderController {
         if(potionLV1View.isPressed()) {
             if(Main.player.getInventory().getPotionAmount(1) >= 1)
                 Main.player.usePotion(1);
+            if(Main.player.getInventory().getPotionAmount(1) == 0)
+                InventoryController.setPotionsView(potionLV1View, InventoryController.noPotionLV1);
         }else if(potionLV2View.isPressed()) {
             if(Main.player.getInventory().getPotionAmount(2) >= 1)
                 Main.player.usePotion(2);
+            if(Main.player.getInventory().getPotionAmount(2) == 0)
+                InventoryController.setPotionsView(potionLV2View, InventoryController.noPotionLV2);
         }else{
             if(Main.player.getInventory().getPotionAmount(3) >= 1)
                 Main.player.usePotion(3);
+            if(Main.player.getInventory().getPotionAmount(3) == 0)
+                InventoryController.setPotionsView(potionLV3View, InventoryController.noPotionLV3);
         }
     }
 }

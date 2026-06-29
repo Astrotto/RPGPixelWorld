@@ -29,6 +29,7 @@ public class ForestController extends EntityController {
             spawnLeftDownCorner, spawnLeftUpCorner, spawnRightUpCorner, spawnRightDownCorner;
     private Bounds rightExitHitbox, leftExitHitbox, upExitHitbox, downExitHitbox;
     private static boolean questReceived = false, questSolved = false;
+    private static int howMuch;
 
     public void initialize() {
         super.initialize();
@@ -170,13 +171,13 @@ public class ForestController extends EntityController {
         if(hitboxPlayer.intersects(hitboxForestSpirit)) {
             if(!questReceived){
                 System.out.println(Main.guardian.getRandomQuest().toString());
+                howMuch = Main.guardian.getQuestReceived().getHowMuch();
                 questReceived = true;
             }
         }
     }
     public static void questCompletedControl(){
         if(questReceived){
-            int howMuch = Main.guardian.getQuestReceived().getHowMuch();
             if(Main.orcEncountered.getLevel() == Main.guardian.getQuestReceived().getLevel() && Main.guardian.getQuestReceived().getHowMuch() >= 1){
                 howMuch--;
                 if(howMuch < 1) {

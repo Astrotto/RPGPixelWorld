@@ -28,12 +28,13 @@ public class LoaderController {
     @FXML
     public Image imageLeft, imageRight, imageOrc,
                  imageExclamation, imageHealthBar,
-                 imageOrcAttack, imagePlayerAttack
-                ;
+                 imageOrcAttack, imagePlayerAttack,
+                 imageBtnAttack, imageBtnRun;
     @FXML
     public ImageView playerView, healthBarViewPlayer, backgroundView, healthBarViewOrc,
                      slotPotionLV1View, slotPotionLV2View, slotPotionLV3View,
-                     potionLV1View, potionLV2View, potionLV3View;
+                     potionLV1View, potionLV2View, potionLV3View,
+                     btnAttack, btnRun;
     public Text amountLV1, amountLV2, amountLV3;
     public final int FRAME_WIDTH = 100;
     public final int FRAME_HEIGHT = 100;
@@ -197,10 +198,24 @@ public class LoaderController {
     }
 
     public void loadAmount(Text text, int amount){
-        //String nPotions = "X" + amount;
         text.setText("" + amount);
     }
 
+    public void loadButtonImages() {
+        imageBtnAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/btnAttack.png")));
+        imageBtnRun = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/btnRun.png")));
+    }
+    public void loadButtonDisabled() {
+        imageBtnAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/btnAttackDisabled.png")));
+        imageBtnRun = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/btnRunDisabled.png")));
+    }
+
+    public void loadButtons(){
+        btnAttack.setImage(imageBtnAttack);
+        btnAttack.setSmooth(false);
+        btnRun.setImage(imageBtnRun);
+        btnRun.setSmooth(false);
+    }
     public void loadImagesKnightLV1() {
         imageRight = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/knightLV1Images/knightWalkRight.png")));
         imageLeft = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/knightLV1Images/knightWalkLeft.png")));
