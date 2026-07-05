@@ -37,5 +37,12 @@ public class InventoryController {
         potionsView.setImage(potionImage);
         potionsView.setSmooth(false);
     }
-
+    public static Image getPotionImages(int level){
+        return switch (level) {
+            case 1 -> potionLV1;
+            case 2 -> potionLV2;
+            case 3 -> potionLV3;
+            default -> null;
+        };
+    }
 }

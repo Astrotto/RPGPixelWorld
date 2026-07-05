@@ -31,9 +31,9 @@
         <ImageView fx:id="potionLV3View" fitHeight="35.0" fitWidth="35.0" layoutX="148.0" layoutY="738.0" pickOnBounds="true" preserveRatio="true" />
     </Pane>
     <Pane>
-        <Text fx:id="amountLV1" fill="WHITE" layoutX="52.0" layoutY="772.0" smooth="false" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.8" text="" />
-        <Text fx:id="amountLV2" fill="WHITE" layoutX="112.0" layoutY="772.0" smooth="false" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.8" text="" />
-        <Text fx:id="amountLV3" fill="WHITE" layoutX="172.0" layoutY="772.0" smooth="false" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.8" text="" />
+        <Text fx:id="amountLV1" fill="WHITE" layoutX="52.0" layoutY="772.0" smooth="false" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.8" text="0" />
+        <Text fx:id="amountLV2" fill="WHITE" layoutX="112.0" layoutY="772.0" smooth="false" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.8" text="0" />
+        <Text fx:id="amountLV3" fill="WHITE" layoutX="172.0" layoutY="772.0" smooth="false" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.8" text="0" />
     </Pane>
     <Rectangle fx:id="blackScreen" fill="black" height="800" opacity="0" width="1540" />
 </AnchorPane>

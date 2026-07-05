@@ -8,12 +8,12 @@ import java.util.Random;
 
 public abstract class Entity {
     private String name;
-    private int hp, maxHp;
     int strength, defense, level, experience;
     public int maxExperience = 100;
     private long lastChangeFrame;
     private int actualFrame;
     private boolean isAttacking;
+    private Health health;
     private ImageView entityView;
 
     public Entity(String name, int experience) {
@@ -24,6 +24,7 @@ public abstract class Entity {
             this.experience = experience;
             this.actualFrame = 0;
             this.lastChangeFrame = 0;
+            this.health = new Health();
         }
     }
     public ImageView getEntityView() {
@@ -33,10 +34,7 @@ public abstract class Entity {
         this.entityView = entityView;
     }
     public abstract Bounds getHitbox(double x, double y);
-    public void takeDamage(int damage) {
-        this.hp -= damage;
-        if(this.hp <= 0) hp = 0;
-    }
+
     public int attack(Entity target) {
         Random rand = new Random();
         int baseDamage = this.getStrength() + (rand.nextInt(5) - 2);
@@ -46,33 +44,17 @@ public abstract class Entity {
             finalDamage *= 2;
             Main.criticalHit = true;
         }
-        target.takeDamage(finalDamage);
+        target.health.takeDamage(finalDamage);
         return finalDamage;
     }
     public abstract void updateStats(int level);
     public void setStats(int maxHp, int hp, int strength, int defense) {
-        this.maxHp = maxHp;
-        this.hp = hp;
+        this.health.setCurrentHealth(hp);
+        this.health.setMaxHealth(maxHp);
         setStrength(strength);
         setDefense(defense);
     }
     public int getLevel(){return this.level;}
-    public int getMaxHp() {
-        return this.maxHp;
-    }
-    public double getHealthPercentage() {
-        return (double) getCurrentHp() / getMaxHp();
-    }
-    public int getCurrentHp() {
-        return this.hp;
-    }
-    public void addHp(int hp) {
-        if(this.hp + hp <= maxHp) {
-            this.hp += hp;
-        }else{
-            this.hp = maxHp;
-        }
-    }
     public String getName() {
         return this.name;
     }
@@ -88,11 +70,9 @@ public abstract class Entity {
     public void setExperience(int experience) {this.experience = experience;}
     public double getExperiencePercentage(){return (double) getExperience() / this.getMaxExp();}
     public boolean isAlive() {
-        return this.hp > 0;
+        return this.health.getCurrentHealth() > 0;
     }
-    public int getMaxExp(){
-        return maxExperience;
-    }
+    public int getMaxExp(){ return maxExperience; }
 
     public boolean isAttacking(){
         return isAttacking;
@@ -111,5 +91,8 @@ public abstract class Entity {
     }
     public void setActualFrame(int actualFrame) {
         this.actualFrame = actualFrame;
+    }
+    public Health getHealth() {
+        return health;
     }
 }

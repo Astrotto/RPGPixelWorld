@@ -3,7 +3,6 @@ package it.unicam.cs.mpgc.rpg129851.Model;
 import it.unicam.cs.mpgc.rpg129851.Interfaces.EntityHitbox;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
-import javafx.scene.image.ImageView;
 
 
 public class Player extends Entity implements EntityHitbox {
@@ -21,41 +20,26 @@ public class Player extends Entity implements EntityHitbox {
             updateStats(level);
         }
     }
-
-    public Bounds getHitbox(double x, double y) {
-        return new BoundingBox(x + 15, y + 21, 14, 20);
-    }
-    public void addPotion(Potion potion) {
-        if(this.inventory == null) {
-            throw new IllegalArgumentException("Potion is null");
-        }else{
-            this.inventory.addPotion(potion);
-        }
-    }
-    public void usePotion(int level) {
-        if(this.inventory == null) {
-            throw new IllegalArgumentException("Potion is null");
-        }else{
-            this.addHp(new Potion(level).getHealth());
-            this.inventory.removePotion(level);
-        }
-    }
     @Override
     public void updateStats(int level) {
         switch (level){
-            case 1:
-                setStats(100, 100, 25, 15);
-                break;
-            case 2:
-                setStats(110, 110, 35, 25);
-                break;
-            case 3:
-                setStats(125, 125, 45, 35);
+            case 1 -> setStats(100, 100, 25, 15);
+            case 2 -> setStats(110, 110, 35, 25);
+            case 3 -> setStats(125, 125, 45, 35);
         }
     }
-    public double getSpeed() {
-        return speed;
+    public Inventory getInventory() {
+        return inventory;
     }
+    public void usePotion(int level) {
+        if(this.getInventory() == null) {
+            throw new IllegalArgumentException("Potion is null");
+        }else{
+            this.getHealth().heal(new Potion(level).getHealth());
+            this.getInventory().removePotion(level);
+        }
+    }
+
     public void earnExperience(int experience) {
         if(this.experience + experience >= this.maxExperience) {
             this.experience = this.experience + experience - this.maxExperience;
@@ -70,8 +54,10 @@ public class Player extends Entity implements EntityHitbox {
             this.experience += experience;
         }
     }
-    public Inventory getInventory() {
-        return inventory;
+    public double getSpeed() {
+        return speed;
     }
-
+    public Bounds getHitbox(double x, double y) {
+        return new BoundingBox(x + 15, y + 21, 14, 20);
+    }
 }

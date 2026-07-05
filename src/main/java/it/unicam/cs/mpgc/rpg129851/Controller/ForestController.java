@@ -123,7 +123,7 @@ public class ForestController extends EntityController {
         }
         Orc orc = new Orc(lvlOrc);
 
-        loadImagesOrc(lvlOrc);
+        loadOrcImages(orc);
 
         return orc;
     }
@@ -182,7 +182,7 @@ public class ForestController extends EntityController {
                 howMuch--;
                 if(howMuch < 1) {
                     System.out.println("Hai completato la quest");
-                    Main.player.addPotion(Main.guardian.getPotionReward(Main.guardian.getQuestReceived().getPotionRewardLevel()));
+                    Main.player.getInventory().addPotion(Main.guardian.getPotionReward(Main.guardian.getQuestReceived().getPotionRewardLevel()));
                     questReceived = false;
                 }
             }

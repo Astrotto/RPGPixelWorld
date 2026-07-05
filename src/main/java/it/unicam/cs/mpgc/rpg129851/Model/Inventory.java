@@ -4,17 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Inventory {
-    private List<Potion> inventory;
+    private final List<Potion> inventory;
 
     public Inventory() {
         inventory = new ArrayList<>();
     }
 
-    public List<Potion> getPotions() {
-        return inventory;
-    }
     public void addPotion(Potion potion) {
-        inventory.add(potion);
+        if(potion == null){
+            throw new NullPointerException("Potion is null");
+        }else{
+            inventory.add(potion);
+        }
     }
     public void removePotion(int level) {
         for(int i = 0; i < inventory.size(); i++) {
@@ -23,9 +24,6 @@ public class Inventory {
                 break;
             }
         }
-    }
-    public boolean isEmpty() {
-        return inventory.isEmpty();
     }
     public int getPotionAmount(int level) {
         int counter = 0;

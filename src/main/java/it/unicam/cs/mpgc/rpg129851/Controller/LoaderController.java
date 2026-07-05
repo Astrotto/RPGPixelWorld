@@ -3,7 +3,6 @@ package it.unicam.cs.mpgc.rpg129851.Controller;
 import it.unicam.cs.mpgc.rpg129851.Launch.Main;
 import it.unicam.cs.mpgc.rpg129851.Model.Entity;
 import it.unicam.cs.mpgc.rpg129851.Model.Orc;
-import it.unicam.cs.mpgc.rpg129851.Model.Player;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -44,17 +43,167 @@ public class LoaderController {
 
     public void initialize() {
         Main.player.setEntityView(playerView);
-        loadLevelPlayer();
+        setLevelPlayer();
         loadEntity();
-        loadHealthBarPlayer();
-        loadExperienceBarPlayer();
+        loadHealthBar(healthBarPlayer, healthBarViewPlayer, Main.player);
+        loadExperienceBar(experienceBarPlayer, healthBarViewPlayer, Main.player);
         loadInventory();
     }
+
+
+    public void setLevelPlayer(){
+        loadPlayerImages();
+        switch (Main.player.getLevel()) {
+            case 1 -> loadLevelPlayer(level1Player, 138, 122);
+            case 2 -> {
+                loadLevelPlayer(level1Player, 138, 122);
+                loadLevelPlayer(level2Player, 154, 122);
+            }
+            case 3 -> {
+                loadLevelPlayer(level1Player, 138, 122);
+                loadLevelPlayer(level2Player, 154, 122);
+                loadLevelPlayer(level3Player, 170, 122);
+            }
+        }
+    }
+    public void loadPlayerImages(){
+        String playerName = switch (Main.player.getLevel()) {
+            case 1 -> "knight";
+            case 2 -> "templarKnight";
+            case 3 -> "lancer";
+            default -> "";
+        };
+        imageRight = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/knightImages/" + playerName + "WalkRight.png")));
+        imageLeft = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/knightImages/" + playerName + "WalkLeft.png")));
+        imagePlayerAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/knightImages/" + playerName + "Attack.png")));
+    }
+    public void loadLevelPlayer(Rectangle levelPlayer, int x, int y){
+        levelPlayer.setVisible(true);
+        levelPlayer.setLayoutX(healthBarViewPlayer.getLayoutX() + x);
+        levelPlayer.setLayoutY(healthBarViewPlayer.getLayoutY() + y);
+    }
+
 
     public void loadEntity(){
         Main.player.getEntityView().setViewport(new Rectangle2D(0,0,FRAME_WIDTH,FRAME_HEIGHT));
         Main.player.getEntityView().setSmooth(false);
     }
+
+    public void loadHealthBar(Rectangle healthBar, ImageView healthBarView, Entity entity){
+        loadHealthBarImage();
+        healthBarView.setImage(imageHealthBar);
+        healthBar.setWidth(entity.getHealth().getHealthPercentage() * 130);
+        changeColorHealthBar(entity, healthBar);
+        healthBar.setLayoutX(healthBarView.getLayoutX() + 50);
+        healthBar.setLayoutY(healthBarView.getLayoutY() + 113);
+        healthBarView.setSmooth(false);
+    }
+    public void loadHealthBarImage(){
+        imageHealthBar = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/healthBarPlayer.png")));
+    }
+    public void changeColorHealthBar(Entity entity, Rectangle healthBar){
+        if(entity.getHealth().getHealthPercentage() > 0.60){
+            healthBar.setFill(Color.GREEN);
+        }else if(entity.getHealth().getHealthPercentage() <= 0.60 && entity.getHealth().getHealthPercentage() >= 0.30){
+            healthBar.setFill(Color.ORANGE);
+        }else {
+            healthBar.setFill(Color.RED);
+        }
+    }
+    public void loadExperienceBar(Rectangle experienceBar, ImageView healthBar, Entity entity){
+        experienceBar.setWidth(entity.getExperiencePercentage() * 85);
+        experienceBar.setLayoutX(healthBar.getLayoutX() + 45);
+        experienceBar.setLayoutY(healthBar.getLayoutY() + 122);
+    }
+    private void loadInventory(){
+        InventoryController.loadInventory();
+        InventoryController.setSlotPotions(slotPotionLV1View);
+        InventoryController.setSlotPotions(slotPotionLV2View);
+        InventoryController.setSlotPotions(slotPotionLV3View);
+        InventoryController.setPotionsView(potionLV1View, InventoryController.noPotionLV1);
+        InventoryController.setPotionsView(potionLV2View, InventoryController.noPotionLV2);
+        InventoryController.setPotionsView(potionLV3View, InventoryController.noPotionLV3);
+
+    }
+
+    public void setPotionObtained(){
+        loadPotionObtained(potionLV1View, amountLV1, 1);
+        loadPotionObtained(potionLV2View, amountLV2, 2);
+        loadPotionObtained(potionLV3View, amountLV3, 3);
+
+    }
+    public void loadPotionObtained(ImageView potionView, Text amount, int level){
+        if(Main.player.getInventory().getPotionAmount(level) > 0){
+            potionView.setImage(InventoryController.getPotionImages(level));
+            loadAmount(amount, Main.player.getInventory().getPotionAmount(level));
+        }else{
+            loadAmount(amount, 0);
+        }
+    }
+    public void loadAmount(Text text, int amount){
+        text.setText("" + amount);
+    }
+
+
+
+    public void loadButtonImages() {
+        imageBtnAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/btnAttack.png")));
+        imageBtnRun = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/btnRun.png")));
+    }
+    public void loadButtonDisabled() {
+        imageBtnAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/btnAttackDisabled.png")));
+        imageBtnRun = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/btnRunDisabled.png")));
+    }
+    public void loadButtons(){
+        btnAttack.setImage(imageBtnAttack);
+        btnAttack.setSmooth(false);
+        btnRun.setImage(imageBtnRun);
+        btnRun.setSmooth(false);
+    }
+
+    public void loadBackground(String nameMap){;
+        backgroundView.setImage(loadBackgroundImage(nameMap));
+        backgroundView.setSmooth(false);
+    }
+
+    public Image loadBackgroundImage(String backgroundName){
+        return  new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/mapImages/" + backgroundName)));
+    }
+
+
+
+
+
+    public void loadOrcImages(Orc orc){
+        String orcName = switch (orc.getLevel()) {
+            case 1 -> "armored";
+            case 2 -> "elite";
+            case 3 -> "rider";
+            default -> "";
+        };
+        imageOrc = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcImages/" + orcName + "Orc.png")));
+        imageOrcAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcImages/" + orcName + "OrcAttack.png")));
+    }
+    public void setLevelOrc(){
+        switch (Main.orcEncountered.getLevel()) {
+            case 1 -> loadLevelPlayer(level1Player, 138, 122);
+            case 2 -> {
+                loadLevelOrc(level1Player, 138, 122);
+                loadLevelOrc(level2Player, 154, 122);
+            }
+            case 3 -> {
+                loadLevelOrc(level1Player, 138, 122);
+                loadLevelOrc(level2Player, 154, 122);
+                loadLevelOrc(level3Player, 170, 122);
+            }
+        }
+    }
+    public void loadLevelOrc(Rectangle levelOrc, int x, int y){
+        levelOrc.setVisible(true);
+        levelOrc.setLayoutX(healthBarViewOrc.getLayoutX() + x);
+        levelOrc.setLayoutY(healthBarViewOrc.getLayoutY() + y);
+    }
+
 
     public void changeMap(Stage actualStage, String map){
         try{
@@ -69,203 +218,4 @@ public class LoaderController {
             System.err.println("Loading error of the " + map + " scene");
         }
     }
-
-    public void loadHealthBarPlayer(){
-        loadHealthBarImage();
-        healthBarViewPlayer.setImage(imageHealthBar);
-        healthBarPlayer.setWidth(Main.player.getHealthPercentage() * 130);
-
-        changeColorHealthBar(Main.player, healthBarPlayer);
-        healthBarPlayer.setLayoutX(healthBarViewPlayer.getLayoutX() + 50);
-        healthBarPlayer.setLayoutY(healthBarViewPlayer.getLayoutY() + 113);
-
-        healthBarViewPlayer.setSmooth(false);
-    }
-    public void loadExperienceBarPlayer(){
-        experienceBarPlayer.setWidth(Main.player.getExperiencePercentage() * 85);
-        experienceBarPlayer.setLayoutX(healthBarViewPlayer.getLayoutX() + 45);
-        experienceBarPlayer.setLayoutY(healthBarViewPlayer.getLayoutY() + 122);
-    }
-    public void loadLevelPlayer(){
-        if(Main.player.getLevel() == 1){
-            loadLevel1Player();
-            loadImagesKnightLV1();
-        }else if(Main.player.getLevel() == 2){
-            loadLevel2Player();
-            loadImagesKnightLV2();
-        }else{
-            loadLevel3Player();
-            loadImagesKnightLV3();
-        }
-    }
-    public void loadLevel1Player(){
-        level1Player.setVisible(true);
-        level1Player.setLayoutX(healthBarViewPlayer.getLayoutX() + 138);
-        level1Player.setLayoutY(healthBarViewPlayer.getLayoutY() + 122);
-    }
-    public void loadLevel2Player(){
-        loadLevel1Player();
-        level2Player.setVisible(true);
-        level2Player.setLayoutX(healthBarViewPlayer.getLayoutX() + 154);
-        level2Player.setLayoutY(healthBarViewPlayer.getLayoutY() + 122);
-    }
-    public void loadLevel3Player(){
-        loadLevel2Player();
-        level3Player.setVisible(true);
-        level3Player.setLayoutX(healthBarViewPlayer.getLayoutX() + 170);
-        level3Player.setLayoutY(healthBarViewPlayer.getLayoutY() + 122);
-    }
-    public void loadLevelOrc(){
-        if(Main.orcEncountered.getLevel() == 1){
-            loadLevel1Orc();
-        }else if(Main.orcEncountered.getLevel() == 2){
-            loadLevel2Orc();
-        }else{
-            loadLevel3Orc();
-        }
-    }
-    public void loadLevel1Orc(){
-        level1Orc.setVisible(true);
-        level1Orc.setLayoutX(healthBarViewOrc.getLayoutX() + 138);
-        level1Orc.setLayoutY(healthBarViewOrc.getLayoutY() + 122);
-    }
-    public void loadLevel2Orc(){
-        loadLevel1Orc();
-        level2Orc.setVisible(true);
-        level2Orc.setLayoutX(healthBarViewOrc.getLayoutX() + 154);
-        level2Orc.setLayoutY(healthBarViewOrc.getLayoutY() + 122);
-    }
-    public void loadLevel3Orc(){
-        loadLevel2Orc();
-        level3Orc.setVisible(true);
-        level3Orc.setLayoutX(healthBarViewOrc.getLayoutX() + 170);
-        level3Orc.setLayoutY(healthBarViewOrc.getLayoutY() + 122);
-    }
-    public void loadExperienceBarOrc(){
-        experienceBarOrc.setWidth(Main.orcEncountered.getExperiencePercentage() * 85);
-        experienceBarOrc.setLayoutX(healthBarViewOrc.getLayoutX() + 45);
-        experienceBarOrc.setLayoutY(healthBarViewOrc.getLayoutY() + 122);
-    }
-    public void loadHealthBarOrc(Orc orc){
-        loadHealthBarImage();
-        healthBarViewOrc.setImage(imageHealthBar);
-        healthBarOrc.setWidth(orc.getHealthPercentage() * 130);
-        changeColorHealthBar(orc, healthBarOrc);
-        healthBarOrc.setLayoutX(healthBarViewOrc.getLayoutX() + 50);
-        healthBarOrc.setLayoutY(healthBarViewOrc.getLayoutY() + 113);
-        healthBarViewOrc.setSmooth(false);
-    }
-    public void loadHealthBarImage(){
-        imageHealthBar = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/healthBarPlayer.png")));
-    }
-    public void changeColorHealthBar(Entity entity, Rectangle healthBar){
-        if(entity.getHealthPercentage() > 0.60){
-            healthBar.setFill(Color.GREEN);
-        }else if(entity.getHealthPercentage() <= 0.60 && entity.getHealthPercentage() >= 0.30){
-            healthBar.setFill(Color.ORANGE);
-        }else {
-            healthBar.setFill(Color.RED);
-        }
-    }
-    private void loadInventory(){
-        InventoryController.loadInventory();
-        InventoryController.setSlotPotions(slotPotionLV1View);
-        InventoryController.setSlotPotions(slotPotionLV2View);
-        InventoryController.setSlotPotions(slotPotionLV3View);
-        InventoryController.setPotionsView(potionLV1View, InventoryController.noPotionLV1);
-        InventoryController.setPotionsView(potionLV2View, InventoryController.noPotionLV2);
-        InventoryController.setPotionsView(potionLV3View, InventoryController.noPotionLV3);
-
-    }
-    public void setPotionObtained(){
-        loadAmount(amountLV1, 0);
-        loadAmount(amountLV2, 0);
-        loadAmount(amountLV3, 0);
-        if(!Main.player.getInventory().isEmpty()){
-            Main.player.getInventory().getPotions().forEach(potion -> {
-                switch (potion.getLevel()){
-                    case 1:
-                        potionLV1View.setImage(InventoryController.potionLV1);
-                        loadAmount(amountLV1, Main.player.getInventory().getPotionAmount(potion.getLevel()));
-                        break;
-                    case 2:
-                        potionLV2View.setImage(InventoryController.potionLV2);
-                        loadAmount(amountLV2, Main.player.getInventory().getPotionAmount(potion.getLevel()));
-                        break;
-                    case 3:
-                        potionLV3View.setImage(InventoryController.potionLV3);
-                        loadAmount(amountLV3, Main.player.getInventory().getPotionAmount(potion.getLevel()));
-                }
-            });
-        }
-    }
-
-    public void loadAmount(Text text, int amount){
-        text.setText("" + amount);
-    }
-
-    public void loadButtonImages() {
-        imageBtnAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/btnAttack.png")));
-        imageBtnRun = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/btnRun.png")));
-    }
-    public void loadButtonDisabled() {
-        imageBtnAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/btnAttackDisabled.png")));
-        imageBtnRun = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/btnRunDisabled.png")));
-    }
-
-    public void loadButtons(){
-        btnAttack.setImage(imageBtnAttack);
-        btnAttack.setSmooth(false);
-        btnRun.setImage(imageBtnRun);
-        btnRun.setSmooth(false);
-    }
-    public void loadImagesKnightLV1() {
-        imageRight = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/knightLV1Images/knightWalkRight.png")));
-        imageLeft = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/knightLV1Images/knightWalkLeft.png")));
-        imagePlayerAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/knightLV1Images/knightAttack.png")));
-
-    }
-    public void loadImagesKnightLV2() {
-        imageRight = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/knightLV2Images/templarKnightWalkRight.png")));
-        imageLeft = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/knightLV2Images/templarKnightWalkLeft.png")));
-        imagePlayerAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/knightLV2Images/templarKnightAttack.png")));
-
-    }
-    public void loadImagesKnightLV3() {
-        imageRight = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/knightLV3Images/lancerWalkRight.png")));
-        imageLeft = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/knightLV3Images/lancerWalkLeft.png")));
-        imagePlayerAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/knightLV3Images/lancerAttack.png")));
-
-    }
-    public void loadImagesOrc(int level){
-        if(level == 1){
-            imageOrc = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcLV1Images/armoredOrc.png")));
-        }else if(level == 2){
-            imageOrc = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcLV2Images/eliteOrc.png")));
-        }else{
-            imageOrc = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcLV3Images/riderOrc.png")));
-        }
-    }
-
-    public void loadOrcAttack(Orc orcEncountered){
-        switch (orcEncountered.getLevel()){
-            case 1:
-                imageOrcAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcLV1Images/armoredOrcAttack.png")));
-                break;
-            case 2:
-                imageOrcAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcLV2Images/eliteOrcAttack.png")));
-                break;
-            case 3:
-                imageOrcAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcLV3Images/riderOrcAttack.png")));
-        }
-    }
-    public void loadBackground(String nameMap){;
-        backgroundView.setImage(loadBackgroundImage(nameMap));
-        backgroundView.setSmooth(false);
-    }
-
-    public Image loadBackgroundImage(String backgroundName){
-        return  new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/mapImages/" + backgroundName)));
-    }
-
 }

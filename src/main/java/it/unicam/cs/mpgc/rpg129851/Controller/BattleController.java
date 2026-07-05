@@ -33,11 +33,11 @@ public class BattleController extends LoaderController {
         timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                loadHealthBarOrc(Main.orcEncountered);
-                loadExperienceBarOrc();
-                loadLevelOrc();
-                loadHealthBarPlayer();
-                loadExperienceBarPlayer();
+                loadHealthBar(healthBarOrc, healthBarViewOrc, Main.orcEncountered);
+                loadExperienceBar(experienceBarOrc, healthBarViewOrc, Main.orcEncountered);
+                setLevelOrc();
+                loadHealthBar(healthBarPlayer, healthBarViewPlayer, Main.player);
+                loadExperienceBar(experienceBarPlayer, healthBarViewPlayer, Main.player);
                 updateAnimation(now, Main.player);
                 updateAnimation(now, Main.orcEncountered);
                 updateAnimationOrc(now);
@@ -54,7 +54,7 @@ public class BattleController extends LoaderController {
         timer.start();
     }
 
-    public void attack() throws InterruptedException {
+    public void attack() {
         attack(Main.player, Main.orcEncountered);
         Main.player.setAttacking(true);
         Main.player.setActualFrame(0);
@@ -67,7 +67,7 @@ public class BattleController extends LoaderController {
     }
     private void attack(Entity attacker, Entity defender){
         int damage;
-        if(defender.getCurrentHp() <= 0){
+        if(defender.getHealth().getCurrentHealth() <= 0){
 
         }else {
             damage = attacker.attack(defender);
@@ -89,7 +89,8 @@ public class BattleController extends LoaderController {
                 ForestController.questCompletedControl();
                 System.out.println(entity.getName() + " ha droppato " + entity.getExperience() + " punti esperienza");
                 Main.player.earnExperience(entity.getExperience());
-                Main.player.addHp(20);
+                Main.player.getHealth().heal(20);
+                Main.player.setAttacking(false);
                 timer.stop();
                 changeMap((Stage)Main.player.getEntityView().getScene().getWindow(), "forest-view");
             }
@@ -115,7 +116,7 @@ public class BattleController extends LoaderController {
     }
 
     public void loadOrcEncountered(Orc orcEncountered){
-        loadOrcAttack(orcEncountered);
+        loadOrcImages(orcEncountered);
         Main.orcEncountered.getEntityView().setScaleX(-1);
         Main.orcEncountered.getEntityView().setImage(imageOrcAttack);
         Main.orcEncountered.getEntityView().setViewport(new Rectangle2D(0, 0, FRAME_WIDTH, FRAME_HEIGHT));
@@ -178,19 +179,21 @@ public class BattleController extends LoaderController {
     }
     @FXML
     private void potionUsed(){
-        if(!(Main.player.getCurrentHp() == Main.player.getMaxHp()) && !Main.player.isAttacking() && !Main.orcEncountered.isAttacking() && !potionsCooldown){
+        if(!(Main.player.getHealth().getCurrentHealth() == Main.player.getHealth().getMaxHealth()) && !Main.player.isAttacking() && !Main.orcEncountered.isAttacking() && !potionsCooldown){
             potionSelected(potionLV1View, 1, InventoryController.noPotionLV1);
             potionSelected(potionLV2View, 2, InventoryController.noPotionLV2);
             potionSelected(potionLV3View, 3, InventoryController.noPotionLV3);
-            attack(Main.orcEncountered, Main.player);
-            Main.orcEncountered.setAttacking(true);
-            cooldownActivation(btnRun, btnAttack, 1.5);
+
         }
     }
     private void potionSelected(ImageView potionView, int level, Image potionImage) {
         if (potionView.isPressed()) {
-            if (Main.player.getInventory().getPotionAmount(level) >= 1)
+            if (Main.player.getInventory().getPotionAmount(level) >= 1) {
                 Main.player.usePotion(level);
+                attack(Main.orcEncountered, Main.player);
+                Main.orcEncountered.setAttacking(true);
+                cooldownActivation(btnRun, btnAttack, 1.5);
+            }
             if (Main.player.getInventory().getPotionAmount(level) == 0)
                 InventoryController.setPotionsView(potionView, potionImage);
         }
