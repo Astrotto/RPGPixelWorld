@@ -2,20 +2,35 @@ package it.unicam.cs.mpgc.rpg129851.Model;
 
 import it.unicam.cs.mpgc.rpg129851.Launch.Main;
 import javafx.geometry.Bounds;
+import javafx.scene.image.ImageView;
+
 import java.util.Random;
 
 public abstract class Entity {
-    String name;
-    int hp, maxHp;
+    private String name;
+    private int hp, maxHp;
     int strength, defense, level, experience;
     public int maxExperience = 100;
+    private long lastChangeFrame;
+    private int actualFrame;
+    private boolean isAttacking;
+    private ImageView entityView;
+
     public Entity(String name, int experience) {
-        if(name == null ||  experience < 0) {
+        if(name == null || experience < 0) {
             throw new IllegalArgumentException("Entity invalid");
         }else{
             this.name = name;
             this.experience = experience;
+            this.actualFrame = 0;
+            this.lastChangeFrame = 0;
         }
+    }
+    public ImageView getEntityView() {
+        return this.entityView;
+    }
+    public void setEntityView(ImageView entityView) {
+        this.entityView = entityView;
     }
     public abstract Bounds getHitbox(double x, double y);
     public void takeDamage(int damage) {
@@ -71,11 +86,30 @@ public abstract class Entity {
     public void setDefense(int defense) {this.defense = defense;}
     public int getExperience() {return this.experience;}
     public void setExperience(int experience) {this.experience = experience;}
-    public double getExperiencePercentage(){return (double) getExperience() / this.maxExperience;}
+    public double getExperiencePercentage(){return (double) getExperience() / this.getMaxExp();}
     public boolean isAlive() {
         return this.hp > 0;
     }
     public int getMaxExp(){
         return maxExperience;
+    }
+
+    public boolean isAttacking(){
+        return isAttacking;
+    }
+    public void setAttacking(boolean attacking){
+        isAttacking = attacking;
+    }
+    public long getLastChangeFrame() {
+        return lastChangeFrame;
+    }
+    public void setLastChangeFrame(long  lastChangeFrame) {
+        this.lastChangeFrame = lastChangeFrame;
+    }
+    public int getActualFrame() {
+        return actualFrame;
+    }
+    public void setActualFrame(int actualFrame) {
+        this.actualFrame = actualFrame;
     }
 }

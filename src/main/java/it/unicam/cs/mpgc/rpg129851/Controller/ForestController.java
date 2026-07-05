@@ -18,7 +18,7 @@ import java.util.*;
 
 public class ForestController extends EntityController {
     @FXML
-    private ImageView exclamation, orcView;
+    private ImageView exclamation;
     @FXML
     private Pane orcSpawn;
     @FXML
@@ -28,7 +28,7 @@ public class ForestController extends EntityController {
             leftExit, rightExit, upExit, downExit,
             spawnLeftDownCorner, spawnLeftUpCorner, spawnRightUpCorner, spawnRightDownCorner;
     private Bounds rightExitHitbox, leftExitHitbox, upExitHitbox, downExitHitbox;
-    private static boolean questReceived = false, questSolved = false;
+    private static boolean questReceived = false;
     private static int howMuch;
 
     public void initialize() {
@@ -55,7 +55,7 @@ public class ForestController extends EntityController {
             fadeOut.setFromValue(0.0);
             fadeOut.setToValue(1.0);
             fadeOut.setOnFinished(event -> {
-                changeMap((Stage)playerView.getScene().getWindow(), "map-view");
+                changeMap((Stage)Main.player.getEntityView().getScene().getWindow(), "map-view");
                 setSpawnPoint(x - 40, y - 40);
             });
             fadeOut.play();
@@ -79,30 +79,30 @@ public class ForestController extends EntityController {
 
         for (int i = 0; i < numeroOrchi; i++) {
             Orc orc = generateOrc();
-            orcView = new ImageView(imageOrc);
-            orcView.setViewport(new Rectangle2D(0, 0 , 100, 100));
-            Main.orcs.put(orc, orcView);
+            orc.setEntityView(new ImageView(imageOrc));
+            orc.getEntityView().setViewport(new Rectangle2D(0, 0 , 100, 100));
+            Main.orcs.add(orc);
 
-            orcView.setFitWidth(260);
-            orcView.setFitHeight(260);
-            orcView.setPreserveRatio(true);
+            orc.getEntityView().setFitWidth(260);
+            orc.getEntityView().setFitHeight(260);
+            orc.getEntityView().setPreserveRatio(true);
 
             //orcView.setVisible(false);
 
-            orcView.setLayoutX(setXOrc(spawnCorner));
-            orcView.setLayoutY(setYOrc(spawnCorner));
+            orc.getEntityView().setLayoutX(setXOrc(spawnCorner, orc.getEntityView()));
+            orc.getEntityView().setLayoutY(setYOrc(spawnCorner, orc.getEntityView()));
 
-            orcSpawn.getChildren().add(orcView);
+            orcSpawn.getChildren().add(orc.getEntityView());
         }
     }
-    private double setYOrc(Rectangle spawnCorner){
+    private double setYOrc(Rectangle spawnCorner, ImageView orcView){
         Random rand = new Random();
         double orcHeight = orcView.getBoundsInParent().getHeight();
         double minY = spawnCorner.getLayoutY();
         double maxY = minY + spawnCorner.getHeight() - orcHeight;
         return minY + (maxY - minY) * rand.nextDouble();
     }
-    private double setXOrc(Rectangle spawnCorner){
+    private double setXOrc(Rectangle spawnCorner, ImageView orcView){
         Random rand = new Random();
         double orcWidth = orcView.getBoundsInParent().getWidth();
         double minX = spawnCorner.getLayoutX();
@@ -127,13 +127,13 @@ public class ForestController extends EntityController {
 
         return orc;
     }
-    private void orcCollisionDetection(Map<Orc, ImageView> orcMap){
-        Bounds hitboxPlayer = Main.player.getHitbox(playerView.getLayoutX() + 70, playerView.getLayoutY() + 55);
-        orcMap.forEach((orc, orcView) -> {
-            Bounds hitboxOrc = orc.getHitbox(orcView.getLayoutX() + 70, orcView.getLayoutY() + 55);
+    private void orcCollisionDetection(List<Orc> orcList){
+        Bounds hitboxPlayer = Main.player.getHitbox(Main.player.getEntityView().getLayoutX() + 70, Main.player.getEntityView().getLayoutY() + 55);
+        orcList.forEach((orc) -> {
+            Bounds hitboxOrc = orc.getHitbox(orc.getEntityView().getLayoutX() + 70, orc.getEntityView().getLayoutY() + 55);
             if(hitboxPlayer.intersects(hitboxOrc)) {
                 Main.setOrcEncountered(orc);
-                encounterEntity(orcView);
+                encounterEntity(orc.getEntityView());
             }
         });
     }
@@ -153,12 +153,12 @@ public class ForestController extends EntityController {
 
     private void startBattle() {
         exclamation.setVisible(false);
-        changeMap((Stage)playerView.getScene().getWindow(), "battle-view");
+        changeMap((Stage)Main.player.getEntityView().getScene().getWindow(), "battle-view");
     }
     private void loadExclamation(){
         loadExclamationImage();
-        exclamation.setX(playerView.getLayoutX() + 90);
-        exclamation.setY(playerView.getLayoutY() + 55);
+        exclamation.setX(Main.player.getEntityView().getLayoutX() + 90);
+        exclamation.setY(Main.player.getEntityView().getLayoutY() + 55);
         exclamation.setRotate(5);
         exclamation.setImage(imageExclamation);
     }
@@ -166,7 +166,7 @@ public class ForestController extends EntityController {
         imageExclamation = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/exclamation.png")));
     }
     private void meetForestSpirit(){
-        Bounds hitboxPlayer = Main.player.getHitbox(playerView.getLayoutX() + 70, playerView.getLayoutY() + 55);
+        Bounds hitboxPlayer = Main.player.getHitbox(Main.player.getEntityView().getLayoutX() + 70, Main.player.getEntityView().getLayoutY() + 55);
         Bounds hitboxForestSpirit = forestSpirit.getBoundsInParent();
         if(hitboxPlayer.intersects(hitboxForestSpirit)) {
             if(!questReceived){
@@ -183,7 +183,6 @@ public class ForestController extends EntityController {
                 if(howMuch < 1) {
                     System.out.println("Hai completato la quest");
                     Main.player.addPotion(Main.guardian.getPotionReward(Main.guardian.getQuestReceived().getPotionRewardLevel()));
-                    questSolved = true;
                     questReceived = false;
                 }
             }

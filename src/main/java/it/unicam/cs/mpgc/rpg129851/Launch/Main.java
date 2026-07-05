@@ -8,12 +8,13 @@ import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+
+import java.util.List;
 
 public class Main extends Application {
     public static Player player = new Player(3, 0, 2);
-    public static Map<Orc, ImageView> orcs = new HashMap<>();
+    public static List<Orc> orcs = new ArrayList<Orc>();
     public static Orc orcEncountered;
     public static ForestSpirit guardian = new ForestSpirit();
 
@@ -24,7 +25,7 @@ public class Main extends Application {
         Parent root = loader.load();
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("My RPG");
+        primaryStage.setTitle("PixelWorld");
         primaryStage.show();
         root.requestFocus();
     }

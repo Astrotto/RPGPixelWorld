@@ -3,13 +3,13 @@ package it.unicam.cs.mpgc.rpg129851.Model;
 import it.unicam.cs.mpgc.rpg129851.Interfaces.EntityHitbox;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
+import javafx.scene.image.ImageView;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class Player extends Entity implements EntityHitbox {
     private final double speed;
     private Inventory inventory;
+
     public Player(int level, int experience, double speed) {
         super("Player" , experience);
         if(speed == 0 || level <= 0 || level > 3) {
@@ -21,6 +21,7 @@ public class Player extends Entity implements EntityHitbox {
             updateStats(level);
         }
     }
+
     public Bounds getHitbox(double x, double y) {
         return new BoundingBox(x + 15, y + 21, 14, 20);
     }
@@ -72,4 +73,5 @@ public class Player extends Entity implements EntityHitbox {
     public Inventory getInventory() {
         return inventory;
     }
+
 }

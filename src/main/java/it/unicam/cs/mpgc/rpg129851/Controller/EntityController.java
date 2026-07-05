@@ -7,19 +7,14 @@ import javafx.geometry.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
-
 import java.util.HashSet;
 import java.util.Set;
 
 public class EntityController extends LoaderController {
-
     public final Set<KeyCode> keyPressed = new HashSet<>();
     public boolean moving = false;
     public double newX, newY;
-    public Pane gameWorld;
     public AnimationTimer timer;
-    private long lastChangeFrame = 0;
-    private int actualFrame = 0;
     public static double spawnX = -1;
     public static double spawnY = -1;
 
@@ -32,29 +27,29 @@ public class EntityController extends LoaderController {
                 setPotionObtained();
                 loadAnimation(now);
                 if(spawnX != -1 || spawnY != -1) {
-                    playerView.setLayoutX(spawnX);
-                    playerView.setLayoutY(spawnY);
+                    Main.player.getEntityView().setLayoutX(spawnX);
+                    Main.player.getEntityView().setLayoutY(spawnY);
                     spawnX = -1;
                     spawnY = -1;
                 }
             }
         };
-        playerView.setImage(imageLeft);
+        Main.player.getEntityView().setImage(imageLeft);
         timer.start();
     }
     public void loadAnimation(long actualHour) {
         if(!moving){
-            playerView.setViewport(new Rectangle2D(0,0,FRAME_WIDTH,FRAME_HEIGHT));
-        }else if(actualHour - lastChangeFrame > 100_000_000){
-            actualFrame = (actualFrame + 1) % 8;
-            double xMovement = actualFrame * FRAME_WIDTH;
-            playerView.setViewport(new Rectangle2D(xMovement, 0, FRAME_WIDTH, FRAME_HEIGHT));
-            lastChangeFrame = actualHour;
+            Main.player.getEntityView().setViewport(new Rectangle2D(0,0,FRAME_WIDTH,FRAME_HEIGHT));
+        }else if(actualHour - Main.player.getLastChangeFrame() > 100_000_000){
+            Main.player.setActualFrame((Main.player.getActualFrame() + 1) % 8);
+            double xMovement = Main.player.getActualFrame() * FRAME_WIDTH;
+            Main.player.getEntityView().setViewport(new Rectangle2D(xMovement, 0, FRAME_WIDTH, FRAME_HEIGHT));
+            Main.player.setLastChangeFrame(actualHour);
         }
     }
     public void updateLocation() {
-        newX = playerView.getLayoutX();
-        newY = playerView.getLayoutY();
+        newX = Main.player.getEntityView().getLayoutX();
+        newY = Main.player.getEntityView().getLayoutY();
         moving = false;
         double oldY = newY;
 
@@ -73,21 +68,21 @@ public class EntityController extends LoaderController {
             collisionDetection(graveyard, newX, newY, oldY);
     }
     private void collisionDetection(Pane obstacle, double x, double y) {
-        if(x > obstacle.getWidth() - playerView.getViewport().getWidth()) {
-            newX = obstacle.getWidth() - playerView.getViewport().getWidth();
+        if(x > obstacle.getWidth() - Main.player.getEntityView().getViewport().getWidth()) {
+            newX = obstacle.getWidth() - Main.player.getEntityView().getViewport().getWidth();
         }
-        if(y > obstacle.getHeight() - playerView.getViewport().getHeight()){
-            newY = obstacle.getHeight() - playerView.getViewport().getHeight();
+        if(y > obstacle.getHeight() - Main.player.getEntityView().getViewport().getHeight()){
+            newY = obstacle.getHeight() - Main.player.getEntityView().getViewport().getHeight();
         }
     }
     public void collisionDetection(Rectangle obstacle, double x, double y, double oldY) {
         Bounds hitbox = obstacle.getBoundsInParent();
 
         if(!Main.player.getHitbox(newX + 70, oldY + 55).intersects(hitbox)) {
-            playerView.setLayoutX(newX);
+            Main.player.getEntityView().setLayoutX(newX);
         }
-        if(!Main.player.getHitbox(playerView.getLayoutX() + 70, newY + 55).intersects(hitbox)) {
-            playerView.setLayoutY(newY);
+        if(!Main.player.getHitbox(Main.player.getEntityView().getLayoutX() + 70, newY + 55).intersects(hitbox)) {
+            Main.player.getEntityView().setLayoutY(newY);
         }
     }
 
@@ -107,10 +102,10 @@ public class EntityController extends LoaderController {
         if (keyPressed.contains(keyCode)  || keyPressed.contains(keyCode2)){
             if(keyCode == KeyCode.A || keyCode == KeyCode.LEFT){
                 newX -= Main.player.getSpeed();
-                playerView.setImage(imageLeft);
+                Main.player.getEntityView().setImage(imageLeft);
             }else if(keyCode == KeyCode.D || keyCode == KeyCode.RIGHT){
                 newX += Main.player.getSpeed();
-                playerView.setImage(imageRight);
+                Main.player.getEntityView().setImage(imageRight);
             }
             moving = true;
         }

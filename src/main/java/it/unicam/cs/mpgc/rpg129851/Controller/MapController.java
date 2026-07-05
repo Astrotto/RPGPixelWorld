@@ -23,7 +23,7 @@ public class MapController extends EntityController {
         collisionDetectionForest();
     }
     private void collisionDetectionForest(){
-        Bounds hitboxPlayer = Main.player.getHitbox(playerView.getLayoutX() + 70, playerView.getLayoutY() + 55);
+        Bounds hitboxPlayer = Main.player.getHitbox(Main.player.getEntityView().getLayoutX() + 70, Main.player.getEntityView().getLayoutY() + 55);
         Bounds hitboxForest = forest.getBoundsInParent();
         if(hitboxPlayer.intersects(hitboxForest)){
             keyPressed.clear();
@@ -38,7 +38,7 @@ public class MapController extends EntityController {
         }
     }
     private void joinForest(){
-        changeMap((Stage)playerView.getScene().getWindow(), "forest-view");
+        changeMap((Stage)Main.player.getEntityView().getScene().getWindow(), "forest-view");
     }
 
     private void loadHitboxHome(){

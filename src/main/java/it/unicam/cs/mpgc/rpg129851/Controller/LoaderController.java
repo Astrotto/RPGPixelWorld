@@ -3,6 +3,7 @@ package it.unicam.cs.mpgc.rpg129851.Controller;
 import it.unicam.cs.mpgc.rpg129851.Launch.Main;
 import it.unicam.cs.mpgc.rpg129851.Model.Entity;
 import it.unicam.cs.mpgc.rpg129851.Model.Orc;
+import it.unicam.cs.mpgc.rpg129851.Model.Player;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -10,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -21,25 +23,27 @@ public class LoaderController {
 
     @FXML
     public Rectangle forest, home, graveyard,
-            healthBarPlayer, healthBarOrc,
-            experienceBarPlayer, experienceBarOrc,
-            level1Player, level2Player, level3Player,
-            level1Orc, level2Orc, level3Orc;
+                     healthBarPlayer, healthBarOrc,
+                     experienceBarPlayer, experienceBarOrc,
+                     level1Player, level2Player, level3Player,
+                     level1Orc, level2Orc, level3Orc;
     @FXML
     public Image imageLeft, imageRight, imageOrc,
                  imageExclamation, imageHealthBar,
                  imageOrcAttack, imagePlayerAttack,
                  imageBtnAttack, imageBtnRun;
     @FXML
-    public ImageView playerView, healthBarViewPlayer, backgroundView, healthBarViewOrc,
+    public ImageView playerView, orcView, healthBarViewPlayer, backgroundView, healthBarViewOrc,
                      slotPotionLV1View, slotPotionLV2View, slotPotionLV3View,
                      potionLV1View, potionLV2View, potionLV3View,
                      btnAttack, btnRun;
     public Text amountLV1, amountLV2, amountLV3;
+    public Pane gameWorld;
     public final int FRAME_WIDTH = 100;
     public final int FRAME_HEIGHT = 100;
 
     public void initialize() {
+        Main.player.setEntityView(playerView);
         loadLevelPlayer();
         loadEntity();
         loadHealthBarPlayer();
@@ -48,8 +52,8 @@ public class LoaderController {
     }
 
     public void loadEntity(){
-        playerView.setViewport(new Rectangle2D(0,0,FRAME_WIDTH,FRAME_HEIGHT));
-        playerView.setSmooth(false);
+        Main.player.getEntityView().setViewport(new Rectangle2D(0,0,FRAME_WIDTH,FRAME_HEIGHT));
+        Main.player.getEntityView().setSmooth(false);
     }
 
     public void changeMap(Stage actualStage, String map){
@@ -174,6 +178,9 @@ public class LoaderController {
 
     }
     public void setPotionObtained(){
+        loadAmount(amountLV1, 0);
+        loadAmount(amountLV2, 0);
+        loadAmount(amountLV3, 0);
         if(!Main.player.getInventory().isEmpty()){
             Main.player.getInventory().getPotions().forEach(potion -> {
                 switch (potion.getLevel()){
@@ -190,10 +197,6 @@ public class LoaderController {
                         loadAmount(amountLV3, Main.player.getInventory().getPotionAmount(potion.getLevel()));
                 }
             });
-        }else{
-            loadAmount(amountLV1, 0);
-            loadAmount(amountLV2, 0);
-            loadAmount(amountLV3, 0);
         }
     }
 
