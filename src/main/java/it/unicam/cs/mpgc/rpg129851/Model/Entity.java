@@ -8,23 +8,23 @@ import java.util.Random;
 
 public abstract class Entity {
     private String name;
-    int strength, defense, level, experience;
-    public int maxExperience = 100;
+    int strength, defense;
     private long lastChangeFrame;
     private int actualFrame;
     private boolean isAttacking;
     private Health health;
+    private Experience experience;
     private ImageView entityView;
 
-    public Entity(String name, int experience) {
+    public Entity(String name, int experience, int level) {
         if(name == null || experience < 0) {
             throw new IllegalArgumentException("Entity invalid");
         }else{
             this.name = name;
-            this.experience = experience;
             this.actualFrame = 0;
             this.lastChangeFrame = 0;
             this.health = new Health();
+            this.experience = new Experience(level, experience);
         }
     }
     public ImageView getEntityView() {
@@ -49,12 +49,11 @@ public abstract class Entity {
     }
     public abstract void updateStats(int level);
     public void setStats(int maxHp, int hp, int strength, int defense) {
-        this.health.setCurrentHealth(hp);
-        this.health.setMaxHealth(maxHp);
+        this.health.setCurrentStats(hp);
+        this.health.setMaxStats(maxHp);
         setStrength(strength);
         setDefense(defense);
     }
-    public int getLevel(){return this.level;}
     public String getName() {
         return this.name;
     }
@@ -66,13 +65,9 @@ public abstract class Entity {
         return this.defense;
     }
     public void setDefense(int defense) {this.defense = defense;}
-    public int getExperience() {return this.experience;}
-    public void setExperience(int experience) {this.experience = experience;}
-    public double getExperiencePercentage(){return (double) getExperience() / this.getMaxExp();}
     public boolean isAlive() {
-        return this.health.getCurrentHealth() > 0;
+        return this.health.getCurrentStats() > 0;
     }
-    public int getMaxExp(){ return maxExperience; }
 
     public boolean isAttacking(){
         return isAttacking;
@@ -94,5 +89,8 @@ public abstract class Entity {
     }
     public Health getHealth() {
         return health;
+    }
+    public Experience getExperience() {
+        return experience;
     }
 }

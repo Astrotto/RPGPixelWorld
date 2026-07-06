@@ -11,7 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -45,16 +44,16 @@ public class LoaderController {
         Main.player.setEntityView(playerView);
         Main.setProgressBar(Main.playerBar, healthBarViewPlayer, healthBarPlayer);
         Main.playerBar.loadHealthBar();
-        setLevelPlayer();
+        showLevelPlayer();
         loadEntity();
         loadExperienceBar(experienceBarPlayer, healthBarViewPlayer, Main.player);
         loadInventory();
     }
 
 
-    public void setLevelPlayer(){
+    public void showLevelPlayer(){
         loadPlayerImages();
-        switch (Main.player.getLevel()) {
+        switch (Main.player.getExperience().getLevel()) {
             case 1 -> loadLevelPlayer(level1Player, 138, 122);
             case 2 -> {
                 loadLevelPlayer(level1Player, 138, 122);
@@ -68,7 +67,7 @@ public class LoaderController {
         }
     }
     public void loadPlayerImages(){
-        String playerName = switch (Main.player.getLevel()) {
+        String playerName = switch (Main.player.getExperience().getLevel()) {
             case 1 -> "knight";
             case 2 -> "templarKnight";
             case 3 -> "lancer";
@@ -92,7 +91,7 @@ public class LoaderController {
 
 
     public void loadExperienceBar(Rectangle experienceBar, ImageView healthBar, Entity entity){
-        experienceBar.setWidth(entity.getExperiencePercentage() * 85);
+        experienceBar.setWidth(entity.getExperience().getStatsPercentage() * 85);
         experienceBar.setLayoutX(healthBar.getLayoutX() + 45);
         experienceBar.setLayoutY(healthBar.getLayoutY() + 122);
     }
@@ -155,7 +154,7 @@ public class LoaderController {
 
 
     public void loadOrcImages(Orc orc){
-        String orcName = switch (orc.getLevel()) {
+        String orcName = switch (orc.getExperience().getLevel()) {
             case 1 -> "armored";
             case 2 -> "elite";
             case 3 -> "rider";
@@ -165,7 +164,7 @@ public class LoaderController {
         imageOrcAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcImages/" + orcName + "OrcAttack.png")));
     }
     public void setLevelOrc(){
-        switch (Main.orcEncountered.getLevel()) {
+        switch (Main.orcEncountered.getExperience().getLevel()) {
             case 1 -> loadLevelPlayer(level1Player, 138, 122);
             case 2 -> {
                 loadLevelOrc(level1Player, 138, 122);

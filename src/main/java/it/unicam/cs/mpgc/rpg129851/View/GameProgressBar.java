@@ -11,13 +11,10 @@ import java.util.Objects;
 public class GameProgressBar {
     private ImageView progressBarView;
     private Rectangle progressBar;
-    private Image progressBarImage;
-    private Entity entity;
+    private final Entity entity;
 
     public GameProgressBar(Entity entity) {
-
-            this.entity = entity;
-
+        this.entity = entity;
     }
     public ImageView getProgressBarView() {
         return this.progressBarView;
@@ -33,7 +30,7 @@ public class GameProgressBar {
     }
     public void loadHealthBar(){
         this.getProgressBarView().setImage(this.getProgressBarImage());
-        this.getProgressBar().setWidth(entity.getHealth().getHealthPercentage() * 130);
+        this.getProgressBar().setWidth(entity.getHealth().getStatsPercentage() * 130);
         changeColorHealthBar();
         this.getProgressBar().setLayoutX(this.getProgressBarView().getLayoutX() + 50);
         this.getProgressBar().setLayoutY(this.getProgressBarView().getLayoutY() + 113);
@@ -43,9 +40,9 @@ public class GameProgressBar {
         return new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/healthBarPlayer.png")));
     }
     public void changeColorHealthBar(){
-        if(entity.getHealth().getHealthPercentage() > 0.60){
+        if(entity.getHealth().getStatsPercentage() > 0.60){
             this.getProgressBar().setFill(Color.GREEN);
-        }else if(entity.getHealth().getHealthPercentage() <= 0.60 && entity.getHealth().getHealthPercentage() >= 0.30){
+        }else if(entity.getHealth().getStatsPercentage() <= 0.60 && entity.getHealth().getStatsPercentage() >= 0.30){
             this.getProgressBar().setFill(Color.ORANGE);
         }else {
             this.getProgressBar().setFill(Color.RED);

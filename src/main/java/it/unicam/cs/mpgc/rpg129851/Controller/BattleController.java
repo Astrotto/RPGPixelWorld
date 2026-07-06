@@ -68,15 +68,15 @@ public class BattleController extends LoaderController {
     }
     private void attack(Entity attacker, Entity defender){
         int damage;
-        if(defender.getHealth().getCurrentHealth() <= 0){
+        if(defender.getHealth().getCurrentStats() <= 0){
 
         }else {
             damage = attacker.attack(defender);
             if (Main.criticalHit) {
                 Main.criticalHit = false;
-                System.out.println(attacker.getName() + " di LVL" + attacker.getLevel() + " ha inflitto " + damage + " danni a " + defender.getName() + " con un COLPO CRITICO!");
+                System.out.println(attacker.getName() + " di LVL" + attacker.getExperience().getLevel() + " ha inflitto " + damage + " danni a " + defender.getName() + " con un COLPO CRITICO!");
             } else {
-                System.out.println(attacker.getName()  + " di LVL" + attacker.getLevel() + " ha inflitto " + damage + " danni a " + defender.getName());
+                System.out.println(attacker.getName()  + " di LVL" + attacker.getExperience().getLevel() + " ha inflitto " + damage + " danni a " + defender.getName());
             }
         }
     }
@@ -89,7 +89,7 @@ public class BattleController extends LoaderController {
             if(entity instanceof Orc){
                 ForestController.questCompletedControl();
                 System.out.println(entity.getName() + " ha droppato " + entity.getExperience() + " punti esperienza");
-                Main.player.earnExperience(entity.getExperience());
+                Main.player.getExperience().earnExperience(entity.getExperience().getCurrentStats());
                 Main.player.getHealth().heal(20);
                 Main.player.setAttacking(false);
                 timer.stop();
@@ -180,7 +180,7 @@ public class BattleController extends LoaderController {
     }
     @FXML
     private void potionUsed(){
-        if(!(Main.player.getHealth().getCurrentHealth() == Main.player.getHealth().getMaxHealth()) && !Main.player.isAttacking() && !Main.orcEncountered.isAttacking() && !potionsCooldown){
+        if(!(Main.player.getHealth().getCurrentStats() == Main.player.getHealth().getMaxStats()) && !Main.player.isAttacking() && !Main.orcEncountered.isAttacking() && !potionsCooldown){
             potionSelected(potionLV1View, 1, InventoryController.noPotionLV1);
             potionSelected(potionLV2View, 2, InventoryController.noPotionLV2);
             potionSelected(potionLV3View, 3, InventoryController.noPotionLV3);
