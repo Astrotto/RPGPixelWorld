@@ -1,11 +1,13 @@
  package it.unicam.cs.mpgc.rpg129851.Launch;
 
 import it.unicam.cs.mpgc.rpg129851.Model.*;
+import it.unicam.cs.mpgc.rpg129851.View.GameProgressBar;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,6 +19,8 @@ public class Main extends Application {
     public static List<Orc> orcs = new ArrayList<Orc>();
     public static Orc orcEncountered;
     public static ForestSpirit guardian = new ForestSpirit();
+    public static GameProgressBar playerBar = new GameProgressBar(player);
+    public static GameProgressBar orcBar;
 
     public static boolean criticalHit = false;
     @Override
@@ -31,6 +35,11 @@ public class Main extends Application {
     }
     public static void setOrcEncountered(Orc orc){
         orcEncountered = orc;
+        orcBar = new GameProgressBar(orcEncountered);
+    }
+    public static void setProgressBar(GameProgressBar entityProgressBar ,ImageView progressBarView, Rectangle progressBar){
+        entityProgressBar.setProgressBarView(progressBarView);
+        entityProgressBar.setProgressBar(progressBar);
     }
     public static void main(String[] args) {
         launch(args);

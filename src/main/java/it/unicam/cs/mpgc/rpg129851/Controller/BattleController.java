@@ -33,10 +33,10 @@ public class BattleController extends LoaderController {
         timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                loadHealthBar(healthBarOrc, healthBarViewOrc, Main.orcEncountered);
+                Main.orcBar.loadHealthBar();
                 loadExperienceBar(experienceBarOrc, healthBarViewOrc, Main.orcEncountered);
                 setLevelOrc();
-                loadHealthBar(healthBarPlayer, healthBarViewPlayer, Main.player);
+                Main.playerBar.loadHealthBar();
                 loadExperienceBar(experienceBarPlayer, healthBarViewPlayer, Main.player);
                 updateAnimation(now, Main.player);
                 updateAnimation(now, Main.orcEncountered);
@@ -48,6 +48,7 @@ public class BattleController extends LoaderController {
             }
         };
         Main.orcEncountered.setEntityView(orcView);
+        Main.setProgressBar(Main.orcBar, healthBarViewOrc, healthBarOrc);
         loadButtonImages();
         loadOrcEncountered(Main.orcEncountered);
         loadBackground();

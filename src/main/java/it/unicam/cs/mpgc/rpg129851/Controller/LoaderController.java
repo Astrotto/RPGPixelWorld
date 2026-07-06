@@ -43,9 +43,10 @@ public class LoaderController {
 
     public void initialize() {
         Main.player.setEntityView(playerView);
+        Main.setProgressBar(Main.playerBar, healthBarViewPlayer, healthBarPlayer);
+        Main.playerBar.loadHealthBar();
         setLevelPlayer();
         loadEntity();
-        loadHealthBar(healthBarPlayer, healthBarViewPlayer, Main.player);
         loadExperienceBar(experienceBarPlayer, healthBarViewPlayer, Main.player);
         loadInventory();
     }
@@ -79,8 +80,8 @@ public class LoaderController {
     }
     public void loadLevelPlayer(Rectangle levelPlayer, int x, int y){
         levelPlayer.setVisible(true);
-        levelPlayer.setLayoutX(healthBarViewPlayer.getLayoutX() + x);
-        levelPlayer.setLayoutY(healthBarViewPlayer.getLayoutY() + y);
+        levelPlayer.setLayoutX(Main.playerBar.getProgressBarView().getLayoutX() + x);
+        levelPlayer.setLayoutY(Main.playerBar.getProgressBarView().getLayoutY() + y);
     }
 
 
@@ -89,27 +90,7 @@ public class LoaderController {
         Main.player.getEntityView().setSmooth(false);
     }
 
-    public void loadHealthBar(Rectangle healthBar, ImageView healthBarView, Entity entity){
-        loadHealthBarImage();
-        healthBarView.setImage(imageHealthBar);
-        healthBar.setWidth(entity.getHealth().getHealthPercentage() * 130);
-        changeColorHealthBar(entity, healthBar);
-        healthBar.setLayoutX(healthBarView.getLayoutX() + 50);
-        healthBar.setLayoutY(healthBarView.getLayoutY() + 113);
-        healthBarView.setSmooth(false);
-    }
-    public void loadHealthBarImage(){
-        imageHealthBar = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/healthBarPlayer.png")));
-    }
-    public void changeColorHealthBar(Entity entity, Rectangle healthBar){
-        if(entity.getHealth().getHealthPercentage() > 0.60){
-            healthBar.setFill(Color.GREEN);
-        }else if(entity.getHealth().getHealthPercentage() <= 0.60 && entity.getHealth().getHealthPercentage() >= 0.30){
-            healthBar.setFill(Color.ORANGE);
-        }else {
-            healthBar.setFill(Color.RED);
-        }
-    }
+
     public void loadExperienceBar(Rectangle experienceBar, ImageView healthBar, Entity entity){
         experienceBar.setWidth(entity.getExperiencePercentage() * 85);
         experienceBar.setLayoutX(healthBar.getLayoutX() + 45);
@@ -143,7 +124,6 @@ public class LoaderController {
     public void loadAmount(Text text, int amount){
         text.setText("" + amount);
     }
-
 
 
     public void loadButtonImages() {
@@ -200,8 +180,8 @@ public class LoaderController {
     }
     public void loadLevelOrc(Rectangle levelOrc, int x, int y){
         levelOrc.setVisible(true);
-        levelOrc.setLayoutX(healthBarViewOrc.getLayoutX() + x);
-        levelOrc.setLayoutY(healthBarViewOrc.getLayoutY() + y);
+        levelOrc.setLayoutX(Main.orcBar.getProgressBarView().getLayoutX() + x);
+        levelOrc.setLayoutY(Main.orcBar.getProgressBarView().getLayoutY() + y);
     }
 
 

@@ -9,11 +9,7 @@ public class Health {
         return currentHealth;
     }
     public void setCurrentHealth(int currentHealth) {
-        if(currentHealth <= 0){
-            throw new IllegalArgumentException("Current health must be a positive integer");
-        }else{
-            this.currentHealth = currentHealth;
-        }
+        this.currentHealth = currentHealth;
     }
     public int getMaxHealth() {
         return maxHealth;
