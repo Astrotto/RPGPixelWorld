@@ -36,11 +36,11 @@ public class BattleController extends LoaderController {
             @Override
             public void handle(long now) {
                 orcHealthBar.showHealthBar();
-                //orcExperienceBar.showExperienceBar();
+                orcExperienceBar.showExperienceBar();
                 //loadExperienceBar(experienceBarOrc, healthBarViewOrc, orcEncountered);
                 //setLevelOrc();
                 playerHealthBar.showHealthBar();
-                //playerExperienceBar.showExperienceBar();
+                playerExperienceBar.showExperienceBar();
                 //loadExperienceBar(experienceBarPlayer, healthBarViewPlayer, player);
                 updateAnimation(now, player);
                 updateAnimation(now, orcEncountered);
@@ -52,7 +52,8 @@ public class BattleController extends LoaderController {
             }
         };
         orcEncountered.setEntityView(orcView);
-        orcHealthBar.setBar(healthBarViewOrc ,healthBarOrc);
+        orcHealthBar.setBar(progressBarViewOrc,healthBarOrc);
+        orcExperienceBar.setBar(progressBarViewOrc,experienceBarOrc);
         showLevel(orcEncountered, orcHealthBar, levelPane);
         loadButtonImages();
         loadOrcEncountered(orcEncountered);

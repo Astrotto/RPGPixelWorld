@@ -1,6 +1,7 @@
  package it.unicam.cs.mpgc.rpg129851.Launch;
 
 import it.unicam.cs.mpgc.rpg129851.Model.*;
+import it.unicam.cs.mpgc.rpg129851.View.ExperienceBar;
 import it.unicam.cs.mpgc.rpg129851.View.HealthBar;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,12 +16,16 @@ import java.util.List;
 
 public class Main extends Application {
 
-    public static Player player = new Player(3, 40, 2);
+    public static Player player = new Player(3, 20, 2);
     public static List<Orc> orcs = new ArrayList<>();
     public static Orc orcEncountered;
     public static ForestSpirit guardian = new ForestSpirit();
     public static HealthBar playerHealthBar = new HealthBar(player);
+    public static ExperienceBar playerExperienceBar = new ExperienceBar(player);
+
     public static HealthBar orcHealthBar;
+    public static ExperienceBar orcExperienceBar;
+
 
 
     public static boolean criticalHit = false;
@@ -37,6 +42,7 @@ public class Main extends Application {
     public static void setOrcEncountered(Orc orc){
         orcEncountered = orc;
         orcHealthBar = new HealthBar(orcEncountered);
+        orcExperienceBar = new ExperienceBar(orcEncountered);
     }
 
     public static void main(String[] args) {

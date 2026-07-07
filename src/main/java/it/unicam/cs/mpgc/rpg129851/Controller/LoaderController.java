@@ -32,7 +32,7 @@ public class LoaderController {
                  imageBtnAttack, imageBtnRun;
     @FXML
     public ImageView playerView, orcView,
-                     healthBarViewPlayer, healthBarViewOrc,
+                     progressBarViewPlayer, progressBarViewOrc,
                      experienceBarViewPlayer, experienceBarViewOrc,
                      backgroundView,
                      slotPotionLV1View, slotPotionLV2View, slotPotionLV3View,
@@ -45,9 +45,11 @@ public class LoaderController {
 
     public void initialize() {
         player.setEntityView(playerView);
-        playerHealthBar.setBar(healthBarViewPlayer ,healthBarPlayer);
+        playerHealthBar.setBar(progressBarViewPlayer, healthBarPlayer);
+        playerExperienceBar.setBar(progressBarViewPlayer, experienceBarPlayer);
 
         playerHealthBar.showHealthBar();
+        playerExperienceBar.showExperienceBar();
         loadPlayerImages();
         showLevel(player, playerHealthBar, levelPane);
         loadEntity();

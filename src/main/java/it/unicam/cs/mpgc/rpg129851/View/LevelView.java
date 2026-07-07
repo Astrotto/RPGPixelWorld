@@ -11,7 +11,8 @@ public class LevelView {
 
     public static void showLevel(Entity entity ,HealthBar healthBar, Pane levelPane){
         switch (entity.getExperience().getLevel()) {
-            case 1 -> loadLevel(healthBar, createLevel(levelPane), 138);
+            case 1 ->
+                loadLevel(healthBar, createLevel(levelPane), 138);
             case 2 -> {
                 loadLevel(healthBar, createLevel(levelPane), 138);
                 loadLevel(healthBar, createLevel(levelPane), 154);

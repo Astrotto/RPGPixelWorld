@@ -1,5 +1,6 @@
 package it.unicam.cs.mpgc.rpg129851.View;
 
+import it.unicam.cs.mpgc.rpg129851.Model.Attribute;
 import it.unicam.cs.mpgc.rpg129851.Model.Entity;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -40,9 +41,9 @@ public class GameProgressBar {
     public Image getProgressBarImage(){
         return new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/progressBarImage.png")));
     }
-    public void loadGameProgressBar(int length, int x, int y){
+    public void loadGameProgressBar(Attribute attribute , int length, int x, int y){
         this.getProgressBarView().setImage(this.getProgressBarImage());
-        this.getProgressBar().setWidth(this.getEntity().getHealth().getStatsPercentage() * length);
+        this.getProgressBar().setWidth(attribute.getStatsPercentage() * length);
         this.getProgressBar().setLayoutX(this.getProgressBarView().getLayoutX() + x);
         this.getProgressBar().setLayoutY(this.getProgressBarView().getLayoutY() + y);
         this.getProgressBarView().setSmooth(false);
