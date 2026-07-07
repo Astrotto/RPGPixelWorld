@@ -3,8 +3,6 @@ package it.unicam.cs.mpgc.rpg129851.Model;
 import it.unicam.cs.mpgc.rpg129851.Interfaces.EntityHitbox;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
-import javafx.scene.image.ImageView;
-
 import java.util.Random;
 
 public class Orc extends Entity implements EntityHitbox {

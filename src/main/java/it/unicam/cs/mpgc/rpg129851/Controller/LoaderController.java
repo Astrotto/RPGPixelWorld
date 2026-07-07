@@ -1,7 +1,7 @@
 package it.unicam.cs.mpgc.rpg129851.Controller;
 
-import it.unicam.cs.mpgc.rpg129851.Launch.Main;
-import it.unicam.cs.mpgc.rpg129851.Model.Entity;
+import static it.unicam.cs.mpgc.rpg129851.Launch.Main.*;
+
 import it.unicam.cs.mpgc.rpg129851.Model.Orc;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,7 +31,10 @@ public class LoaderController {
                  imageOrcAttack, imagePlayerAttack,
                  imageBtnAttack, imageBtnRun;
     @FXML
-    public ImageView playerView, orcView, healthBarViewPlayer, backgroundView, healthBarViewOrc,
+    public ImageView playerView, orcView,
+                     healthBarViewPlayer, healthBarViewOrc,
+                     experienceBarViewPlayer, experienceBarViewOrc,
+                     backgroundView,
                      slotPotionLV1View, slotPotionLV2View, slotPotionLV3View,
                      potionLV1View, potionLV2View, potionLV3View,
                      btnAttack, btnRun;
@@ -41,19 +44,21 @@ public class LoaderController {
     public final int FRAME_HEIGHT = 100;
 
     public void initialize() {
-        Main.player.setEntityView(playerView);
-        Main.setProgressBar(Main.playerBar, healthBarViewPlayer, healthBarPlayer);
-        Main.playerBar.loadHealthBar();
+        player.setEntityView(playerView);
+        playerHealthBar.setBar(healthBarViewPlayer ,healthBarPlayer);
+
+        playerHealthBar.showHealthBar();
+
         showLevelPlayer();
         loadEntity();
-        loadExperienceBar(experienceBarPlayer, healthBarViewPlayer, Main.player);
+        //loadExperienceBar(experienceBarPlayer, healthBarViewPlayer, player);
         loadInventory();
     }
 
 
     public void showLevelPlayer(){
         loadPlayerImages();
-        switch (Main.player.getExperience().getLevel()) {
+        switch (player.getExperience().getLevel()) {
             case 1 -> loadLevelPlayer(level1Player, 138, 122);
             case 2 -> {
                 loadLevelPlayer(level1Player, 138, 122);
@@ -67,7 +72,7 @@ public class LoaderController {
         }
     }
     public void loadPlayerImages(){
-        String playerName = switch (Main.player.getExperience().getLevel()) {
+        String playerName = switch (player.getExperience().getLevel()) {
             case 1 -> "knight";
             case 2 -> "templarKnight";
             case 3 -> "lancer";
@@ -79,22 +84,18 @@ public class LoaderController {
     }
     public void loadLevelPlayer(Rectangle levelPlayer, int x, int y){
         levelPlayer.setVisible(true);
-        levelPlayer.setLayoutX(Main.playerBar.getProgressBarView().getLayoutX() + x);
-        levelPlayer.setLayoutY(Main.playerBar.getProgressBarView().getLayoutY() + y);
+        levelPlayer.setLayoutX(playerHealthBar.getProgressBarView().getLayoutX() + x);
+        levelPlayer.setLayoutY(playerHealthBar.getProgressBarView().getLayoutY() + y);
     }
 
 
     public void loadEntity(){
-        Main.player.getEntityView().setViewport(new Rectangle2D(0,0,FRAME_WIDTH,FRAME_HEIGHT));
-        Main.player.getEntityView().setSmooth(false);
+        player.getEntityView().setViewport(new Rectangle2D(0,0,FRAME_WIDTH,FRAME_HEIGHT));
+        player.getEntityView().setSmooth(false);
     }
 
 
-    public void loadExperienceBar(Rectangle experienceBar, ImageView healthBar, Entity entity){
-        experienceBar.setWidth(entity.getExperience().getStatsPercentage() * 85);
-        experienceBar.setLayoutX(healthBar.getLayoutX() + 45);
-        experienceBar.setLayoutY(healthBar.getLayoutY() + 122);
-    }
+
     private void loadInventory(){
         InventoryController.loadInventory();
         InventoryController.setSlotPotions(slotPotionLV1View);
@@ -113,9 +114,9 @@ public class LoaderController {
 
     }
     public void loadPotionObtained(ImageView potionView, Text amount, int level){
-        if(Main.player.getInventory().getPotionAmount(level) > 0){
+        if(player.getInventory().getPotionAmount(level) > 0){
             potionView.setImage(InventoryController.getPotionImages(level));
-            loadAmount(amount, Main.player.getInventory().getPotionAmount(level));
+            loadAmount(amount, player.getInventory().getPotionAmount(level));
         }else{
             loadAmount(amount, 0);
         }
@@ -164,23 +165,23 @@ public class LoaderController {
         imageOrcAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcImages/" + orcName + "OrcAttack.png")));
     }
     public void setLevelOrc(){
-        switch (Main.orcEncountered.getExperience().getLevel()) {
-            case 1 -> loadLevelPlayer(level1Player, 138, 122);
+        switch (orcEncountered.getExperience().getLevel()) {
+            case 1 -> loadLevelOrc(level1Orc, 138, 122);
             case 2 -> {
-                loadLevelOrc(level1Player, 138, 122);
-                loadLevelOrc(level2Player, 154, 122);
+                loadLevelOrc(level1Orc, 138, 122);
+                loadLevelOrc(level2Orc, 154, 122);
             }
             case 3 -> {
-                loadLevelOrc(level1Player, 138, 122);
-                loadLevelOrc(level2Player, 154, 122);
-                loadLevelOrc(level3Player, 170, 122);
+                loadLevelOrc(level1Orc, 138, 122);
+                loadLevelOrc(level2Orc, 154, 122);
+                loadLevelOrc(level3Orc, 170, 122);
             }
         }
     }
     public void loadLevelOrc(Rectangle levelOrc, int x, int y){
         levelOrc.setVisible(true);
-        levelOrc.setLayoutX(Main.orcBar.getProgressBarView().getLayoutX() + x);
-        levelOrc.setLayoutY(Main.orcBar.getProgressBarView().getLayoutY() + y);
+        levelOrc.setLayoutX(orcHealthBar.getProgressBarView().getLayoutX() + x);
+        levelOrc.setLayoutY(orcHealthBar.getProgressBarView().getLayoutY() + y);
     }
 
 

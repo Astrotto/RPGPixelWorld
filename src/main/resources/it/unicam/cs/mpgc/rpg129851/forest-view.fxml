@@ -7,7 +7,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="800.0" maxWidth="1540.0" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#manageKeyPressed" onKeyReleased="#manageKeyReleased" prefHeight="800.0" prefWidth="1540.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.mpgc.rpg129851.Controller.ForestController">
+<AnchorPane maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#manageKeyPressed" onKeyReleased="#manageKeyReleased" prefHeight="800.0" prefWidth="1540.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.mpgc.rpg129851.Controller.ForestController">
     <ImageView fx:id="backgroundView" fitHeight="800.0" fitWidth="1540.0" pickOnBounds="true" preserveRatio="true" />
     <Pane fx:id="gameWorld" prefHeight="730.0" prefWidth="1500.0">
         <children>
@@ -34,6 +34,7 @@
         <Rectangle fx:id="experienceBarPlayer" arcHeight="5.0" arcWidth="5.0" fill="#007FFF" height="7.0" stroke="BLACK" strokeType="INSIDE" width="85" />
         <Rectangle fx:id="healthBarPlayer" arcHeight="5.0" arcWidth="5.0" fill="#27c400" height="7.0" stroke="BLACK" strokeType="INSIDE" width="130.0" />
         <ImageView fx:id="healthBarViewPlayer" fitHeight="202.0" fitWidth="233.0" layoutX="-7.0" layoutY="-100.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="experienceBarViewPlayer" fitHeight="202.0" fitWidth="233.0" layoutX="-7.0" layoutY="-100.0" pickOnBounds="true" preserveRatio="true" />
     </Pane>
     <Pane>
         <ImageView fx:id="slotPotionLV1View" fitHeight="150.0" fitWidth="150.0" layoutX="-30.0" layoutY="680.0" pickOnBounds="true" preserveRatio="true" />

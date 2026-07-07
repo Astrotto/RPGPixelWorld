@@ -1,6 +1,6 @@
 package it.unicam.cs.mpgc.rpg129851.Controller;
 
-import it.unicam.cs.mpgc.rpg129851.Launch.Main;
+import static it.unicam.cs.mpgc.rpg129851.Launch.Main.*;
 import it.unicam.cs.mpgc.rpg129851.Model.Entity;
 import it.unicam.cs.mpgc.rpg129851.Model.Orc;
 import it.unicam.cs.mpgc.rpg129851.Model.Player;
@@ -33,36 +33,38 @@ public class BattleController extends LoaderController {
         timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                Main.orcBar.loadHealthBar();
-                loadExperienceBar(experienceBarOrc, healthBarViewOrc, Main.orcEncountered);
+                orcHealthBar.showHealthBar();
+                //orcExperienceBar.showExperienceBar();
+                //loadExperienceBar(experienceBarOrc, healthBarViewOrc, orcEncountered);
                 setLevelOrc();
-                Main.playerBar.loadHealthBar();
-                loadExperienceBar(experienceBarPlayer, healthBarViewPlayer, Main.player);
-                updateAnimation(now, Main.player);
-                updateAnimation(now, Main.orcEncountered);
+                playerHealthBar.showHealthBar();
+                //playerExperienceBar.showExperienceBar();
+                //loadExperienceBar(experienceBarPlayer, healthBarViewPlayer, player);
+                updateAnimation(now, player);
+                updateAnimation(now, orcEncountered);
                 updateAnimationOrc(now);
-                deathControl(Main.player);
-                deathControl(Main.orcEncountered);
+                deathControl(player);
+                deathControl(orcEncountered);
                 loadButtons();
                 setPotionObtained();
             }
         };
-        Main.orcEncountered.setEntityView(orcView);
-        Main.setProgressBar(Main.orcBar, healthBarViewOrc, healthBarOrc);
+        orcEncountered.setEntityView(orcView);
+        orcHealthBar.setBar(healthBarViewOrc ,healthBarOrc);
         loadButtonImages();
-        loadOrcEncountered(Main.orcEncountered);
+        loadOrcEncountered(orcEncountered);
         loadBackground();
         timer.start();
     }
 
     public void attack() {
-        attack(Main.player, Main.orcEncountered);
-        Main.player.setAttacking(true);
-        Main.player.setActualFrame(0);
+        attack(player, orcEncountered);
+        player.setAttacking(true);
+        player.setActualFrame(0);
 
-        attack(Main.orcEncountered, Main.player);
-        Main.orcEncountered.setAttacking(true);
-        Main.orcEncountered.setActualFrame(0);
+        attack(orcEncountered, player);
+        orcEncountered.setAttacking(true);
+        orcEncountered.setActualFrame(0);
 
         cooldownActivation(btnRun, btnAttack, 1.5);
     }
@@ -72,8 +74,8 @@ public class BattleController extends LoaderController {
 
         }else {
             damage = attacker.attack(defender);
-            if (Main.criticalHit) {
-                Main.criticalHit = false;
+            if (criticalHit) {
+                criticalHit = false;
                 System.out.println(attacker.getName() + " di LVL" + attacker.getExperience().getLevel() + " ha inflitto " + damage + " danni a " + defender.getName() + " con un COLPO CRITICO!");
             } else {
                 System.out.println(attacker.getName()  + " di LVL" + attacker.getExperience().getLevel() + " ha inflitto " + damage + " danni a " + defender.getName());
@@ -89,11 +91,11 @@ public class BattleController extends LoaderController {
             if(entity instanceof Orc){
                 ForestController.questCompletedControl();
                 System.out.println(entity.getName() + " ha droppato " + entity.getExperience() + " punti esperienza");
-                Main.player.getExperience().earnExperience(entity.getExperience().getCurrentStats());
-                Main.player.getHealth().heal(20);
-                Main.player.setAttacking(false);
+                player.getExperience().earnExperience(entity.getExperience().getCurrentStats());
+                player.getHealth().heal(20);
+                player.setAttacking(false);
                 timer.stop();
-                changeMap((Stage)Main.player.getEntityView().getScene().getWindow(), "forest-view");
+                changeMap((Stage) player.getEntityView().getScene().getWindow(), "forest-view");
             }
         }
     }
@@ -105,34 +107,34 @@ public class BattleController extends LoaderController {
     }
 
     public void loadEntity(){
-        Main.player.getEntityView().setImage(imagePlayerAttack);
+        player.getEntityView().setImage(imagePlayerAttack);
 
-        Main.orcEncountered.getEntityView().setImage(imageOrcAttack);
+        orcEncountered.getEntityView().setImage(imageOrcAttack);
 
-        Main.orcEncountered.getEntityView().setViewport(new Rectangle2D(0, 0, FRAME_WIDTH, FRAME_HEIGHT));
-        Main.orcEncountered.getEntityView().setSmooth(false);
+        orcEncountered.getEntityView().setViewport(new Rectangle2D(0, 0, FRAME_WIDTH, FRAME_HEIGHT));
+        orcEncountered.getEntityView().setSmooth(false);
 
-        Main.player.getEntityView().setViewport(new Rectangle2D(0, 0, FRAME_WIDTH, FRAME_HEIGHT));
-        Main.player.getEntityView().setSmooth(false);
+        player.getEntityView().setViewport(new Rectangle2D(0, 0, FRAME_WIDTH, FRAME_HEIGHT));
+        player.getEntityView().setSmooth(false);
     }
 
     public void loadOrcEncountered(Orc orcEncountered){
         loadOrcImages(orcEncountered);
-        Main.orcEncountered.getEntityView().setScaleX(-1);
-        Main.orcEncountered.getEntityView().setImage(imageOrcAttack);
-        Main.orcEncountered.getEntityView().setViewport(new Rectangle2D(0, 0, FRAME_WIDTH, FRAME_HEIGHT));
-        Main.orcEncountered.getEntityView().setSmooth(false);
+        orcEncountered.getEntityView().setScaleX(-1);
+        orcEncountered.getEntityView().setImage(imageOrcAttack);
+        orcEncountered.getEntityView().setViewport(new Rectangle2D(0, 0, FRAME_WIDTH, FRAME_HEIGHT));
+        orcEncountered.getEntityView().setSmooth(false);
     }
     public void run() {
         Random random = new Random();
         if(random.nextInt(100) < percentageOfEscape){
             System.out.println("Sei scappato dall'orco");
             timer.stop();
-            changeMap((Stage) Main.player.getEntityView().getScene().getWindow(), "forest-view");
+            changeMap((Stage) player.getEntityView().getScene().getWindow(), "forest-view");
         }else{
             percentageOfEscape += 15;
-            attack(Main.orcEncountered, Main.player);
-            Main.orcEncountered.setAttacking(true);
+            attack(orcEncountered, player);
+            orcEncountered.setAttacking(true);
         }
         cooldownActivation(btnRun, btnAttack, 1.5);
     }
@@ -151,16 +153,16 @@ public class BattleController extends LoaderController {
     }
 
     private void updateAnimationOrc(long actualHour){
-        if(!Main.orcEncountered.isAttacking()){
-            Main.orcEncountered.getEntityView().setViewport(new Rectangle2D(0,0,FRAME_WIDTH,FRAME_HEIGHT));
-        }else if(actualHour - Main.orcEncountered.getLastChangeFrame() > 100_000_000){
-            Main.orcEncountered.setActualFrame((Main.orcEncountered.getActualFrame() + 1) % 11);
-            if(Main.orcEncountered.getActualFrame() == 10){
-                Main.orcEncountered.setAttacking(false);
+        if(!orcEncountered.isAttacking()){
+            orcEncountered.getEntityView().setViewport(new Rectangle2D(0,0,FRAME_WIDTH,FRAME_HEIGHT));
+        }else if(actualHour - orcEncountered.getLastChangeFrame() > 100_000_000){
+            orcEncountered.setActualFrame((orcEncountered.getActualFrame() + 1) % 11);
+            if(orcEncountered.getActualFrame() == 10){
+                orcEncountered.setAttacking(false);
             }
-            double xMovement = Main.orcEncountered.getActualFrame() * FRAME_WIDTH;
-            Main.orcEncountered.getEntityView().setViewport(new Rectangle2D(xMovement, 0, FRAME_WIDTH, FRAME_HEIGHT));
-            Main.orcEncountered.setLastChangeFrame(actualHour);
+            double xMovement = orcEncountered.getActualFrame() * FRAME_WIDTH;
+            orcEncountered.getEntityView().setViewport(new Rectangle2D(xMovement, 0, FRAME_WIDTH, FRAME_HEIGHT));
+            orcEncountered.setLastChangeFrame(actualHour);
         }
     }
 
@@ -180,7 +182,7 @@ public class BattleController extends LoaderController {
     }
     @FXML
     private void potionUsed(){
-        if(!(Main.player.getHealth().getCurrentStats() == Main.player.getHealth().getMaxStats()) && !Main.player.isAttacking() && !Main.orcEncountered.isAttacking() && !potionsCooldown){
+        if(!(player.getHealth().getCurrentStats() == player.getHealth().getMaxStats()) && !player.isAttacking() && !orcEncountered.isAttacking() && !potionsCooldown){
             potionSelected(potionLV1View, 1, InventoryController.noPotionLV1);
             potionSelected(potionLV2View, 2, InventoryController.noPotionLV2);
             potionSelected(potionLV3View, 3, InventoryController.noPotionLV3);
@@ -189,13 +191,13 @@ public class BattleController extends LoaderController {
     }
     private void potionSelected(ImageView potionView, int level, Image potionImage) {
         if (potionView.isPressed()) {
-            if (Main.player.getInventory().getPotionAmount(level) >= 1) {
-                Main.player.usePotion(level);
-                attack(Main.orcEncountered, Main.player);
-                Main.orcEncountered.setAttacking(true);
+            if (player.getInventory().getPotionAmount(level) >= 1) {
+                player.usePotion(level);
+                attack(orcEncountered, player);
+                orcEncountered.setAttacking(true);
                 cooldownActivation(btnRun, btnAttack, 1.5);
             }
-            if (Main.player.getInventory().getPotionAmount(level) == 0)
+            if (player.getInventory().getPotionAmount(level) == 0)
                 InventoryController.setPotionsView(potionView, potionImage);
         }
     }

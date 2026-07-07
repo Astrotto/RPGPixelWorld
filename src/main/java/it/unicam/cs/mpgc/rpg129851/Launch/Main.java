@@ -1,13 +1,11 @@
  package it.unicam.cs.mpgc.rpg129851.Launch;
 
 import it.unicam.cs.mpgc.rpg129851.Model.*;
-import it.unicam.cs.mpgc.rpg129851.View.GameProgressBar;
+import it.unicam.cs.mpgc.rpg129851.View.HealthBar;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.ImageView;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,12 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main extends Application {
-    public static Player player = new Player(3, 0, 2);
+    public static Player player = new Player(3, 40, 2);
     public static List<Orc> orcs = new ArrayList<Orc>();
     public static Orc orcEncountered;
     public static ForestSpirit guardian = new ForestSpirit();
-    public static GameProgressBar playerBar = new GameProgressBar(player);
-    public static GameProgressBar orcBar;
+    public static HealthBar playerHealthBar = new HealthBar(player);
+    public static HealthBar orcHealthBar;
+
 
     public static boolean criticalHit = false;
     @Override
@@ -35,12 +34,9 @@ public class Main extends Application {
     }
     public static void setOrcEncountered(Orc orc){
         orcEncountered = orc;
-        orcBar = new GameProgressBar(orcEncountered);
+        orcHealthBar = new HealthBar(orcEncountered);
     }
-    public static void setProgressBar(GameProgressBar entityProgressBar ,ImageView progressBarView, Rectangle progressBar){
-        entityProgressBar.setProgressBarView(progressBarView);
-        entityProgressBar.setProgressBar(progressBar);
-    }
+
     public static void main(String[] args) {
         launch(args);
     }
