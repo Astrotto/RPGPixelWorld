@@ -1,6 +1,7 @@
 package it.unicam.cs.mpgc.rpg129851.Model;
 
 import it.unicam.cs.mpgc.rpg129851.Launch.Main;
+import it.unicam.cs.mpgc.rpg129851.View.LevelView;
 import javafx.geometry.Bounds;
 import javafx.scene.image.ImageView;
 

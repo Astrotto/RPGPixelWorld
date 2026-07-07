@@ -1,6 +1,8 @@
 package it.unicam.cs.mpgc.rpg129851.Controller;
 
 import static it.unicam.cs.mpgc.rpg129851.Launch.Main.*;
+import static it.unicam.cs.mpgc.rpg129851.View.LevelView.*;
+
 
 import it.unicam.cs.mpgc.rpg129851.Model.Orc;
 import javafx.fxml.FXML;
@@ -22,9 +24,7 @@ public class LoaderController {
     @FXML
     public Rectangle forest, home, graveyard,
                      healthBarPlayer, healthBarOrc,
-                     experienceBarPlayer, experienceBarOrc,
-                     level1Player, level2Player, level3Player,
-                     level1Orc, level2Orc, level3Orc;
+                     experienceBarPlayer, experienceBarOrc;
     @FXML
     public Image imageLeft, imageRight, imageOrc,
                  imageExclamation, imageHealthBar,
@@ -39,7 +39,7 @@ public class LoaderController {
                      potionLV1View, potionLV2View, potionLV3View,
                      btnAttack, btnRun;
     public Text amountLV1, amountLV2, amountLV3;
-    public Pane gameWorld;
+    public Pane gameWorld, levelPane;
     public final int FRAME_WIDTH = 100;
     public final int FRAME_HEIGHT = 100;
 
@@ -48,29 +48,13 @@ public class LoaderController {
         playerHealthBar.setBar(healthBarViewPlayer ,healthBarPlayer);
 
         playerHealthBar.showHealthBar();
-
-        showLevelPlayer();
+        loadPlayerImages();
+        showLevel(player, playerHealthBar, levelPane);
         loadEntity();
         //loadExperienceBar(experienceBarPlayer, healthBarViewPlayer, player);
         loadInventory();
     }
 
-
-    public void showLevelPlayer(){
-        loadPlayerImages();
-        switch (player.getExperience().getLevel()) {
-            case 1 -> loadLevelPlayer(level1Player, 138, 122);
-            case 2 -> {
-                loadLevelPlayer(level1Player, 138, 122);
-                loadLevelPlayer(level2Player, 154, 122);
-            }
-            case 3 -> {
-                loadLevelPlayer(level1Player, 138, 122);
-                loadLevelPlayer(level2Player, 154, 122);
-                loadLevelPlayer(level3Player, 170, 122);
-            }
-        }
-    }
     public void loadPlayerImages(){
         String playerName = switch (player.getExperience().getLevel()) {
             case 1 -> "knight";
@@ -82,11 +66,7 @@ public class LoaderController {
         imageLeft = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/knightImages/" + playerName + "WalkLeft.png")));
         imagePlayerAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/knightImages/" + playerName + "Attack.png")));
     }
-    public void loadLevelPlayer(Rectangle levelPlayer, int x, int y){
-        levelPlayer.setVisible(true);
-        levelPlayer.setLayoutX(playerHealthBar.getProgressBarView().getLayoutX() + x);
-        levelPlayer.setLayoutY(playerHealthBar.getProgressBarView().getLayoutY() + y);
-    }
+
 
 
     public void loadEntity(){
@@ -164,25 +144,7 @@ public class LoaderController {
         imageOrc = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcImages/" + orcName + "Orc.png")));
         imageOrcAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcImages/" + orcName + "OrcAttack.png")));
     }
-    public void setLevelOrc(){
-        switch (orcEncountered.getExperience().getLevel()) {
-            case 1 -> loadLevelOrc(level1Orc, 138, 122);
-            case 2 -> {
-                loadLevelOrc(level1Orc, 138, 122);
-                loadLevelOrc(level2Orc, 154, 122);
-            }
-            case 3 -> {
-                loadLevelOrc(level1Orc, 138, 122);
-                loadLevelOrc(level2Orc, 154, 122);
-                loadLevelOrc(level3Orc, 170, 122);
-            }
-        }
-    }
-    public void loadLevelOrc(Rectangle levelOrc, int x, int y){
-        levelOrc.setVisible(true);
-        levelOrc.setLayoutX(orcHealthBar.getProgressBarView().getLayoutX() + x);
-        levelOrc.setLayoutY(orcHealthBar.getProgressBarView().getLayoutY() + y);
-    }
+
 
 
     public void changeMap(Stage actualStage, String map){

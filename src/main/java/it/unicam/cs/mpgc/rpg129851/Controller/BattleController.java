@@ -1,6 +1,8 @@
 package it.unicam.cs.mpgc.rpg129851.Controller;
 
 import static it.unicam.cs.mpgc.rpg129851.Launch.Main.*;
+import static it.unicam.cs.mpgc.rpg129851.View.LevelView.showLevel;
+
 import it.unicam.cs.mpgc.rpg129851.Model.Entity;
 import it.unicam.cs.mpgc.rpg129851.Model.Orc;
 import it.unicam.cs.mpgc.rpg129851.Model.Player;
@@ -36,7 +38,7 @@ public class BattleController extends LoaderController {
                 orcHealthBar.showHealthBar();
                 //orcExperienceBar.showExperienceBar();
                 //loadExperienceBar(experienceBarOrc, healthBarViewOrc, orcEncountered);
-                setLevelOrc();
+                //setLevelOrc();
                 playerHealthBar.showHealthBar();
                 //playerExperienceBar.showExperienceBar();
                 //loadExperienceBar(experienceBarPlayer, healthBarViewPlayer, player);
@@ -51,6 +53,7 @@ public class BattleController extends LoaderController {
         };
         orcEncountered.setEntityView(orcView);
         orcHealthBar.setBar(healthBarViewOrc ,healthBarOrc);
+        showLevel(orcEncountered, orcHealthBar, levelPane);
         loadButtonImages();
         loadOrcEncountered(orcEncountered);
         loadBackground();

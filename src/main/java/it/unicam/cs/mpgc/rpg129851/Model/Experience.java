@@ -11,9 +11,7 @@ public class Experience extends Attribute{
     public int getLevel() {
         return level;
     }
-    public void increaseLevel() {
-        this.level++;
-    }
+
     public void earnExperience(int experience) {
         if(this.getCurrentStats() + experience >= this.getMaxStats()) {
             this.setCurrentStats(this.getCurrentStats() + experience - this.getMaxStats());
@@ -28,5 +26,8 @@ public class Experience extends Attribute{
         }else{
             this.setCurrentStats(this.getMaxStats());
         }
+    }
+    public void increaseLevel() {
+        this.level++;
     }
 }

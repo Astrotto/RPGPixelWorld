@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,8 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main extends Application {
+
     public static Player player = new Player(3, 40, 2);
-    public static List<Orc> orcs = new ArrayList<Orc>();
+    public static List<Orc> orcs = new ArrayList<>();
     public static Orc orcEncountered;
     public static ForestSpirit guardian = new ForestSpirit();
     public static HealthBar playerHealthBar = new HealthBar(player);

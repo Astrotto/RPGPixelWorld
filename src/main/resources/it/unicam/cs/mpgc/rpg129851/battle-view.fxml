@@ -8,17 +8,12 @@
 <?import javafx.scene.text.Text?>
 <AnchorPane maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1540.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.mpgc.rpg129851.Controller.BattleController">
     <ImageView fx:id="backgroundView" fitHeight="800.0" fitWidth="1540.0" layoutX="-30.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true" />
+    <Pane fx:id="levelPane" prefHeight="760.0" prefWidth="1500.0">
+
+    </Pane>
     <Pane prefHeight="600.0" prefWidth="1540.0">
             <ImageView fx:id="playerView" fitHeight="400.0" fitWidth="400.0" layoutX="150.0" layoutY="370.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="orcView" fitHeight="400.0" fitWidth="400.0" layoutX="960.0" layoutY="380.0" pickOnBounds="true" preserveRatio="true" />
-
-            <Rectangle fx:id="level3Orc" arcHeight="5.0" visible="false" arcWidth="5.0" fill="#FFDB58" height="9.0" stroke="BLACK" strokeType="INSIDE" width="8"/>
-            <Rectangle fx:id="level2Orc" arcHeight="5.0" visible="false" arcWidth="5.0" fill="#FFDB58" height="9.0" stroke="BLACK" strokeType="INSIDE" width="8"/>
-            <Rectangle fx:id="level1Orc" arcHeight="5.0" visible="false" arcWidth="5.0" fill="#FFDB58" height="9.0" stroke="BLACK" strokeType="INSIDE" width="8"/>
-
-            <Rectangle fx:id="level3Player" arcHeight="5.0" visible="false" arcWidth="5.0" fill="#FFDB58" height="9.0" stroke="BLACK" strokeType="INSIDE" width="8"/>
-            <Rectangle fx:id="level2Player" arcHeight="5.0" visible="false" arcWidth="5.0" fill="#FFDB58" height="9.0" stroke="BLACK" strokeType="INSIDE" width="8"/>
-            <Rectangle fx:id="level1Player" arcHeight="5.0" visible="false" arcWidth="5.0" fill="#FFDB58" height="9.0" stroke="BLACK" strokeType="INSIDE" width="8"/>
 
             <Rectangle fx:id="experienceBarOrc" arcHeight="5.0" arcWidth="5.0" fill="#007FFF" height="7.0" stroke="BLACK" strokeType="INSIDE" width="85"/>
             <Rectangle fx:id="experienceBarPlayer" arcHeight="5.0" arcWidth="5.0" fill="#007FFF" height="7.0" stroke="BLACK" strokeType="INSIDE" width="85"/>

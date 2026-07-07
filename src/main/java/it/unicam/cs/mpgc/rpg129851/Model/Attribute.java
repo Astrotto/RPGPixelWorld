@@ -6,14 +6,14 @@ public class Attribute {
 
     public Attribute(){}
 
-    public int getCurrentStats() {
-        return currentStats;
+    public double getStatsPercentage() {
+        return (double) this.getCurrentStats() / this.getMaxStats();
     }
+
+    public int getCurrentStats() { return currentStats; }
+    public int getMaxStats() { return maxStats; }
     public void setCurrentStats(int currentStats) {
         this.currentStats = currentStats;
-    }
-    public int getMaxStats() {
-        return maxStats;
     }
     public void setMaxStats(int maxStats) {
         if(maxStats <= 0){
@@ -22,7 +22,5 @@ public class Attribute {
             this.maxStats = maxStats;
         }
     }
-    public double getStatsPercentage() {
-        return (double) this.getCurrentStats() / this.getMaxStats();
-    }
+
 }
