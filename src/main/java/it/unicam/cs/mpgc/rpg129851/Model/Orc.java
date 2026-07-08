@@ -20,15 +20,15 @@ public class Orc extends Entity implements EntityHitbox {
         switch (level){
             case 1:
                 setStats(65, 65, 20, 15);
-                this.getExperience().setCurrentStats(random.nextInt(10) + 10);
+                this.getExperience().setStatistic(random.nextInt(10) + 10);
                 break;
             case 2:
                 setStats(85, 85, 30, 30);
-                this.getExperience().setCurrentStats(random.nextInt(10) + 20);
+                this.getExperience().setStatistic(random.nextInt(10) + 20);
                 break;
             case 3:
                 setStats(110, 110, 40, 40);
-                this.getExperience().setCurrentStats(random.nextInt(15) + 30);
+                this.getExperience().setStatistic(random.nextInt(15) + 30);
         }
     }
     public Bounds getHitbox(double x, double y) {

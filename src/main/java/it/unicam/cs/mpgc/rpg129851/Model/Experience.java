@@ -1,33 +1,34 @@
 package it.unicam.cs.mpgc.rpg129851.Model;
 
-public class Experience extends Attribute{
+public class Experience extends Statistic{
     private int level;
 
-    public Experience(int level, int currentExperience) {
-        super(currentExperience);
+    public Experience(int level, int currentExperience, int maxExperience) {
+        super(currentExperience, maxExperience);
         this.level = level;
-        this.setMaxStats(100);
     }
-    public int getLevel() {
-        return level;
-    }
-
     public void earnExperience(int experience) {
-        if(this.getCurrentStats() + experience >= this.getMaxStats()) {
-            this.setCurrentStats(this.getCurrentStats() + experience - this.getMaxStats());
+        if(this.getStatistic() + experience >= this.getMaxStatistic()) {
+            this.setStatistic(this.getStatistic() + experience - this.getMaxStatistic());
             this.controlIncreaseLevel();
         }else{
-            this.setCurrentStats(this.getCurrentStats() + experience);
+            this.setStatistic(this.getStatistic() + experience);
         }
     }
     private void controlIncreaseLevel(){
         if(this.getLevel() + 1 <= 3) {
             this.increaseLevel();
         }else{
-            this.setCurrentStats(this.getMaxStats());
+            this.setStatistic(this.getMaxStatistic());
         }
+    }
+    public int getLevel() {
+        return level;
     }
     public void increaseLevel() {
         this.level++;
+
     }
+
+
 }

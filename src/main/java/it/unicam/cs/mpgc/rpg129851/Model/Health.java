@@ -1,24 +1,23 @@
 package it.unicam.cs.mpgc.rpg129851.Model;
 
-public class Health extends Attribute{
+public class Health extends Statistic {
 
     public Health(int hp, int maxHp) {
-        super(hp);
-        this.setMaxStats(maxHp);
+        super(hp, maxHp);
     }
     public Health(int hp){
         super(hp);
     }
 
     public void heal(int hp) {
-        this.setCurrentStats(Math.min(this.getCurrentStats() + hp, this.getMaxStats()));
+        this.setStatistic(Math.min(this.getStatistic() + hp, this.getMaxStatistic()));
     }
     public void heal(Potion potion) {
-        this.setCurrentStats(Math.min(this.getCurrentStats() + potion.getHealth().getCurrentStats(), this.getMaxStats()));
+        this.setStatistic(Math.min(this.getStatistic() + potion.getHealth().getStatistic(), this.getMaxStatistic()));
     }
     public void takeDamage(int damage) {
-        this.setCurrentStats(this.getCurrentStats() - damage);
-        if(this.getCurrentStats() <= 0) this.setCurrentStats(0);
+        this.setStatistic(this.getStatistic() - damage);
+        if(this.getStatistic() <= 0) this.setStatistic(0);
     }
 
 }

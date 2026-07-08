@@ -16,8 +16,8 @@ public abstract class Entity {
             throw new IllegalArgumentException("Entity invalid");
         }else{
             this.name = name;
-            this.experience = new Experience(level, experience);
             this.entityView = new EntityView();
+            this.experience = new Experience(level, experience, 100);
         }
     }
     public EntityView getEntityView() {
@@ -35,7 +35,7 @@ public abstract class Entity {
         return this.name;
     }
     public boolean isAlive() {
-        return this.health.getCurrentStats() > 0;
+        return this.health.getStatistic() > 0;
     }
     public Attack getAttack(){
         return this.attack;

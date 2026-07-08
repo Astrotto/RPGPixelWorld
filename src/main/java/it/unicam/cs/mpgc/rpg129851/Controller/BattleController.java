@@ -71,7 +71,7 @@ public class BattleController extends LoaderController {
     }
     private void attack(Entity attacker, Entity defender){
         int damage;
-        if(defender.getHealth().getCurrentStats() <= 0){
+        if(defender.getHealth().getStatistic() <= 0){
 
         }else {
             damage = attacker.getAttack().attack(defender);
@@ -91,8 +91,8 @@ public class BattleController extends LoaderController {
             System.out.println(entity.getName() + " e morto!");
             if(entity instanceof Orc){
                 ForestController.questCompletedControl();
-                System.out.println(entity.getName() + " ha droppato " + entity.getExperience() + " punti esperienza");
-                player.getExperience().earnExperience(entity.getExperience().getCurrentStats());
+                System.out.println(entity.getName() + " ha droppato " + entity.getExperience().getStatistic() + " punti esperienza");
+                player.getExperience().earnExperience(entity.getExperience().getStatistic());
                 player.getHealth().heal(20);
                 player.getAttack().setAttacking(false);
                 timer.stop();
@@ -156,7 +156,7 @@ public class BattleController extends LoaderController {
     }
     @FXML
     private void potionUsed(){
-        if(!(player.getHealth().getCurrentStats() == player.getHealth().getMaxStats()) && !player.getAttack().isAttacking() && !orcEncountered.getAttack().isAttacking() && !potionsCooldown){
+        if(!(player.getHealth().getStatistic() == player.getHealth().getMaxStatistic()) && !player.getAttack().isAttacking() && !orcEncountered.getAttack().isAttacking() && !potionsCooldown){
             potionSelected(potionLV1View, 1, noPotionLV1);
             potionSelected(potionLV2View, 2, noPotionLV2);
             potionSelected(potionLV3View, 3, noPotionLV3);

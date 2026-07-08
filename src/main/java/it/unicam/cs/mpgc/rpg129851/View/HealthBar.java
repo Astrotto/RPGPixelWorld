@@ -3,8 +3,6 @@ package it.unicam.cs.mpgc.rpg129851.View;
 import it.unicam.cs.mpgc.rpg129851.Model.Entity;
 import javafx.scene.paint.Color;
 
-import static it.unicam.cs.mpgc.rpg129851.Launch.Main.player;
-
 public class HealthBar extends GameProgressBar{
 
     public HealthBar(Entity entity){
@@ -16,9 +14,9 @@ public class HealthBar extends GameProgressBar{
         changeColorProgressBar();
     }
     public void changeColorProgressBar(){
-        if(this.getEntity().getHealth().getStatsPercentage() > 0.60){
+        if(this.getEntity().getHealth().getStatisticPercentage() > 0.60){
             this.getProgressBar().setFill(Color.GREEN);
-        }else if(this.getEntity().getHealth().getStatsPercentage() <= 0.60 && this.getEntity().getHealth().getStatsPercentage() >= 0.30){
+        }else if(this.getEntity().getHealth().getStatisticPercentage() <= 0.60 && this.getEntity().getHealth().getStatisticPercentage() >= 0.30){
             this.getProgressBar().setFill(Color.ORANGE);
         }else {
             this.getProgressBar().setFill(Color.RED);

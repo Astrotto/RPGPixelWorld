@@ -30,8 +30,8 @@ public class Attack {
     }
     public int attack(Entity target) {
         Random rand = new Random();
-        this.setBaseDamage(this.strength.getCurrentStats() + (rand.nextInt(5) - 2));
-        this.setFinalDamage(this.getBaseDamage() - target.getDefense().getCurrentStats());
+        this.setBaseDamage(this.strength.getCurrentAttribute() + (rand.nextInt(5) - 2));
+        this.setFinalDamage(this.getBaseDamage() - target.getDefense().getCurrentAttribute());
         if(this.getFinalDamage() <= 0) this.setFinalDamage(1);
         if(rand.nextInt(100) < 7) {
             this.setFinalDamage(this.getFinalDamage() * 2);
