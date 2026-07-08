@@ -2,7 +2,13 @@ package it.unicam.cs.mpgc.rpg129851.Model;
 
 public class Health extends Attribute{
 
-    public Health() {}
+    public Health(int hp, int maxHp) {
+        super(hp);
+        this.setMaxStats(maxHp);
+    }
+    public Health(int hp){
+        super(hp);
+    }
 
     public void heal(int hp) {
         this.setCurrentStats(Math.min(this.getCurrentStats() + hp, this.getMaxStats()));

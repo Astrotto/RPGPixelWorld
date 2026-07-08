@@ -4,8 +4,8 @@ public class Experience extends Attribute{
     private int level;
 
     public Experience(int level, int currentExperience) {
+        super(currentExperience);
         this.level = level;
-        this.setCurrentStats(currentExperience);
         this.setMaxStats(100);
     }
     public int getLevel() {

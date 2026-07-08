@@ -4,7 +4,9 @@ public class Attribute {
     private int currentStats;
     private int maxStats;
 
-    public Attribute(){}
+    public Attribute(int currentStats){
+        this.currentStats = currentStats;
+    }
 
     public double getStatsPercentage() {
         return (double) this.getCurrentStats() / this.getMaxStats();
