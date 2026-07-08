@@ -30,7 +30,6 @@ public class Player extends Entity implements EntityHitbox {
     public Inventory getInventory() {
         return inventory;
     }
-
     public double getSpeed() {
         return speed;
     }

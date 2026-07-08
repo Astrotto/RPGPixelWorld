@@ -1,19 +1,11 @@
 package it.unicam.cs.mpgc.rpg129851.Model;
 
-import it.unicam.cs.mpgc.rpg129851.Launch.Main;
 import it.unicam.cs.mpgc.rpg129851.View.EntityView;
-import it.unicam.cs.mpgc.rpg129851.View.LevelView;
 import javafx.geometry.Bounds;
-import javafx.scene.image.ImageView;
-
-import java.util.Random;
 
 public abstract class Entity {
     private String name;
     int defense;
-    private long lastChangeFrame;
-    private int actualFrame;
-    private boolean isAttacking;
     private final Attack attack;
     private final Health health;
     private final Experience experience;
@@ -24,8 +16,6 @@ public abstract class Entity {
             throw new IllegalArgumentException("Entity invalid");
         }else{
             this.name = name;
-            this.actualFrame = 0;
-            this.lastChangeFrame = 0;
             this.attack = new Attack();
             this.health = new Health();
             this.experience = new Experience(level, experience);
@@ -36,9 +26,8 @@ public abstract class Entity {
         return entityView;
     }
     public abstract Bounds getHitbox(double x, double y);
-
-
     public abstract void updateStats(int level);
+
     public void setStats(int maxHp, int hp, int strength, int defense) {
         this.health.setCurrentStats(hp);
         this.health.setMaxStats(maxHp);
@@ -59,18 +48,6 @@ public abstract class Entity {
         return this.attack;
     }
 
-    public long getLastChangeFrame() {
-        return lastChangeFrame;
-    }
-    public void setLastChangeFrame(long  lastChangeFrame) {
-        this.lastChangeFrame = lastChangeFrame;
-    }
-    public int getActualFrame() {
-        return actualFrame;
-    }
-    public void setActualFrame(int actualFrame) {
-        this.actualFrame = actualFrame;
-    }
     public Health getHealth() {
         return health;
     }

@@ -61,11 +61,11 @@ public class BattleController extends LoaderController {
     public void attack() {
         attack(player, orcEncountered);
         player.getAttack().setAttacking(true);
-        player.setActualFrame(0);
+        player.getEntityView().getFrame().setActualFrame(0);
 
         attack(orcEncountered, player);
         orcEncountered.getAttack().setAttacking(true);
-        orcEncountered.setActualFrame(0);
+        orcEncountered.getEntityView().getFrame().setActualFrame(0);
 
         cooldownActivation(btnRun, btnAttack, 1.5);
     }
