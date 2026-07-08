@@ -1,8 +1,8 @@
 package it.unicam.cs.mpgc.rpg129851.Model;
 
 public class Potion {
-    private int level;
-    private int health;
+    private final int level;
+    private Health health = new Health();
     public Potion(int level){
         if(level < 1 || level > 3){
             throw new IllegalArgumentException("Potion invalid");
@@ -10,17 +10,18 @@ public class Potion {
             this.level = level;
             switch (this.level){
                 case 1:
-                    this.health = 10;
+                    this.health.setCurrentStats(10);
                     break;
                 case 2:
-                    this.health = 20;
+                    this.health.setCurrentStats(20);
                     break;
                 case 3:
-                    this.health = 40;
+                    this.health.setCurrentStats(40);
             }
         }
     }
-    public int getHealth(){
+
+    public Health getHealth(){
         return this.health;
     }
     public int getLevel(){

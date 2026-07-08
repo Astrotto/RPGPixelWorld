@@ -196,7 +196,7 @@ public class BattleController extends LoaderController {
     private void potionSelected(ImageView potionView, int level, Image potionImage) {
         if (potionView.isPressed()) {
             if (player.getInventory().getPotionAmount(level) >= 1) {
-                player.usePotion(level);
+                player.getHealth().heal(player.getInventory().getPotion(level));
                 attack(orcEncountered, player);
                 orcEncountered.setAttacking(true);
                 cooldownActivation(btnRun, btnAttack, 1.5);

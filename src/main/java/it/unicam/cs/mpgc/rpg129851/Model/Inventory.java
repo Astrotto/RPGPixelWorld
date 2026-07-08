@@ -17,13 +17,19 @@ public class Inventory {
             inventory.add(potion);
         }
     }
-    public void removePotion(int level) {
+    public Potion getPotion(int level) {
+        Potion potion = null;
+        if(inventory.isEmpty() || this.getPotionAmount(level) <= 0){
+            return null;
+        }
         for(int i = 0; i < inventory.size(); i++) {
             if(inventory.get(i).getLevel() == level) {
+                potion = inventory.get(i);
                 inventory.remove(i);
                 break;
             }
         }
+        return potion;
     }
     public int getPotionAmount(int level) {
         int counter = 0;

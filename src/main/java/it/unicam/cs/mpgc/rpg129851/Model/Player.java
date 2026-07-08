@@ -30,15 +30,6 @@ public class Player extends Entity implements EntityHitbox {
     public Inventory getInventory() {
         return inventory;
     }
-    public void usePotion(int level) {
-        if(this.getInventory() == null) {
-            throw new IllegalArgumentException("Potion is null");
-        }else{
-            this.getHealth().heal(new Potion(level).getHealth());
-            this.getInventory().removePotion(level);
-        }
-    }
-
 
     public double getSpeed() {
         return speed;
