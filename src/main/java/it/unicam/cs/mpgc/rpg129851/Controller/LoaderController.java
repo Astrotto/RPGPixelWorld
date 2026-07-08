@@ -44,7 +44,7 @@ public class LoaderController {
     public final int FRAME_HEIGHT = 100;
 
     public void initialize() {
-        player.setEntityView(playerView);
+        player.getEntityView().setEntityView(playerView);
         playerHealthBar.setBar(progressBarViewPlayer, healthBarPlayer);
         playerExperienceBar.setBar(progressBarViewPlayer, experienceBarPlayer);
 

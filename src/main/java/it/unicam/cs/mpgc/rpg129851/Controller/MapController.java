@@ -38,7 +38,7 @@ public class MapController extends EntityController {
         }
     }
     private void joinForest(){
-        changeMap((Stage)Main.player.getEntityView().getScene().getWindow(), "forest-view");
+        changeMap((Stage)Main.player.getEntityView().getView().getScene().getWindow(), "forest-view");
     }
 
     private void loadHitboxHome(){

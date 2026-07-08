@@ -55,7 +55,7 @@ public class ForestController extends EntityController {
             fadeOut.setFromValue(0.0);
             fadeOut.setToValue(1.0);
             fadeOut.setOnFinished(event -> {
-                changeMap((Stage)Main.player.getEntityView().getScene().getWindow(), "map-view");
+                changeMap((Stage)Main.player.getEntityView().getView().getScene().getWindow(), "map-view");
                 setSpawnPoint(x - 40, y - 40);
             });
             fadeOut.play();
@@ -79,20 +79,20 @@ public class ForestController extends EntityController {
 
         for (int i = 0; i < numeroOrchi; i++) {
             Orc orc = generateOrc();
-            orc.setEntityView(new ImageView(imageOrc));
+            orc.getEntityView().setEntityView(new ImageView(imageOrc));
             orc.getEntityView().setViewport(new Rectangle2D(0, 0 , 100, 100));
             Main.orcs.add(orc);
 
-            orc.getEntityView().setFitWidth(260);
-            orc.getEntityView().setFitHeight(260);
-            orc.getEntityView().setPreserveRatio(true);
+            orc.getEntityView().getView().setFitWidth(260);
+            orc.getEntityView().getView().setFitHeight(260);
+            orc.getEntityView().getView().setPreserveRatio(true);
 
             //orcView.setVisible(false);
 
-            orc.getEntityView().setLayoutX(setXOrc(spawnCorner, orc.getEntityView()));
-            orc.getEntityView().setLayoutY(setYOrc(spawnCorner, orc.getEntityView()));
+            orc.getEntityView().setLayoutX(setXOrc(spawnCorner, orc.getEntityView().getView()));
+            orc.getEntityView().setLayoutY(setYOrc(spawnCorner, orc.getEntityView().getView()));
 
-            orcSpawn.getChildren().add(orc.getEntityView());
+            orcSpawn.getChildren().add(orc.getEntityView().getView());
         }
     }
     private double setYOrc(Rectangle spawnCorner, ImageView orcView){
@@ -133,7 +133,7 @@ public class ForestController extends EntityController {
             Bounds hitboxOrc = orc.getHitbox(orc.getEntityView().getLayoutX() + 70, orc.getEntityView().getLayoutY() + 55);
             if(hitboxPlayer.intersects(hitboxOrc)) {
                 Main.setOrcEncountered(orc);
-                encounterEntity(orc.getEntityView());
+                encounterEntity(orc.getEntityView().getView());
             }
         });
     }
@@ -153,7 +153,7 @@ public class ForestController extends EntityController {
 
     private void startBattle() {
         exclamation.setVisible(false);
-        changeMap((Stage)Main.player.getEntityView().getScene().getWindow(), "battle-view");
+        changeMap((Stage)Main.player.getEntityView().getView().getScene().getWindow(), "battle-view");
     }
     private void loadExclamation(){
         loadExclamationImage();

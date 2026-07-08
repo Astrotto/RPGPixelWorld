@@ -51,7 +51,7 @@ public class BattleController extends LoaderController {
                 setPotionObtained();
             }
         };
-        orcEncountered.setEntityView(orcView);
+        orcEncountered.getEntityView().setEntityView(orcView);
         orcHealthBar.setBar(progressBarViewOrc,healthBarOrc);
         orcExperienceBar.setBar(progressBarViewOrc,experienceBarOrc);
         showLevel(orcEncountered, orcHealthBar, levelPane);
@@ -99,7 +99,7 @@ public class BattleController extends LoaderController {
                 player.getHealth().heal(20);
                 player.setAttacking(false);
                 timer.stop();
-                changeMap((Stage) player.getEntityView().getScene().getWindow(), "forest-view");
+                changeMap((Stage) player.getEntityView().getView().getScene().getWindow(), "forest-view");
             }
         }
     }
@@ -124,7 +124,7 @@ public class BattleController extends LoaderController {
 
     public void loadOrcEncountered(Orc orcEncountered){
         loadOrcImages(orcEncountered);
-        orcEncountered.getEntityView().setScaleX(-1);
+        orcEncountered.getEntityView().getView().setScaleX(-1);
         orcEncountered.getEntityView().setImage(imageOrcAttack);
         orcEncountered.getEntityView().setViewport(new Rectangle2D(0, 0, FRAME_WIDTH, FRAME_HEIGHT));
         orcEncountered.getEntityView().setSmooth(false);
@@ -134,7 +134,7 @@ public class BattleController extends LoaderController {
         if(random.nextInt(100) < percentageOfEscape){
             System.out.println("Sei scappato dall'orco");
             timer.stop();
-            changeMap((Stage) player.getEntityView().getScene().getWindow(), "forest-view");
+            changeMap((Stage) player.getEntityView().getView().getScene().getWindow(), "forest-view");
         }else{
             percentageOfEscape += 15;
             attack(orcEncountered, player);

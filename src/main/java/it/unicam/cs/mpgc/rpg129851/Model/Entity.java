@@ -1,6 +1,7 @@
 package it.unicam.cs.mpgc.rpg129851.Model;
 
 import it.unicam.cs.mpgc.rpg129851.Launch.Main;
+import it.unicam.cs.mpgc.rpg129851.View.EntityView;
 import it.unicam.cs.mpgc.rpg129851.View.LevelView;
 import javafx.geometry.Bounds;
 import javafx.scene.image.ImageView;
@@ -15,7 +16,7 @@ public abstract class Entity {
     private boolean isAttacking;
     private Health health;
     private Experience experience;
-    private ImageView entityView;
+    private EntityView entityView;
 
     public Entity(String name, int experience, int level) {
         if(name == null || experience < 0) {
@@ -26,13 +27,11 @@ public abstract class Entity {
             this.lastChangeFrame = 0;
             this.health = new Health();
             this.experience = new Experience(level, experience);
+            this.entityView = new EntityView();
         }
     }
-    public ImageView getEntityView() {
-        return this.entityView;
-    }
-    public void setEntityView(ImageView entityView) {
-        this.entityView = entityView;
+    public EntityView getEntityView() {
+        return entityView;
     }
     public abstract Bounds getHitbox(double x, double y);
 
