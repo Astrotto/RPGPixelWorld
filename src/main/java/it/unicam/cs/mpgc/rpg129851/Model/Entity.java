@@ -10,13 +10,14 @@ import java.util.Random;
 
 public abstract class Entity {
     private String name;
-    int strength, defense;
+    int defense;
     private long lastChangeFrame;
     private int actualFrame;
     private boolean isAttacking;
-    private Health health;
-    private Experience experience;
-    private EntityView entityView;
+    private final Attack attack;
+    private final Health health;
+    private final Experience experience;
+    private final EntityView entityView;
 
     public Entity(String name, int experience, int level) {
         if(name == null || experience < 0) {
@@ -25,6 +26,7 @@ public abstract class Entity {
             this.name = name;
             this.actualFrame = 0;
             this.lastChangeFrame = 0;
+            this.attack = new Attack();
             this.health = new Health();
             this.experience = new Experience(level, experience);
             this.entityView = new EntityView();
@@ -35,32 +37,17 @@ public abstract class Entity {
     }
     public abstract Bounds getHitbox(double x, double y);
 
-    public int attack(Entity target) {
-        Random rand = new Random();
-        int baseDamage = this.getStrength() + (rand.nextInt(5) - 2);
-        int finalDamage = baseDamage - target.getDefense();
-        if(finalDamage <= 0) finalDamage = 1;
-        if(rand.nextInt(100) < 7) {
-            finalDamage *= 2;
-            Main.criticalHit = true;
-        }
-        target.health.takeDamage(finalDamage);
-        return finalDamage;
-    }
+
     public abstract void updateStats(int level);
     public void setStats(int maxHp, int hp, int strength, int defense) {
         this.health.setCurrentStats(hp);
         this.health.setMaxStats(maxHp);
-        setStrength(strength);
+        this.attack.getStrength().setCurrentStats(strength);
         setDefense(defense);
     }
     public String getName() {
         return this.name;
     }
-    public int getStrength() {
-        return this.strength;
-    }
-    public void setStrength(int strength) {this.strength = strength;}
     public int getDefense() {
         return this.defense;
     }
@@ -68,13 +55,10 @@ public abstract class Entity {
     public boolean isAlive() {
         return this.health.getCurrentStats() > 0;
     }
+    public Attack getAttack(){
+        return this.attack;
+    }
 
-    public boolean isAttacking(){
-        return isAttacking;
-    }
-    public void setAttacking(boolean attacking){
-        isAttacking = attacking;
-    }
     public long getLastChangeFrame() {
         return lastChangeFrame;
     }
