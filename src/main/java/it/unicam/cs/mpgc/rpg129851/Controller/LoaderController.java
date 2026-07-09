@@ -29,9 +29,8 @@ public class LoaderController {
                      experienceBarPlayer, experienceBarOrc;
     @FXML
     public static Image imageOrc,
-                 imageExclamation, imageHealthBar,
-                 imageOrcAttack,
-                 imageBtnAttack, imageBtnRun;
+                 imageExclamation,
+                 imageOrcAttack;
     @FXML
     public ImageView playerView, orcView,
                      progressBarViewPlayer, progressBarViewOrc,
@@ -62,11 +61,6 @@ public class LoaderController {
 
 
 
-
-
-
-
-
     private void loadInventory(){
         InventoryController.loadInventory();
         InventoryController.setSlotPotions(slotPotionLV1View);
@@ -86,20 +80,7 @@ public class LoaderController {
     }
 
 
-    public void loadButtonImages() {
-        imageBtnAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/btnAttack.png")));
-        imageBtnRun = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/btnRun.png")));
-    }
-    public void loadButtonDisabled() {
-        imageBtnAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/btnAttackDisabled.png")));
-        imageBtnRun = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/btnRunDisabled.png")));
-    }
-    public void loadButtons(){
-        btnAttack.setImage(imageBtnAttack);
-        btnAttack.setSmooth(false);
-        btnRun.setImage(imageBtnRun);
-        btnRun.setSmooth(false);
-    }
+
 
     public void loadBackground(String nameMap){;
         backgroundView.setImage(loadBackgroundImage(nameMap));

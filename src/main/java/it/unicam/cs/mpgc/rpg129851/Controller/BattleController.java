@@ -5,6 +5,7 @@ import static it.unicam.cs.mpgc.rpg129851.Launch.Main.*;
 import static it.unicam.cs.mpgc.rpg129851.Controller.InventoryController.*;
 import static it.unicam.cs.mpgc.rpg129851.View.LevelView.showLevel;
 
+import it.unicam.cs.mpgc.rpg129851.ImagesLoader.ButtonLoader;
 import it.unicam.cs.mpgc.rpg129851.Model.CombatSystem;
 import it.unicam.cs.mpgc.rpg129851.Model.Entity;
 import it.unicam.cs.mpgc.rpg129851.Model.Orc;
@@ -32,6 +33,7 @@ public class BattleController extends LoaderController {
     AnimationTimer timer;
     private boolean potionsCooldown = false;
     private CombatSystem combatSystem = new CombatSystem();
+    private ButtonLoader buttonLoader;
 
 
     public void initialize(){
@@ -47,15 +49,15 @@ public class BattleController extends LoaderController {
                 orcEncountered.getEntityView().updateAnimation(now, orcEncountered);
                 deathControl(player);
                 deathControl(orcEncountered);
-                loadButtons();
                 setPotionObtained();
+                buttonLoader.loadButtons();
             }
         };
+        buttonLoader = new ButtonLoader(btnAttack, btnRun);
         orcEncountered.getEntityView().setEntityView(orcView);
         orcHealthBar.setBar(progressBarViewOrc,healthBarOrc);
         orcExperienceBar.setBar(progressBarViewOrc,experienceBarOrc);
         showLevel(orcEncountered, orcHealthBar, levelPane);
-        loadButtonImages();
         loadEntity();
         loadOrcEncountered(orcEncountered);
         loadBackground();
@@ -142,10 +144,10 @@ public class BattleController extends LoaderController {
         button1.setDisable(true);
         button2.setDisable(true);
         potionsCooldown = true;
-        loadButtonDisabled();
+        buttonLoader.loadButtonDisabled();
         PauseTransition cooldown = new PauseTransition(Duration.seconds(duration));
         cooldown.setOnFinished(event ->{
-            loadButtonImages();
+            buttonLoader.loadButtonImages();
             button1.setDisable(false);
             button2.setDisable(false);
         });
