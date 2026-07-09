@@ -29,9 +29,7 @@ public class LoaderController {
                      healthBarPlayer, healthBarOrc,
                      experienceBarPlayer, experienceBarOrc;
     @FXML
-    public static Image imageOrc,
-                 imageExclamation,
-                 imageOrcAttack;
+    public static Image imageExclamation;
     @FXML
     public ImageView playerView, orcView,
                      progressBarViewPlayer, progressBarViewOrc,
@@ -84,16 +82,7 @@ public class LoaderController {
 
 
 
-    public void loadOrcImages(Orc orc){
-        String orcName = switch (orc.getExperience().getLevel()) {
-            case 1 -> "armored";
-            case 2 -> "elite";
-            case 3 -> "rider";
-            default -> "";
-        };
-        imageOrc = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcImages/" + orcName + "Orc.png")));
-        imageOrcAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/orcImages/" + orcName + "OrcAttack.png")));
-    }
+
 
 
 

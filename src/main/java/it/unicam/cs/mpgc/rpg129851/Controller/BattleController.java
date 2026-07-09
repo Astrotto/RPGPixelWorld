@@ -1,17 +1,14 @@
 package it.unicam.cs.mpgc.rpg129851.Controller;
 
 import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.PlayerLoader.*;
+import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.OrcLoader.*;
 import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.BackgroundLoader.*;
 import static it.unicam.cs.mpgc.rpg129851.Launch.Main.*;
 import static it.unicam.cs.mpgc.rpg129851.Controller.InventoryController.*;
 import static it.unicam.cs.mpgc.rpg129851.View.LevelView.showLevel;
 
 import it.unicam.cs.mpgc.rpg129851.ImagesLoader.ButtonLoader;
-import it.unicam.cs.mpgc.rpg129851.Model.CombatSystem;
-import it.unicam.cs.mpgc.rpg129851.Model.Entity;
-import it.unicam.cs.mpgc.rpg129851.Model.Orc;
-import it.unicam.cs.mpgc.rpg129851.Model.Player;
-
+import it.unicam.cs.mpgc.rpg129851.Model.*;
 import javafx.animation.AnimationTimer;
 import javafx.animation.PauseTransition;
 
@@ -118,7 +115,7 @@ public class BattleController extends LoaderController {
     public void loadOrcEncountered(Orc orcEncountered){
         loadOrcImages(orcEncountered);
         orcEncountered.getEntityView().getView().setScaleX(-1);
-        orcEncountered.getEntityView().setImage(imageOrcAttack);
+        orcEncountered.getEntityView().setImage(getImageOrcAttack());
         orcEncountered.getEntityView().setViewport(new Rectangle2D(0, 0, FRAME_WIDTH, FRAME_HEIGHT));
         orcEncountered.getEntityView().setSmooth(false);
     }

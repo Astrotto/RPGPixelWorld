@@ -3,6 +3,8 @@ package it.unicam.cs.mpgc.rpg129851.Controller;
 import it.unicam.cs.mpgc.rpg129851.Launch.Main;
 
 import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.BackgroundLoader.setBackgroundView;
+import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.OrcLoader.getImageOrc;
+import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.OrcLoader.loadOrcImages;
 import static it.unicam.cs.mpgc.rpg129851.Movement.KeyDetector.*;
 
 import it.unicam.cs.mpgc.rpg129851.Model.Orc;
@@ -97,7 +99,7 @@ public class ForestController extends EntityController {
 
         for (int i = 0; i < numeroOrchi; i++) {
             Orc orc = generateOrc();
-            orc.getEntityView().setEntityView(new ImageView(imageOrc));
+            orc.getEntityView().setEntityView(new ImageView(getImageOrc()));
             orc.getEntityView().setViewport(new Rectangle2D(0, 0 , 100, 100));
             Main.orcs.add(orc);
 
