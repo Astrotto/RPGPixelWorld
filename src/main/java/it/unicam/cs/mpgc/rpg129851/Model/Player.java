@@ -1,11 +1,10 @@
 package it.unicam.cs.mpgc.rpg129851.Model;
 
-import it.unicam.cs.mpgc.rpg129851.Interfaces.EntityHitbox;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 
 
-public class Player extends Entity implements EntityHitbox {
+public class Player extends Entity {
     private final double speed;
     private Inventory inventory;
 
@@ -47,6 +46,7 @@ public class Player extends Entity implements EntityHitbox {
     public double getSpeed() {
         return speed;
     }
+    @Override
     public Bounds getHitbox(double x, double y) {
         return new BoundingBox(x + 15, y + 21, 14, 20);
     }

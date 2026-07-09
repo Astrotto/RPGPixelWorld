@@ -1,11 +1,10 @@
 package it.unicam.cs.mpgc.rpg129851.Model;
 
-import it.unicam.cs.mpgc.rpg129851.Interfaces.EntityHitbox;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import java.util.Random;
 
-public class Orc extends Entity implements EntityHitbox {
+public class Orc extends Entity {
     public Orc(int level) {
         super("Orc", 0, level);
         if(level <= 0 || level > 3){
@@ -41,7 +40,7 @@ public class Orc extends Entity implements EntityHitbox {
             }
         }
     }
-
+    @Override
     public Bounds getHitbox(double x, double y) {
         return new BoundingBox(x + 17, y + 15, 20, 22);
     }

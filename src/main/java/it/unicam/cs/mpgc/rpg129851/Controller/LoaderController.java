@@ -26,7 +26,7 @@ public class LoaderController {
                      healthBarPlayer, healthBarOrc,
                      experienceBarPlayer, experienceBarOrc;
     @FXML
-    public Image imageLeft, imageRight, imageOrc,
+    public static Image imageLeft, imageRight, imageOrc,
                  imageExclamation, imageHealthBar,
                  imageOrcAttack, imagePlayerAttack,
                  imageBtnAttack, imageBtnRun;

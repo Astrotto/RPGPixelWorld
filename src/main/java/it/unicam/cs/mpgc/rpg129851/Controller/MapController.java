@@ -1,32 +1,45 @@
 package it.unicam.cs.mpgc.rpg129851.Controller;
 
-import it.unicam.cs.mpgc.rpg129851.Launch.Main;
+import static it.unicam.cs.mpgc.rpg129851.Launch.Main.*;
+import static it.unicam.cs.mpgc.rpg129851.Movement.KeyDetector.*;
+
+import it.unicam.cs.mpgc.rpg129851.Movement.KeyDetector;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+
 public class MapController extends EntityController {
     @FXML
     private Rectangle blackScreen;
+    @FXML
+    private AnchorPane mapPane;
     public void initialize() {
         super.initialize();
+        setKeyDetector();
         loadBackground("worldMap.png");
         loadHitboxHome();
         setSpawnPoint(600, 120);
     }
 
+
+    public void setKeyDetector() {
+        mapPane.setOnKeyPressed(KeyDetector::manageKeyPressed);
+        mapPane.setOnKeyReleased(KeyDetector::manageKeyReleased);
+    }
     public void updateLocation() {
         super.updateLocation();
         collisionDetectionForest();
     }
     private void collisionDetectionForest(){
-        Bounds hitboxPlayer = Main.player.getHitbox(Main.player.getEntityView().getLayoutX() + 70, Main.player.getEntityView().getLayoutY() + 55);
+        Bounds hitboxPlayer = player.getHitbox(player.getEntityView().getLayoutX() + 70, player.getEntityView().getLayoutY() + 55);
         Bounds hitboxForest = forest.getBoundsInParent();
         if(hitboxPlayer.intersects(hitboxForest)){
-            keyPressed.clear();
+            getKeyPressed().clear();
             timer.stop();
             FadeTransition fadeOut = new FadeTransition(Duration.seconds(1.5), blackScreen);
             fadeOut.setFromValue(0.0);
@@ -38,7 +51,7 @@ public class MapController extends EntityController {
         }
     }
     private void joinForest(){
-        changeMap((Stage)Main.player.getEntityView().getView().getScene().getWindow(), "forest-view");
+        changeMap((Stage)player.getEntityView().getView().getScene().getWindow(), "forest-view");
     }
 
     private void loadHitboxHome(){

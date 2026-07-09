@@ -6,7 +6,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#manageKeyPressed" onKeyReleased="#manageKeyReleased" prefHeight="800.0" prefWidth="1540.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.mpgc.rpg129851.Controller.MapController">
+<AnchorPane fx:id="mapPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"  prefHeight="800.0" prefWidth="1540.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unicam.cs.mpgc.rpg129851.Controller.MapController">
     <ImageView fx:id="backgroundView" fitHeight="800.0" fitWidth="1540.0" pickOnBounds="true" preserveRatio="true" />
     <Pane fx:id="gameWorld" prefHeight="800.0" prefWidth="1540.0">
         <Rectangle fx:id="forest" arcHeight="5.0" arcWidth="5.0" fill="#096100" height="200.0" layoutX="55.0" layoutY="290.0" opacity="0.00" stroke="BLACK" strokeType="INSIDE" width="170.0" />

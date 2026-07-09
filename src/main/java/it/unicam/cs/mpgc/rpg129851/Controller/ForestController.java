@@ -1,13 +1,17 @@
 package it.unicam.cs.mpgc.rpg129851.Controller;
 
 import it.unicam.cs.mpgc.rpg129851.Launch.Main;
+import static it.unicam.cs.mpgc.rpg129851.Movement.KeyDetector.*;
+
 import it.unicam.cs.mpgc.rpg129851.Model.Orc;
+import it.unicam.cs.mpgc.rpg129851.Movement.KeyDetector;
 import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -17,6 +21,8 @@ import javafx.util.Duration;
 import java.util.*;
 
 public class ForestController extends EntityController {
+    @FXML
+    public AnchorPane forestPane;
     @FXML
     private ImageView exclamation;
     @FXML
@@ -33,10 +39,15 @@ public class ForestController extends EntityController {
 
     public void initialize() {
         super.initialize();
+        setKeyDetector();
         loadBoundsHitbox();
         loadBackground("forestMap.png");
         Main.orcs.clear();
         placeOrcRandomly();
+    }
+    public void setKeyDetector() {
+        forestPane.setOnKeyPressed(KeyDetector::manageKeyPressed);
+        forestPane.setOnKeyReleased(KeyDetector::manageKeyReleased);
     }
     public void updateLocation() {
         super.updateLocation();
@@ -48,9 +59,9 @@ public class ForestController extends EntityController {
         meetForestSpirit();
     }
     public void exitCollision(Bounds exit, double x, double y){
-        if(Main.player.getHitbox(newX + 70, newY + 55).intersects(exit)) {
+        if(Main.player.getHitbox(getNewX() + 70, getNewY() + 55).intersects(exit)) {
             timer.stop();
-            keyPressed.clear();
+            getKeyPressed().clear();
             FadeTransition fadeOut = new FadeTransition(Duration.seconds(1.5), blackScreen);
             fadeOut.setFromValue(0.0);
             fadeOut.setToValue(1.0);
