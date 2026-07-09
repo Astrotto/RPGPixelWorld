@@ -1,6 +1,7 @@
 package it.unicam.cs.mpgc.rpg129851.Controller;
 
 import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.PlayerLoader.*;
+import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.BackgroundLoader.*;
 import static it.unicam.cs.mpgc.rpg129851.Launch.Main.*;
 import static it.unicam.cs.mpgc.rpg129851.Controller.InventoryController.*;
 import static it.unicam.cs.mpgc.rpg129851.View.LevelView.showLevel;
@@ -59,8 +60,8 @@ public class BattleController extends LoaderController {
         orcExperienceBar.setBar(progressBarViewOrc,experienceBarOrc);
         showLevel(orcEncountered, orcHealthBar, levelPane);
         loadEntity();
+        setBackgroundView("battleMap.png", backgroundView);
         loadOrcEncountered(orcEncountered);
-        loadBackground();
         timer.start();
     }
 
@@ -101,16 +102,11 @@ public class BattleController extends LoaderController {
                 player.getHealth().heal(20);
                 player.getAttack().setAttacking(false);
                 timer.stop();
-                changeMap((Stage) player.getEntityView().getView().getScene().getWindow(), "forest-view");
+                changeMap((Stage) player.getEntityView().getView().getScene().getWindow(), "forest");
             }
         }
     }
 
-    public void loadBackground(){
-        loadBackground("battleMap.png");
-        backgroundView.setLayoutY(backgroundView.getLayoutY() - 170);
-        backgroundView.setLayoutX(backgroundView.getLayoutX() + 30);
-    }
 
     public void loadEntity(){
         player.getEntityView().setImage(getImagePlayerAttack());
@@ -131,7 +127,7 @@ public class BattleController extends LoaderController {
         if(random.nextInt(100) < percentageOfEscape){
             System.out.println("Sei scappato dall'orco");
             timer.stop();
-            changeMap((Stage) player.getEntityView().getView().getScene().getWindow(), "forest-view");
+            changeMap((Stage) player.getEntityView().getView().getScene().getWindow(), "forest");
         }else{
             percentageOfEscape += 15;
             attack(orcEncountered, player);

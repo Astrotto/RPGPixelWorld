@@ -1,5 +1,6 @@
 package it.unicam.cs.mpgc.rpg129851.Controller;
 
+import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.BackgroundLoader.setBackgroundView;
 import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.PlayerLoader.*;
 import static it.unicam.cs.mpgc.rpg129851.Launch.Main.*;
 import static it.unicam.cs.mpgc.rpg129851.View.LevelView.*;
@@ -41,8 +42,6 @@ public class LoaderController {
                      btnAttack, btnRun;
     public Text amountLV1, amountLV2, amountLV3;
     public Pane gameWorld, levelPane;
-    public final int FRAME_WIDTH = 100;
-    public final int FRAME_HEIGHT = 100;
 
     public void initialize() {
         player.getEntityView().setEntityView(playerView);
@@ -82,16 +81,6 @@ public class LoaderController {
 
 
 
-    public void loadBackground(String nameMap){;
-        backgroundView.setImage(loadBackgroundImage(nameMap));
-        backgroundView.setSmooth(false);
-    }
-
-    public Image loadBackgroundImage(String backgroundName){
-        return  new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/mapImages/" + backgroundName)));
-    }
-
-
 
 
 
@@ -110,7 +99,7 @@ public class LoaderController {
 
     public void changeMap(Stage actualStage, String map){
         try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(("/it/unicam/cs/mpgc/rpg129851/" + map + ".fxml")));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(("/it/unicam/cs/mpgc/rpg129851/" + map + "-view.fxml")));
             Parent root = loader.load();
             Stage stage = actualStage;
             Scene scene = new Scene(root);

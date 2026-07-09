@@ -1,7 +1,7 @@
 package it.unicam.cs.mpgc.rpg129851.Controller;
 
 import static it.unicam.cs.mpgc.rpg129851.Launch.Main.*;
-import static it.unicam.cs.mpgc.rpg129851.Movement.KeyDetector.*;
+import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.BackgroundLoader.*;
 
 import it.unicam.cs.mpgc.rpg129851.Movement.KeyDetector;
 import javafx.animation.FadeTransition;
@@ -21,7 +21,7 @@ public class MapController extends EntityController {
     public void initialize() {
         super.initialize();
         setKeyDetector();
-        loadBackground("worldMap.png");
+        setBackgroundView("worldMap.png", backgroundView);
         loadHitboxHome();
         setSpawnPoint(600, 120);
     }
@@ -51,7 +51,7 @@ public class MapController extends EntityController {
         }
     }
     private void joinForest(){
-        changeMap((Stage)player.getEntityView().getView().getScene().getWindow(), "forest-view");
+        changeMap((Stage)player.getEntityView().getView().getScene().getWindow(), "forest");
     }
 
     private void loadHitboxHome(){

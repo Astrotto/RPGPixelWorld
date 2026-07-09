@@ -1,6 +1,8 @@
 package it.unicam.cs.mpgc.rpg129851.Controller;
 
 import it.unicam.cs.mpgc.rpg129851.Launch.Main;
+
+import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.BackgroundLoader.setBackgroundView;
 import static it.unicam.cs.mpgc.rpg129851.Movement.KeyDetector.*;
 
 import it.unicam.cs.mpgc.rpg129851.Model.Orc;
@@ -41,7 +43,7 @@ public class ForestController extends EntityController {
         super.initialize();
         setKeyDetector();
         loadBoundsHitbox();
-        loadBackground("forestMap.png");
+        setBackgroundView("forestMap.png", backgroundView);
         Main.orcs.clear();
         placeOrcRandomly();
     }
@@ -71,7 +73,7 @@ public class ForestController extends EntityController {
             fadeOut.setFromValue(0.0);
             fadeOut.setToValue(1.0);
             fadeOut.setOnFinished(event -> {
-                changeMap((Stage)Main.player.getEntityView().getView().getScene().getWindow(), "map-view");
+                changeMap((Stage)Main.player.getEntityView().getView().getScene().getWindow(), "map");
                 setSpawnPoint(x - 40, y - 40);
             });
             fadeOut.play();
@@ -169,7 +171,7 @@ public class ForestController extends EntityController {
 
     private void startBattle() {
         exclamation.setVisible(false);
-        changeMap((Stage)Main.player.getEntityView().getView().getScene().getWindow(), "battle-view");
+        changeMap((Stage)Main.player.getEntityView().getView().getScene().getWindow(), "battle");
     }
     private void loadExclamation(){
         loadExclamationImage();
