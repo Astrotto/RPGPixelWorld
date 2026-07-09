@@ -3,8 +3,9 @@ package it.unicam.cs.mpgc.rpg129851.Controller;
 import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.PlayerLoader.*;
 import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.OrcLoader.*;
 import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.BackgroundLoader.*;
+import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.PotionLoader.*;
 import static it.unicam.cs.mpgc.rpg129851.Launch.Main.*;
-import static it.unicam.cs.mpgc.rpg129851.Controller.InventoryController.*;
+import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.InventoryLoader.*;
 import static it.unicam.cs.mpgc.rpg129851.View.LevelView.showLevel;
 
 import it.unicam.cs.mpgc.rpg129851.ImagesLoader.ButtonLoader;
@@ -150,9 +151,9 @@ public class BattleController extends LoaderController {
     @FXML
     private void potionUsed(){
         if(!(player.getHealth().getStatistic() == player.getHealth().getMaxStatistic()) && !player.getAttack().isAttacking() && !orcEncountered.getAttack().isAttacking() && !potionsCooldown){
-            potionSelected(potionLV1View, 1, noPotionLV1);
-            potionSelected(potionLV2View, 2, noPotionLV2);
-            potionSelected(potionLV3View, 3, noPotionLV3);
+            potionSelected(potionLV1View, 1, getNoPotionImage(1));
+            potionSelected(potionLV2View, 2, getNoPotionImage(2));
+            potionSelected(potionLV3View, 3, getNoPotionImage(3));
 
         }
     }

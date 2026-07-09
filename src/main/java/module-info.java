@@ -17,4 +17,6 @@ module it.unicam.cs.mpgc.rpg129851 {
     opens it.unicam.cs.mpgc.rpg129851.Launch to javafx.fxml;
     exports it.unicam.cs.mpgc.rpg129851.Controller;
     opens it.unicam.cs.mpgc.rpg129851.Controller to javafx.fxml;
+    exports it.unicam.cs.mpgc.rpg129851.ImagesLoader;
+    opens it.unicam.cs.mpgc.rpg129851.ImagesLoader to javafx.fxml;
 }

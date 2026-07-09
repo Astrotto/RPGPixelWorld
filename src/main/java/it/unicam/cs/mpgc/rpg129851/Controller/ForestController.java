@@ -2,9 +2,8 @@ package it.unicam.cs.mpgc.rpg129851.Controller;
 
 import it.unicam.cs.mpgc.rpg129851.Launch.Main;
 
+import static it.unicam.cs.mpgc.rpg129851.Controller.OrcController.*;
 import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.BackgroundLoader.setBackgroundView;
-import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.OrcLoader.getImageOrc;
-import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.OrcLoader.loadOrcImages;
 import static it.unicam.cs.mpgc.rpg129851.Movement.KeyDetector.*;
 
 import it.unicam.cs.mpgc.rpg129851.Model.Orc;
@@ -88,65 +87,14 @@ public class ForestController extends EntityController {
         downExitHitbox = downExit.getBoundsInParent();
     }
     private void placeOrcRandomly(){
-        placeOrcRandomlyInACorner(spawnLeftDownCorner);
-        placeOrcRandomlyInACorner(spawnLeftUpCorner);
-        placeOrcRandomlyInACorner(spawnRightUpCorner);
-        placeOrcRandomlyInACorner(spawnRightDownCorner);
+        placeOrcRandomlyInACorner(spawnLeftDownCorner, orcSpawn);
+        placeOrcRandomlyInACorner(spawnLeftUpCorner, orcSpawn);
+        placeOrcRandomlyInACorner(spawnRightUpCorner, orcSpawn);
+        placeOrcRandomlyInACorner(spawnRightDownCorner, orcSpawn);
     }
-    private void placeOrcRandomlyInACorner(Rectangle spawnCorner) {
-        Random rand = new Random();
-        int numeroOrchi = rand.nextInt(4) + 1;
 
-        for (int i = 0; i < numeroOrchi; i++) {
-            Orc orc = generateOrc();
-            orc.getEntityView().setEntityView(new ImageView(getImageOrc()));
-            orc.getEntityView().setViewport(new Rectangle2D(0, 0 , 100, 100));
-            Main.orcs.add(orc);
 
-            orc.getEntityView().getView().setFitWidth(260);
-            orc.getEntityView().getView().setFitHeight(260);
-            orc.getEntityView().getView().setPreserveRatio(true);
 
-            //orcView.setVisible(false);
-
-            orc.getEntityView().setLayoutX(setXOrc(spawnCorner, orc.getEntityView().getView()));
-            orc.getEntityView().setLayoutY(setYOrc(spawnCorner, orc.getEntityView().getView()));
-
-            orcSpawn.getChildren().add(orc.getEntityView().getView());
-        }
-    }
-    private double setYOrc(Rectangle spawnCorner, ImageView orcView){
-        Random rand = new Random();
-        double orcHeight = orcView.getBoundsInParent().getHeight();
-        double minY = spawnCorner.getLayoutY();
-        double maxY = minY + spawnCorner.getHeight() - orcHeight;
-        return minY + (maxY - minY) * rand.nextDouble();
-    }
-    private double setXOrc(Rectangle spawnCorner, ImageView orcView){
-        Random rand = new Random();
-        double orcWidth = orcView.getBoundsInParent().getWidth();
-        double minX = spawnCorner.getLayoutX();
-        double maxX = minX + spawnCorner.getWidth() - orcWidth;
-        return minX + (maxX - minX) * rand.nextDouble();
-    }
-    private Orc generateOrc(){
-        Random rand = new Random();
-
-        int randomLevel = rand.nextInt(10) + 1;
-        int lvlOrc;
-        if(randomLevel <= 6){
-            lvlOrc = 1;
-        }else if(randomLevel <= 9){
-            lvlOrc = 2;
-        }else{
-            lvlOrc = 3;
-        }
-        Orc orc = new Orc(lvlOrc);
-
-        loadOrcImages(orc);
-
-        return orc;
-    }
     private void orcCollisionDetection(List<Orc> orcList){
         Bounds hitboxPlayer = Main.player.getHitbox(Main.player.getEntityView().getLayoutX() + 70, Main.player.getEntityView().getLayoutY() + 55);
         orcList.forEach((orc) -> {
@@ -176,14 +124,13 @@ public class ForestController extends EntityController {
         changeMap((Stage)Main.player.getEntityView().getView().getScene().getWindow(), "battle");
     }
     private void loadExclamation(){
-        loadExclamationImage();
         exclamation.setX(Main.player.getEntityView().getLayoutX() + 90);
         exclamation.setY(Main.player.getEntityView().getLayoutY() + 55);
         exclamation.setRotate(5);
-        exclamation.setImage(imageExclamation);
+        exclamation.setImage(loadExclamationImage());
     }
-    private void loadExclamationImage(){
-        imageExclamation = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/exclamation.png")));
+    private Image loadExclamationImage(){
+        return new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/exclamation.png")));
     }
     private void meetForestSpirit(){
         Bounds hitboxPlayer = Main.player.getHitbox(Main.player.getEntityView().getLayoutX() + 70, Main.player.getEntityView().getLayoutY() + 55);

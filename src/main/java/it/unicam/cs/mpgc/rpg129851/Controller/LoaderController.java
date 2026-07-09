@@ -1,16 +1,15 @@
 package it.unicam.cs.mpgc.rpg129851.Controller;
 
-import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.BackgroundLoader.setBackgroundView;
+import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.InventoryLoader.*;
 import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.PlayerLoader.*;
 import static it.unicam.cs.mpgc.rpg129851.Launch.Main.*;
 import static it.unicam.cs.mpgc.rpg129851.View.LevelView.*;
 import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.PotionLoader.*;
 
 
-import it.unicam.cs.mpgc.rpg129851.Model.Orc;
+import it.unicam.cs.mpgc.rpg129851.ImagesLoader.InventoryLoader;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -19,8 +18,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-import java.util.Objects;
 
 public class LoaderController {
 
@@ -51,24 +48,15 @@ public class LoaderController {
         loadPlayerImages();
         showLevel(player, playerHealthBar, levelPane);
         loadPlayerView();
-        //loadExperienceBar(experienceBarPlayer, healthBarViewPlayer, player);
-        loadInventory();
+        setInventory();
     }
 
-
-
-
-    private void loadInventory(){
-        InventoryController.loadInventory();
-        InventoryController.setSlotPotions(slotPotionLV1View);
-        InventoryController.setSlotPotions(slotPotionLV2View);
-        InventoryController.setSlotPotions(slotPotionLV3View);
-        InventoryController.setPotionsView(potionLV1View, InventoryController.noPotionLV1);
-        InventoryController.setPotionsView(potionLV2View, InventoryController.noPotionLV2);
-        InventoryController.setPotionsView(potionLV3View, InventoryController.noPotionLV3);
+    private void setInventory(){
+        loadInventory(slotPotionLV1View, potionLV1View, getNoPotionImage(1));
+        loadInventory(slotPotionLV2View, potionLV2View, getNoPotionImage(2));
+        loadInventory(slotPotionLV3View, potionLV3View, getNoPotionImage(3));
 
     }
-
     public void setPotionObtained(){
         loadPotionObtained(potionLV1View, amountLV1, 1);
         loadPotionObtained(potionLV2View, amountLV2, 2);
