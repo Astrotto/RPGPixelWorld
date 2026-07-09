@@ -9,9 +9,9 @@ import javafx.scene.image.ImageView;
 import static it.unicam.cs.mpgc.rpg129851.Launch.Main.player;
 
 public class EntityView {
-    private final int FRAME_WIDTH = 100;
-    private final int FRAME_HEIGHT = 100;
-    private Frame frame;
+    public final int FRAME_WIDTH = 100;
+    public final int FRAME_HEIGHT = 100;
+    private final Frame frame;
     private ImageView entityView;
     private boolean isMoving = false;
 
@@ -73,14 +73,5 @@ public class EntityView {
     public boolean isMoving() {
         return this.isMoving;
     }
-    public void loadPlayerAnimation(long actualHour) {
-        if(!this.isMoving()){
-            player.getEntityView().setViewport(new Rectangle2D(0,0,FRAME_WIDTH,FRAME_HEIGHT));
-        }else if(actualHour - this.getFrame().getLastChangeFrame() > 100_000_000){
-            this.getFrame().setActualFrame((this.getFrame().getActualFrame() + 1) % 8);
-            double xMovement = this.getFrame().getActualFrame() * FRAME_WIDTH;
-            player.getEntityView().setViewport(new Rectangle2D(xMovement, 0, FRAME_WIDTH, FRAME_HEIGHT));
-            this.getFrame().setLastChangeFrame(actualHour);
-        }
-    }
+
 }

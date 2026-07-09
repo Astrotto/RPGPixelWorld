@@ -40,12 +40,9 @@ public class EntityController extends LoaderController {
         setNewX(player.getEntityView().getLayoutX());
         setNewY(player.getEntityView().getLayoutY());
         player.getEntityView().setIsMoving(false);
-        double oldY = getNewY();
 
-        keyDetectionY(KeyCode.S, KeyCode.DOWN);
-        keyDetectionY(KeyCode.W, KeyCode.UP);
-        keyDetectionX(KeyCode.A, KeyCode.LEFT);
-        keyDetectionX(KeyCode.D, KeyCode.RIGHT);
+        keyDetection("X");
+        keyDetection("Y");
 
         if(getNewX() < -60) setNewX(-60);
         if(getNewY() < -60) setNewY(-60);

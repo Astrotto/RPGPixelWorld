@@ -9,19 +9,20 @@ public abstract class Entity {
     private Defense defense = new Defense();
     private Health health = new Health();
     private Experience experience;
-    private final EntityView entityView;
+    public EntityView entityView;
 
     public Entity(String name, int experience, int level) {
         if(name == null || experience < 0) {
             throw new IllegalArgumentException("Entity invalid");
         }else{
             this.name = name;
-            this.entityView = new EntityView();
             this.experience = new Experience(level, experience, 85);
         }
     }
-    public EntityView getEntityView() {
-        return entityView;
+
+    public abstract EntityView getEntityView();
+    public void setEntityView(EntityView entityView) {
+        this.entityView = entityView;
     }
     public abstract Bounds getHitbox(double x, double y);
     public abstract void setInitialStatistic(int level);

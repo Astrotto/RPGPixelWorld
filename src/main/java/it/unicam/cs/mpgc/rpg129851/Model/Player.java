@@ -1,5 +1,7 @@
 package it.unicam.cs.mpgc.rpg129851.Model;
 
+import it.unicam.cs.mpgc.rpg129851.View.EntityView;
+import it.unicam.cs.mpgc.rpg129851.View.PlayerView;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 
@@ -15,8 +17,13 @@ public class Player extends Entity {
         }else {
             this.speed = speed;
             this.inventory = new Inventory();
+            this.setEntityView(new PlayerView());
             setInitialStatistic(level);
         }
+    }
+    @Override
+    public PlayerView getEntityView() {
+        return (PlayerView)this.entityView;
     }
     @Override
     public void setInitialStatistic(int level) {
