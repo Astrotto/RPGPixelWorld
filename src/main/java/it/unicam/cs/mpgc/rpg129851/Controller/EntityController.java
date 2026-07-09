@@ -1,5 +1,6 @@
 package it.unicam.cs.mpgc.rpg129851.Controller;
 
+import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.PlayerLoader.*;
 import static it.unicam.cs.mpgc.rpg129851.Launch.Main.*;
 import static it.unicam.cs.mpgc.rpg129851.Movement.KeyDetector.*;
 
@@ -33,7 +34,7 @@ public class EntityController extends LoaderController {
             }
         };
         movementProcessor = new MovementProcessor();
-        player.getEntityView().setImage(imageWalk);
+        player.getEntityView().setImage(getImageWalk());
         timer.start();
     }
 

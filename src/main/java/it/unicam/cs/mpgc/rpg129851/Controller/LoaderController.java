@@ -1,5 +1,6 @@
 package it.unicam.cs.mpgc.rpg129851.Controller;
 
+import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.PlayerLoader.*;
 import static it.unicam.cs.mpgc.rpg129851.Launch.Main.*;
 import static it.unicam.cs.mpgc.rpg129851.View.LevelView.*;
 
@@ -26,9 +27,9 @@ public class LoaderController {
                      healthBarPlayer, healthBarOrc,
                      experienceBarPlayer, experienceBarOrc;
     @FXML
-    public static Image imageLeft, imageWalk, imageOrc,
+    public static Image imageOrc,
                  imageExclamation, imageHealthBar,
-                 imageOrcAttack, imagePlayerAttack,
+                 imageOrcAttack,
                  imageBtnAttack, imageBtnRun;
     @FXML
     public ImageView playerView, orcView,
@@ -52,28 +53,16 @@ public class LoaderController {
         playerExperienceBar.showExperienceBar();
         loadPlayerImages();
         showLevel(player, playerHealthBar, levelPane);
-        loadEntity();
+        loadPlayerView();
         //loadExperienceBar(experienceBarPlayer, healthBarViewPlayer, player);
         loadInventory();
     }
 
-    public void loadPlayerImages(){
-        String playerName = switch (player.getExperience().getLevel()) {
-            case 1 -> "knight";
-            case 2 -> "templarKnight";
-            case 3 -> "lancer";
-            default -> "";
-        };
-        imageWalk = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/knightImages/" + playerName + "Walk.png")));
-        imagePlayerAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/knightImages/" + playerName + "Attack.png")));
-    }
 
 
 
-    public void loadEntity(){
-        player.getEntityView().setViewport(new Rectangle2D(0,0,FRAME_WIDTH,FRAME_HEIGHT));
-        player.getEntityView().setSmooth(false);
-    }
+
+
 
 
 

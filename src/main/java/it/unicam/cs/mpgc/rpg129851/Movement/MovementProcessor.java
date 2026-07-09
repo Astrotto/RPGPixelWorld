@@ -1,24 +1,12 @@
 package it.unicam.cs.mpgc.rpg129851.Movement;
-import static it.unicam.cs.mpgc.rpg129851.Controller.LoaderController.*;
+
 import static it.unicam.cs.mpgc.rpg129851.Launch.Main.player;
 import static it.unicam.cs.mpgc.rpg129851.Movement.KeyDetector.*;
-import it.unicam.cs.mpgc.rpg129851.Collision.MapBoundaryChecker;
-import it.unicam.cs.mpgc.rpg129851.Collision.ObstacleCollisionChecker;
-import it.unicam.cs.mpgc.rpg129851.Interfaces.CollisionChecker;
-import it.unicam.cs.mpgc.rpg129851.Model.Player;
-
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 
 public class MovementProcessor {
-    private KeyDetector keyDetector;
+    private final KeyDetector keyDetector;
 
     public MovementProcessor() {
         keyDetector = new KeyDetector();

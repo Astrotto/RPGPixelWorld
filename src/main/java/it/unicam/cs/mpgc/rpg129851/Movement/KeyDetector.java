@@ -4,8 +4,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import java.util.HashSet;
 import java.util.Set;
-import static it.unicam.cs.mpgc.rpg129851.Launch.Main.*;
-
 
 public class KeyDetector {
     public static final Set<KeyCode> keyPressed = new HashSet<>();
