@@ -26,7 +26,7 @@ public class LoaderController {
                      healthBarPlayer, healthBarOrc,
                      experienceBarPlayer, experienceBarOrc;
     @FXML
-    public static Image imageLeft, imageRight, imageOrc,
+    public static Image imageLeft, imageWalk, imageOrc,
                  imageExclamation, imageHealthBar,
                  imageOrcAttack, imagePlayerAttack,
                  imageBtnAttack, imageBtnRun;
@@ -64,8 +64,7 @@ public class LoaderController {
             case 3 -> "lancer";
             default -> "";
         };
-        imageRight = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/knightImages/" + playerName + "WalkRight.png")));
-        imageLeft = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/knightImages/" + playerName + "WalkLeft.png")));
+        imageWalk = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/knightImages/" + playerName + "Walk.png")));
         imagePlayerAttack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/knightImages/" + playerName + "Attack.png")));
     }
 

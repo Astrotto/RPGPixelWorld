@@ -31,15 +31,15 @@ public class MapController extends EntityController {
         mapPane.setOnKeyPressed(KeyDetector::manageKeyPressed);
         mapPane.setOnKeyReleased(KeyDetector::manageKeyReleased);
     }
-    public void updateLocation() {
-        super.updateLocation();
+    public void updatePlayerLocation() {
+        super.updatePlayerLocation();
         collisionDetectionForest();
     }
     private void collisionDetectionForest(){
         Bounds hitboxPlayer = player.getHitbox(player.getEntityView().getLayoutX() + 70, player.getEntityView().getLayoutY() + 55);
         Bounds hitboxForest = forest.getBoundsInParent();
         if(hitboxPlayer.intersects(hitboxForest)){
-            getKeyPressed().clear();
+            //getKeyPressed().clear();
             timer.stop();
             FadeTransition fadeOut = new FadeTransition(Duration.seconds(1.5), blackScreen);
             fadeOut.setFromValue(0.0);

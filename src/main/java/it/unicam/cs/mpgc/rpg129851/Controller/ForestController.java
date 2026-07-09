@@ -49,8 +49,8 @@ public class ForestController extends EntityController {
         forestPane.setOnKeyPressed(KeyDetector::manageKeyPressed);
         forestPane.setOnKeyReleased(KeyDetector::manageKeyReleased);
     }
-    public void updateLocation() {
-        super.updateLocation();
+    public void updatePlayerLocation() {
+        super.updatePlayerLocation();
         exitCollision(leftExitHitbox, -10, 370);
         exitCollision(rightExitHitbox, 220, 380);
         exitCollision(upExitHitbox, 105, 225);
@@ -61,7 +61,12 @@ public class ForestController extends EntityController {
     public void exitCollision(Bounds exit, double x, double y){
         if(Main.player.getHitbox(getNewX() + 70, getNewY() + 55).intersects(exit)) {
             timer.stop();
-            getKeyPressed().clear();
+
+
+            //getKeyPressed().clear();
+
+
+
             FadeTransition fadeOut = new FadeTransition(Duration.seconds(1.5), blackScreen);
             fadeOut.setFromValue(0.0);
             fadeOut.setToValue(1.0);

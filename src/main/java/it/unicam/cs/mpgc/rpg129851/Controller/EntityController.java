@@ -3,10 +3,9 @@ package it.unicam.cs.mpgc.rpg129851.Controller;
 import static it.unicam.cs.mpgc.rpg129851.Launch.Main.*;
 import static it.unicam.cs.mpgc.rpg129851.Movement.KeyDetector.*;
 
+import it.unicam.cs.mpgc.rpg129851.Movement.MovementProcessor;
 import javafx.animation.AnimationTimer;
-import javafx.fxml.*;
 import javafx.geometry.*;
-import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 
@@ -15,13 +14,14 @@ public class EntityController extends LoaderController {
     public AnimationTimer timer;
     public static double spawnX = -1;
     public static double spawnY = -1;
+    private MovementProcessor movementProcessor;
 
     public void initialize() {
         super.initialize();
         timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                updateLocation();
+                updatePlayerLocation();
                 setPotionObtained();
                 player.getEntityView().loadPlayerAnimation(now);
                 if(spawnX != -1 || spawnY != -1) {
@@ -32,17 +32,17 @@ public class EntityController extends LoaderController {
                 }
             }
         };
-        player.getEntityView().setImage(imageLeft);
+        movementProcessor = new MovementProcessor();
+        player.getEntityView().setImage(imageWalk);
         timer.start();
     }
 
-    public void updateLocation() {
+    public void updatePlayerLocation() {
         setNewX(player.getEntityView().getLayoutX());
         setNewY(player.getEntityView().getLayoutY());
         player.getEntityView().setIsMoving(false);
 
-        keyDetection("X");
-        keyDetection("Y");
+        movementProcessor.processMovement();
 
         if(getNewX() < -60) setNewX(-60);
         if(getNewY() < -60) setNewY(-60);
