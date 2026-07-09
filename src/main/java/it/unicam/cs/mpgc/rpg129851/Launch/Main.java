@@ -16,7 +16,7 @@ import java.util.List;
 
 public class Main extends Application {
 
-    public static Player player = new Player(1, 0, 2);
+    public static Player player = new Player(1, 84, 2);
     public static List<Orc> orcs = new ArrayList<>();
     public static Orc orcEncountered;
     public static ForestSpirit guardian = new ForestSpirit();

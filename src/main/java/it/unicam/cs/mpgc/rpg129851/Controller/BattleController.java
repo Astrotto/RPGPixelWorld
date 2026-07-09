@@ -72,7 +72,6 @@ public class BattleController extends LoaderController {
         cooldownActivation(btnRun, btnAttack, 1.5);
     }
     private void attack(Entity attacker, Entity defender){
-        int damage;
         if(defender.getHealth().getStatistic() <= 0){
 
         }else {

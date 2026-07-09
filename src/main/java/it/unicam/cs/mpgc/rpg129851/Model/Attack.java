@@ -1,8 +1,5 @@
 package it.unicam.cs.mpgc.rpg129851.Model;
-
 import java.util.Random;
-
-import static it.unicam.cs.mpgc.rpg129851.Model.DamageCalculator.*;
 
 public class Attack {
     private Attribute strength;
