@@ -3,6 +3,7 @@ package it.unicam.cs.mpgc.rpg129851.Controller;
 import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.PlayerLoader.*;
 import static it.unicam.cs.mpgc.rpg129851.Launch.Main.*;
 import static it.unicam.cs.mpgc.rpg129851.View.LevelView.*;
+import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.PotionLoader.*;
 
 
 import it.unicam.cs.mpgc.rpg129851.Model.Orc;
@@ -82,17 +83,6 @@ public class LoaderController {
         loadPotionObtained(potionLV2View, amountLV2, 2);
         loadPotionObtained(potionLV3View, amountLV3, 3);
 
-    }
-    public void loadPotionObtained(ImageView potionView, Text amount, int level){
-        if(player.getInventory().getPotionAmount(level) > 0){
-            potionView.setImage(InventoryController.getPotionImages(level));
-            loadAmount(amount, player.getInventory().getPotionAmount(level));
-        }else{
-            loadAmount(amount, 0);
-        }
-    }
-    public void loadAmount(Text text, int amount){
-        text.setText("" + amount);
     }
 
 
