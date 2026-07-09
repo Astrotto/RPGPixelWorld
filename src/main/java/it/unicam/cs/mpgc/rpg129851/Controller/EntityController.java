@@ -75,9 +75,6 @@ public class EntityController extends LoaderController {
         }
     }
 
-
-
-
     public void setSpawnPoint(double x, double y){
         spawnX = x;
         spawnY = y;

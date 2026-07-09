@@ -74,12 +74,12 @@ public class BattleController extends LoaderController {
         if(defender.getHealth().getStatistic() <= 0){
 
         }else {
-            damage = attacker.getAttack().attack(defender);
-            if (criticalHit) {
-                criticalHit = false;
-                System.out.println(attacker.getName() + " di LVL" + attacker.getExperience().getLevel() + " ha inflitto " + damage + " danni a " + defender.getName() + " con un COLPO CRITICO!");
+            attacker.getAttack().inflictDamage(defender);
+            if (attacker.getAttack().isCriticalHit()) {
+                attacker.getAttack().setCriticalHit(false);
+                System.out.println(attacker.getName() + " di LVL" + attacker.getExperience().getLevel() + " ha inflitto " + attacker.getAttack().getFinalDamage() + " danni a " + defender.getName() + " con un COLPO CRITICO!");
             } else {
-                System.out.println(attacker.getName()  + " di LVL" + attacker.getExperience().getLevel() + " ha inflitto " + damage + " danni a " + defender.getName());
+                System.out.println(attacker.getName()  + " di LVL" + attacker.getExperience().getLevel() + " ha inflitto " + attacker.getAttack().getFinalDamage() + " danni a " + defender.getName());
             }
         }
     }
