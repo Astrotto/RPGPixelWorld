@@ -8,16 +8,17 @@ public class Health extends Statistic {
     public Health(int hp){
         super(hp);
     }
+    public Health(){ super(); }
 
     public void heal(int hp) {
-        this.setStatistic(Math.min(this.getStatistic() + hp, this.getMaxStatistic()));
+        this.setBothStatistic(Math.min(this.getStatistic() + hp, this.getMaxStatistic()));
     }
     public void heal(Potion potion) {
-        this.setStatistic(Math.min(this.getStatistic() + potion.getHealth().getStatistic(), this.getMaxStatistic()));
+        this.setBothStatistic(Math.min(this.getStatistic() + potion.getHealth().getStatistic(), this.getMaxStatistic()));
     }
     public void takeDamage(int damage) {
-        this.setStatistic(this.getStatistic() - damage);
-        if(this.getStatistic() <= 0) this.setStatistic(0);
+        this.setBothStatistic(this.getStatistic() - damage);
+        if(this.getStatistic() <= 0) this.setBothStatistic(0);
     }
 
 }

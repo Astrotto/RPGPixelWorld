@@ -11,26 +11,37 @@ public class Orc extends Entity implements EntityHitbox {
         if(level <= 0 || level > 3){
             throw new IllegalArgumentException("Lvl must be between 1 and 3");
         }else{
-            updateStats(level);
+            setInitialStatistic(level);
+        }
+    }
+    @Override
+    public void setInitialStatistic(int level) {
+        Random random = new Random();
+        switch (level){
+            case 1 -> {
+                this.getHealth().setBothStatistic(65);
+                this.getHealth().setMaxStatistic(65);
+                this.getAttack().getStrength().setAttribute(20);
+                this.getDefense().setAttribute(15);
+                this.getExperience().setBothStatistic(random.nextInt(10) + 10);
+            }
+            case 2 -> {
+                this.getHealth().setBothStatistic(85);
+                this.getHealth().setMaxStatistic(85);
+                this.getAttack().getStrength().setAttribute(30);
+                this.getDefense().setAttribute(30);
+                this.getExperience().setBothStatistic(random.nextInt(10) + 20);
+            }
+            case 3 -> {
+                this.getHealth().setBothStatistic(110);
+                this.getHealth().setMaxStatistic(110);
+                this.getAttack().getStrength().setAttribute(40);
+                this.getDefense().setAttribute(40);
+                this.getExperience().setBothStatistic(random.nextInt(15) + 30);
+            }
         }
     }
 
-     public void updateStats(int level){
-        Random random = new Random();
-        switch (level){
-            case 1:
-                setStats(65, 65, 20, 15);
-                this.getExperience().setStatistic(random.nextInt(10) + 10);
-                break;
-            case 2:
-                setStats(85, 85, 30, 30);
-                this.getExperience().setStatistic(random.nextInt(10) + 20);
-                break;
-            case 3:
-                setStats(110, 110, 40, 40);
-                this.getExperience().setStatistic(random.nextInt(15) + 30);
-        }
-    }
     public Bounds getHitbox(double x, double y) {
         return new BoundingBox(x + 17, y + 15, 20, 22);
     }

@@ -16,15 +16,29 @@ public class Player extends Entity implements EntityHitbox {
         }else {
             this.speed = speed;
             this.inventory = new Inventory();
-            updateStats(level);
+            setInitialStatistic(level);
         }
     }
     @Override
-    public void updateStats(int level) {
+    public void setInitialStatistic(int level) {
         switch (level){
-            case 1 -> setStats(100, 100, 25, 15);
-            case 2 -> setStats(110, 110, 35, 25);
-            case 3 -> setStats(125, 125, 45, 35);
+            case 1 -> {
+                this.getHealth().setBothStatistic(new Health(100, 100));
+                this.getAttack().getStrength().setAttribute(25);
+                this.getDefense().setAttribute(15);
+            }
+            case 2 -> {
+                this.getHealth().setBothStatistic(110);
+                this.getHealth().setMaxStatistic(110);
+                this.getAttack().getStrength().setAttribute(35);
+                this.getDefense().setAttribute(25);
+            }
+            case 3 -> {
+                this.getHealth().setBothStatistic(125);
+                this.getHealth().setMaxStatistic(125);
+                this.getAttack().getStrength().setAttribute(45);
+                this.getDefense().setAttribute(35);
+            }
         }
     }
     public Inventory getInventory() {

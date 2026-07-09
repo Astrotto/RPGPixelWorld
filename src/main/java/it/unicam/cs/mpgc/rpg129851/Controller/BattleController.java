@@ -92,7 +92,7 @@ public class BattleController extends LoaderController {
             if(entity instanceof Orc){
                 ForestController.questCompletedControl();
                 System.out.println(entity.getName() + " ha droppato " + entity.getExperience().getStatistic() + " punti esperienza");
-                player.getExperience().earnExperience(entity.getExperience().getStatistic());
+                player.getExperience().earnExperience(player, entity.getExperience().getStatistic());
                 player.getHealth().heal(20);
                 player.getAttack().setAttacking(false);
                 timer.stop();

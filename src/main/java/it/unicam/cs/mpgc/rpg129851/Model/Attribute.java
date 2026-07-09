@@ -1,15 +1,16 @@
 package it.unicam.cs.mpgc.rpg129851.Model;
 
 public class Attribute {
-    private int currentAttribute;
+    private int attribute;
 
-    public Attribute(int currentAttribute){
-        this.currentAttribute = currentAttribute;
+    public Attribute() {}
+    public Attribute(int attribute){
+        this.attribute = attribute;
     }
 
-    public int getCurrentAttribute() { return currentAttribute; }
-    public void setCurrentAttribute(int currentAttribute) {
-        this.currentAttribute = currentAttribute;
+    public int getAttribute() { return attribute; }
+    public void setAttribute(int attribute) {
+        this.attribute = attribute;
     }
 
 

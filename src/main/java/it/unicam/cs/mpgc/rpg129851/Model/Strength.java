@@ -4,4 +4,5 @@ public class Strength extends Attribute {
     public Strength(int strength) {
         super(strength);
     }
+    public Strength() {}
 }

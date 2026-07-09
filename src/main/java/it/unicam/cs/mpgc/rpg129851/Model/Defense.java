@@ -4,4 +4,5 @@ public class Defense extends Attribute{
     public Defense(int defense) {
         super(defense);
     }
+    public Defense() {}
 }

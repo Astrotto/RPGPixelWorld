@@ -7,19 +7,20 @@ public class Experience extends Statistic{
         super(currentExperience, maxExperience);
         this.level = level;
     }
-    public void earnExperience(int experience) {
+    public void earnExperience(Entity entity, int experience) {
         if(this.getStatistic() + experience >= this.getMaxStatistic()) {
-            this.setStatistic(this.getStatistic() + experience - this.getMaxStatistic());
-            this.controlIncreaseLevel();
+            this.setBothStatistic(this.getStatistic() + experience - this.getMaxStatistic());
+            this.controlIncreaseLevel(entity);
         }else{
-            this.setStatistic(this.getStatistic() + experience);
+            this.setBothStatistic(this.getStatistic() + experience);
         }
     }
-    private void controlIncreaseLevel(){
+    private void controlIncreaseLevel(Entity entity) {
         if(this.getLevel() + 1 <= 3) {
             this.increaseLevel();
+            entity.updateStatistic();
         }else{
-            this.setStatistic(this.getMaxStatistic());
+            this.setBothStatistic(this.getMaxStatistic());
         }
     }
     public int getLevel() {
