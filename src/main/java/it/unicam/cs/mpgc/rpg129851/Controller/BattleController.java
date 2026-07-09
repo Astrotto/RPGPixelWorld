@@ -56,7 +56,7 @@ public class BattleController extends LoaderController {
         orcHealthBar.setBar(progressBarViewOrc,healthBarOrc);
         orcExperienceBar.setBar(progressBarViewOrc,experienceBarOrc);
         showLevel(orcEncountered, orcHealthBar, levelPane);
-        loadEntity();
+        player.getEntityView().loadPlayerView();
         setBackgroundView("battleMap.png", backgroundView);
         loadOrcImages(orcEncountered);
         orcEncountered.getEntityView().loadOrcInBattle();
@@ -94,11 +94,7 @@ public class BattleController extends LoaderController {
     }
 
 
-    public void loadEntity(){
-        player.getEntityView().setImage(getImagePlayerAttack());
-        player.getEntityView().setViewport(new Rectangle2D(0, 0, FRAME_WIDTH, FRAME_HEIGHT));
-        player.getEntityView().setSmooth(false);
-    }
+
 
 
     public void run() {

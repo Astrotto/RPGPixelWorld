@@ -1,4 +1,5 @@
 package it.unicam.cs.mpgc.rpg129851.View;
+import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.PlayerLoader.getImagePlayerAttack;
 import static it.unicam.cs.mpgc.rpg129851.Launch.Main.player;
 import javafx.geometry.Rectangle2D;
 
@@ -13,5 +14,10 @@ public class PlayerView extends EntityView {
             player.getEntityView().setViewport(new Rectangle2D(xMovement, 0, FRAME_WIDTH, FRAME_HEIGHT));
             this.getFrame().setLastChangeFrame(actualHour);
         }
+    }
+    public void loadPlayerView(){
+        this.setImage(getImagePlayerAttack());
+        this.setViewport(new Rectangle2D(0, 0, FRAME_WIDTH, FRAME_HEIGHT));
+        this.setSmooth(false);
     }
 }
