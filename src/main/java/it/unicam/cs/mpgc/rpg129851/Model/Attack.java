@@ -2,26 +2,16 @@ package it.unicam.cs.mpgc.rpg129851.Model;
 
 import java.util.Random;
 
+import static it.unicam.cs.mpgc.rpg129851.Model.DamageCalculator.*;
+
 public class Attack {
-    private Strength strength;
+    private Attribute strength;
     private int baseDamage;
     private int finalDamage;
     private boolean isAttacking, criticalHit;
+    private Random rand = new Random();
 
-    public Attack(Strength strength){ this.strength = strength; }
-
-    public void inflictDamage(Entity target) {
-        calculateFinalDamage(target);
-        target.getHealth().takeDamage(this.getFinalDamage());
-    }
-    private void calculateFinalDamage(Entity target){
-        Random rand = new Random();
-        this.setBaseDamage(this.strength.getAttribute() + (rand.nextInt(5) - 2));
-        this.setFinalDamage(this.getBaseDamage() - target.getDefense().getAttribute());
-        if(this.getFinalDamage() <= 0) this.setFinalDamage(1);
-        if(isCriticalHit())
-            this.setFinalDamage(this.getFinalDamage() * 2);
-    }
+    public Attack(Attribute strength){ this.strength = strength; }
 
     public void setBaseDamage(int baseDamage) {
         this.baseDamage = baseDamage;
@@ -36,7 +26,6 @@ public class Attack {
         return finalDamage;
     }
     public boolean isCriticalHit(){
-        Random rand = new Random();
         if(rand.nextInt(100) < 6)
             setCriticalHit(true);
         return criticalHit;
@@ -44,7 +33,7 @@ public class Attack {
     public void setCriticalHit(boolean criticalHit){
         this.criticalHit = criticalHit;
     }
-    public Strength getStrength() {
+    public Attribute getStrength() {
         return strength;
     }
     public boolean isAttacking(){ return isAttacking; }

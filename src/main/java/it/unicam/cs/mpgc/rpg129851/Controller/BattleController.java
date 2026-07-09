@@ -4,6 +4,7 @@ import static it.unicam.cs.mpgc.rpg129851.Launch.Main.*;
 import static it.unicam.cs.mpgc.rpg129851.Controller.InventoryController.*;
 import static it.unicam.cs.mpgc.rpg129851.View.LevelView.showLevel;
 
+import it.unicam.cs.mpgc.rpg129851.Model.CombatSystem;
 import it.unicam.cs.mpgc.rpg129851.Model.Entity;
 import it.unicam.cs.mpgc.rpg129851.Model.Orc;
 import it.unicam.cs.mpgc.rpg129851.Model.Player;
@@ -29,6 +30,7 @@ public class BattleController extends LoaderController {
     private final int FRAME_HEIGHT = 100;
     AnimationTimer timer;
     private boolean potionsCooldown = false;
+    private CombatSystem combatSystem = new CombatSystem();
 
 
     public void initialize(){
@@ -74,7 +76,7 @@ public class BattleController extends LoaderController {
         if(defender.getHealth().getStatistic() <= 0){
 
         }else {
-            attacker.getAttack().inflictDamage(defender);
+            combatSystem.executeAttack(attacker.getAttack(), defender);
             if (attacker.getAttack().isCriticalHit()) {
                 attacker.getAttack().setCriticalHit(false);
                 System.out.println(attacker.getName() + " di LVL" + attacker.getExperience().getLevel() + " ha inflitto " + attacker.getAttack().getFinalDamage() + " danni a " + defender.getName() + " con un COLPO CRITICO!");
