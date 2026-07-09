@@ -11,21 +11,7 @@ public class Attack {
     private boolean isAttacking;
 
     public Attack(Strength strength){ this.strength = strength; }
-    public Strength getStrength() {
-        return strength;
-    }
-    public int getBaseDamage() {
-        return baseDamage;
-    }
-    public void setBaseDamage(int baseDamage) {
-        this.baseDamage = baseDamage;
-    }
-    public int getFinalDamage() {
-        return finalDamage;
-    }
-    public void setFinalDamage(int finalDamage) {
-        this.finalDamage = finalDamage;
-    }
+
     public int attack(Entity target) {
         Random rand = new Random();
         this.setBaseDamage(this.strength.getAttribute() + (rand.nextInt(5) - 2));
@@ -37,6 +23,21 @@ public class Attack {
         }
         target.getHealth().takeDamage(this.getFinalDamage());
         return this.getFinalDamage();
+    }
+    public void setBaseDamage(int baseDamage) {
+        this.baseDamage = baseDamage;
+    }
+    public void setFinalDamage(int finalDamage) {
+        this.finalDamage = finalDamage;
+    }
+    public int getBaseDamage() {
+        return baseDamage;
+    }
+    public int getFinalDamage() {
+        return finalDamage;
+    }
+    public Strength getStrength() {
+        return strength;
     }
     public boolean isAttacking(){ return isAttacking; }
     public void setAttacking(boolean attacking){
