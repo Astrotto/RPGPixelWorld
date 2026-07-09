@@ -28,13 +28,13 @@ public class Player extends Entity implements EntityHitbox {
                 this.getDefense().setAttribute(15);
             }
             case 2 -> {
-                this.getHealth().setBothStatistic(110);
+                this.getHealth().setStatistic(110);
                 this.getHealth().setMaxStatistic(110);
                 this.getAttack().getStrength().setAttribute(35);
                 this.getDefense().setAttribute(25);
             }
             case 3 -> {
-                this.getHealth().setBothStatistic(125);
+                this.getHealth().setStatistic(125);
                 this.getHealth().setMaxStatistic(125);
                 this.getAttack().getStrength().setAttribute(45);
                 this.getDefense().setAttribute(35);

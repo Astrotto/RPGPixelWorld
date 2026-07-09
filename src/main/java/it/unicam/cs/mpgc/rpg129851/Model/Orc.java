@@ -19,25 +19,25 @@ public class Orc extends Entity implements EntityHitbox {
         Random random = new Random();
         switch (level){
             case 1 -> {
-                this.getHealth().setBothStatistic(65);
+                this.getHealth().setStatistic(65);
                 this.getHealth().setMaxStatistic(65);
                 this.getAttack().getStrength().setAttribute(20);
                 this.getDefense().setAttribute(15);
-                this.getExperience().setBothStatistic(random.nextInt(10) + 10);
+                this.getExperience().setStatistic(random.nextInt(10) + 10);
             }
             case 2 -> {
-                this.getHealth().setBothStatistic(85);
+                this.getHealth().setStatistic(85);
                 this.getHealth().setMaxStatistic(85);
                 this.getAttack().getStrength().setAttribute(30);
                 this.getDefense().setAttribute(30);
-                this.getExperience().setBothStatistic(random.nextInt(10) + 20);
+                this.getExperience().setStatistic(random.nextInt(10) + 20);
             }
             case 3 -> {
-                this.getHealth().setBothStatistic(110);
+                this.getHealth().setStatistic(110);
                 this.getHealth().setMaxStatistic(110);
                 this.getAttack().getStrength().setAttribute(40);
                 this.getDefense().setAttribute(40);
-                this.getExperience().setBothStatistic(random.nextInt(15) + 30);
+                this.getExperience().setStatistic(random.nextInt(15) + 30);
             }
         }
     }

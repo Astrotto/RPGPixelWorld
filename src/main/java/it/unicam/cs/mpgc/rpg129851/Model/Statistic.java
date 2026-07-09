@@ -28,13 +28,13 @@ public class Statistic {
     public int getMaxStatistic() {
         return this.maxStatistic;
     }
-    public void setBothStatistic(int statistic) {
+    public void setStatistic(int statistic) {
         this.statistic = statistic;
     }
     public void setMaxStatistic(int maxStatistic) { this.maxStatistic = maxStatistic; }
-    public void setBothStatistic(Health health) {
-        this.statistic = health.getStatistic();
-        this.maxStatistic = health.getMaxStatistic();
+    public void setBothStatistic(Statistic statistic) {
+        this.statistic = statistic.getStatistic();
+        this.maxStatistic = statistic.getMaxStatistic();
     }
 
 }
