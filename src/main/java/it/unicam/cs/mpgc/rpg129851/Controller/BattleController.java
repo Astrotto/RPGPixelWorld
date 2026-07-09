@@ -5,7 +5,6 @@ import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.OrcLoader.*;
 import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.BackgroundLoader.*;
 import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.PotionLoader.*;
 import static it.unicam.cs.mpgc.rpg129851.Launch.Main.*;
-import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.InventoryLoader.*;
 import static it.unicam.cs.mpgc.rpg129851.View.LevelView.showLevel;
 
 import it.unicam.cs.mpgc.rpg129851.ImagesLoader.ButtonLoader;
@@ -59,34 +58,23 @@ public class BattleController extends LoaderController {
         showLevel(orcEncountered, orcHealthBar, levelPane);
         loadEntity();
         setBackgroundView("battleMap.png", backgroundView);
-        loadOrcEncountered(orcEncountered);
+        loadOrcImages(orcEncountered);
+        orcEncountered.getEntityView().loadOrcInBattle();
         timer.start();
     }
 
     public void attack() {
-        attack(player, orcEncountered);
+        combatSystem.attack(player, orcEncountered);
         player.getAttack().setAttacking(true);
         player.getEntityView().getFrame().setActualFrame(0);
 
-        attack(orcEncountered, player);
+        combatSystem.attack(orcEncountered, player);
         orcEncountered.getAttack().setAttacking(true);
         orcEncountered.getEntityView().getFrame().setActualFrame(0);
 
         cooldownActivation(btnRun, btnAttack, 1.5);
     }
-    private void attack(Entity attacker, Entity defender){
-        if(defender.getHealth().getStatistic() <= 0){
 
-        }else {
-            combatSystem.executeAttack(attacker.getAttack(), defender);
-            if (attacker.getAttack().isCriticalHit()) {
-                attacker.getAttack().setCriticalHit(false);
-                System.out.println(attacker.getName() + " di LVL" + attacker.getExperience().getLevel() + " ha inflitto " + attacker.getAttack().getFinalDamage() + " danni a " + defender.getName() + " con un COLPO CRITICO!");
-            } else {
-                System.out.println(attacker.getName()  + " di LVL" + attacker.getExperience().getLevel() + " ha inflitto " + attacker.getAttack().getFinalDamage() + " danni a " + defender.getName());
-            }
-        }
-    }
     public void deathControl(Entity entity){
         if(!entity.isAlive()){
             if(entity instanceof Player){
@@ -108,18 +96,11 @@ public class BattleController extends LoaderController {
 
     public void loadEntity(){
         player.getEntityView().setImage(getImagePlayerAttack());
-
         player.getEntityView().setViewport(new Rectangle2D(0, 0, FRAME_WIDTH, FRAME_HEIGHT));
         player.getEntityView().setSmooth(false);
     }
 
-    public void loadOrcEncountered(Orc orcEncountered){
-        loadOrcImages(orcEncountered);
-        orcEncountered.getEntityView().getView().setScaleX(-1);
-        orcEncountered.getEntityView().setImage(getImageOrcAttack());
-        orcEncountered.getEntityView().setViewport(new Rectangle2D(0, 0, FRAME_WIDTH, FRAME_HEIGHT));
-        orcEncountered.getEntityView().setSmooth(false);
-    }
+
     public void run() {
         Random random = new Random();
         if(random.nextInt(100) < percentageOfEscape){
@@ -128,7 +109,7 @@ public class BattleController extends LoaderController {
             changeMap((Stage) player.getEntityView().getView().getScene().getWindow(), "forest");
         }else{
             percentageOfEscape += 15;
-            attack(orcEncountered, player);
+            combatSystem.attack(orcEncountered, player);
             orcEncountered.getAttack().setAttacking(true);
         }
         cooldownActivation(btnRun, btnAttack, 1.5);
@@ -149,7 +130,7 @@ public class BattleController extends LoaderController {
         cooldown.play();
     }
     @FXML
-    private void potionUsed(){
+    private void usePotionInBattle(){
         if(!(player.getHealth().getStatistic() == player.getHealth().getMaxStatistic()) && !player.getAttack().isAttacking() && !orcEncountered.getAttack().isAttacking() && !potionsCooldown){
             potionSelected(potionLV1View, 1, getNoPotionImage(1));
             potionSelected(potionLV2View, 2, getNoPotionImage(2));
@@ -161,7 +142,7 @@ public class BattleController extends LoaderController {
         if (potionView.isPressed()) {
             if (player.getInventory().getPotionAmount(level) >= 1) {
                 player.getHealth().heal(player.getInventory().getPotion(level));
-                attack(orcEncountered, player);
+                combatSystem.attack(orcEncountered, player);
                 orcEncountered.getAttack().setAttacking(true);
                 cooldownActivation(btnRun, btnAttack, 1.5);
             }
