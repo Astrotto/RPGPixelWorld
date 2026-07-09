@@ -22,7 +22,6 @@ public class Main extends Application {
     public static ForestSpirit guardian = new ForestSpirit();
     public static HealthBar playerHealthBar = new HealthBar(player);
     public static ExperienceBar playerExperienceBar = new ExperienceBar(player);
-
     public static HealthBar orcHealthBar;
     public static ExperienceBar orcExperienceBar;
 

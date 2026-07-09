@@ -52,9 +52,9 @@ public class EntityController extends LoaderController {
 
         collisionDetection(gameWorld, getNewX(), getNewY());
         if(getNewY() < 300) {
-            collisionDetection(home, getNewX(), getNewY(), oldY);
+            collisionDetection(home, getNewX(), getNewY());
         }else
-            collisionDetection(graveyard, getNewX(), getNewY(), oldY);
+            collisionDetection(graveyard, getNewX(), getNewY());
     }
     private void collisionDetection(Pane obstacle, double x, double y) {
         if(x > obstacle.getWidth() - player.getEntityView().getViewport().getWidth()) {
@@ -64,10 +64,10 @@ public class EntityController extends LoaderController {
             setNewY(obstacle.getHeight() - player.getEntityView().getViewport().getHeight());
         }
     }
-    public void collisionDetection(Rectangle obstacle, double x, double y, double oldY) {
+    public void collisionDetection(Rectangle obstacle, double x, double y) {
         Bounds hitbox = obstacle.getBoundsInParent();
 
-        if(!player.getHitbox(x + 70, oldY + 55).intersects(hitbox)) {
+        if(!player.getHitbox(x + 70, y + 55).intersects(hitbox)) {
             player.getEntityView().setLayoutX(getNewX());
         }
         if(!player.getHitbox(player.getEntityView().getLayoutX() + 70, y + 55).intersects(hitbox)) {

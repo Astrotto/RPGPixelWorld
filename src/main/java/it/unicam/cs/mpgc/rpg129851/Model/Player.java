@@ -27,14 +27,12 @@ public class Player extends Entity {
                 this.getDefense().setAttribute(15);
             }
             case 2 -> {
-                this.getHealth().setStatistic(110);
-                this.getHealth().setMaxStatistic(110);
+                this.getHealth().setBothStatistic(new Health(110, 110));
                 this.getAttack().getStrength().setAttribute(35);
                 this.getDefense().setAttribute(25);
             }
             case 3 -> {
-                this.getHealth().setStatistic(125);
-                this.getHealth().setMaxStatistic(125);
+                this.getHealth().setBothStatistic(new Health(125, 125));
                 this.getAttack().getStrength().setAttribute(45);
                 this.getDefense().setAttribute(35);
             }
