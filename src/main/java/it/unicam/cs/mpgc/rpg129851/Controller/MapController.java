@@ -3,6 +3,8 @@ package it.unicam.cs.mpgc.rpg129851.Controller;
 import static it.unicam.cs.mpgc.rpg129851.Launch.ChangerMap.changeMap;
 import static it.unicam.cs.mpgc.rpg129851.Launch.Main.*;
 import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.BackgroundLoader.*;
+import static it.unicam.cs.mpgc.rpg129851.Movement.SpawnPoint.setSpawnPoint;
+import static it.unicam.cs.mpgc.rpg129851.Timeline.ChangeSceneTransition.startTransition;
 
 import it.unicam.cs.mpgc.rpg129851.Movement.KeyDetector;
 import javafx.animation.FadeTransition;
@@ -27,7 +29,6 @@ public class MapController extends EntityController {
         setSpawnPoint(600, 120);
     }
 
-
     public void setKeyDetector() {
         mapPane.setOnKeyPressed(KeyDetector::manageKeyPressed);
         mapPane.setOnKeyReleased(KeyDetector::manageKeyReleased);
@@ -42,13 +43,7 @@ public class MapController extends EntityController {
         if(hitboxPlayer.intersects(hitboxForest)){
             //getKeyPressed().clear();
             timer.stop();
-            FadeTransition fadeOut = new FadeTransition(Duration.seconds(1.5), blackScreen);
-            fadeOut.setFromValue(0.0);
-            fadeOut.setToValue(1.0);
-            fadeOut.setOnFinished(event -> {
-                joinForest();
-            });
-            fadeOut.play();
+            startTransition(blackScreen, Duration.seconds(1.5), this::joinForest);
         }
     }
     private void joinForest(){

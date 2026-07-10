@@ -1,9 +1,9 @@
 package it.unicam.cs.mpgc.rpg129851.View;
 import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.PlayerLoader.getImagePlayerAttack;
+
 import javafx.geometry.Rectangle2D;
 
 public class PlayerView extends EntityView {
-
     public void loadPlayerAnimation(long actualHour) {
         if(!this.isMoving()){
             this.setViewport(new Rectangle2D(0,0,this.getFrame().getFrameWidth(),this.getFrame().getFrameHeight()));

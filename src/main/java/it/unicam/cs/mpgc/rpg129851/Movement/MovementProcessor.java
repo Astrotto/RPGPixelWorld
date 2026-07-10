@@ -11,6 +11,7 @@ public class MovementProcessor {
     public MovementProcessor() {
         keyDetector = new KeyDetector();
     }
+
     public void processMovement(){
         updateLocation("Y", newY, KeyCode.W, KeyCode.UP);
         updateLocation("Y", newY, KeyCode.S, KeyCode.DOWN);

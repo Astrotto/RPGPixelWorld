@@ -10,7 +10,6 @@ public class Player extends Entity {
     private final double speed;
     private Inventory inventory;
 
-
     public Player(int level, int experience, double speed) {
         super("Player" , experience, level);
         if(speed == 0 || level <= 0 || level > 3) {

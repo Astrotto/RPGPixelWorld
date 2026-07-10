@@ -1,14 +1,16 @@
 package it.unicam.cs.mpgc.rpg129851.Controller;
 
-import it.unicam.cs.mpgc.rpg129851.Launch.Main;
+import static it.unicam.cs.mpgc.rpg129851.Launch.Main.*;
 
 import static it.unicam.cs.mpgc.rpg129851.Controller.OrcController.*;
 import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.BackgroundLoader.setBackgroundView;
 import static it.unicam.cs.mpgc.rpg129851.Launch.ChangerMap.changeMap;
 import static it.unicam.cs.mpgc.rpg129851.Movement.KeyDetector.*;
+import static it.unicam.cs.mpgc.rpg129851.Movement.SpawnPoint.*;
 
 import it.unicam.cs.mpgc.rpg129851.Model.Orc;
 import it.unicam.cs.mpgc.rpg129851.Movement.KeyDetector;
+import static it.unicam.cs.mpgc.rpg129851.Timeline.ChangeSceneTransition.*;
 import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
@@ -41,12 +43,13 @@ public class ForestController extends EntityController {
     private static boolean questReceived = false;
     private static int howMuch;
 
+
     public void initialize() {
         super.initialize();
         setKeyDetector();
         loadBoundsHitbox();
         setBackgroundView("forestMap.png", backgroundView);
-        Main.orcs.clear();
+        orcs.clear();
         placeOrcRandomly();
     }
     public void setKeyDetector() {
@@ -55,30 +58,25 @@ public class ForestController extends EntityController {
     }
     public void updatePlayerLocation() {
         super.updatePlayerLocation();
-        exitCollision(leftExitHitbox, -10, 370);
-        exitCollision(rightExitHitbox, 220, 380);
-        exitCollision(upExitHitbox, 105, 225);
-        exitCollision(downExitHitbox, 122, 470);
-        orcCollisionDetection(Main.orcs);
+        exitCollision(leftExitHitbox, -50, 330);
+        exitCollision(rightExitHitbox, 180, 340);
+        exitCollision(upExitHitbox, 65, 185);
+        exitCollision(downExitHitbox, 82, 430);
+        orcCollisionDetection(orcs);
         meetForestSpirit();
     }
     public void exitCollision(Bounds exit, double x, double y){
-        if(Main.player.getHitbox(getNewX() + 70, getNewY() + 55).intersects(exit)) {
+        if(player.getHitbox(getNewX() + 70, getNewY() + 55).intersects(exit)) {
             timer.stop();
-
 
             //getKeyPressed().clear();
 
-
-
-            FadeTransition fadeOut = new FadeTransition(Duration.seconds(1.5), blackScreen);
-            fadeOut.setFromValue(0.0);
-            fadeOut.setToValue(1.0);
-            fadeOut.setOnFinished(event -> {
-                changeMap((Stage)Main.player.getEntityView().getView().getScene().getWindow(), "map");
-                setSpawnPoint(x - 40, y - 40);
-            });
-            fadeOut.play();
+            startTransition(blackScreen, Duration.seconds(1.5),
+                ()-> {
+                    changeMap((Stage) player.getEntityView().getView().getScene().getWindow(), "map");
+                    setSpawnPoint(x, y);
+                }
+            );
         }
     }
     private void loadBoundsHitbox(){
@@ -97,11 +95,11 @@ public class ForestController extends EntityController {
 
 
     private void orcCollisionDetection(List<Orc> orcList){
-        Bounds hitboxPlayer = Main.player.getHitbox(Main.player.getEntityView().getLayoutX() + 70, Main.player.getEntityView().getLayoutY() + 55);
+        Bounds hitboxPlayer = player.getHitbox(player.getEntityView().getLayoutX() + 70, player.getEntityView().getLayoutY() + 55);
         orcList.forEach((orc) -> {
             Bounds hitboxOrc = orc.getHitbox(orc.getEntityView().getLayoutX() + 70, orc.getEntityView().getLayoutY() + 55);
             if(hitboxPlayer.intersects(hitboxOrc)) {
-                Main.setOrcEncountered(orc);
+                setOrcEncountered(orc);
                 encounterEntity(orc.getEntityView().getView());
             }
         });
@@ -111,22 +109,16 @@ public class ForestController extends EntityController {
         orcView.setVisible(true);
         keyPressed.clear();
         timer.stop();
-        FadeTransition fadeOut = new FadeTransition(Duration.seconds(2), blackScreen);
-        fadeOut.setFromValue(0.0);
-        fadeOut.setToValue(1.0);
-        fadeOut.setOnFinished(event -> {
-            startBattle();
-        });
-        fadeOut.play();
+        startTransition(blackScreen, Duration.seconds(1.5), this::startBattle);
     }
 
     private void startBattle() {
         exclamation.setVisible(false);
-        changeMap((Stage)Main.player.getEntityView().getView().getScene().getWindow(), "battle");
+        changeMap((Stage)player.getEntityView().getView().getScene().getWindow(), "battle");
     }
     private void loadExclamation(){
-        exclamation.setX(Main.player.getEntityView().getLayoutX() + 90);
-        exclamation.setY(Main.player.getEntityView().getLayoutY() + 55);
+        exclamation.setX(player.getEntityView().getLayoutX() + 90);
+        exclamation.setY(player.getEntityView().getLayoutY() + 55);
         exclamation.setRotate(5);
         exclamation.setImage(loadExclamationImage());
     }
@@ -134,23 +126,23 @@ public class ForestController extends EntityController {
         return new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/exclamation.png")));
     }
     private void meetForestSpirit(){
-        Bounds hitboxPlayer = Main.player.getHitbox(Main.player.getEntityView().getLayoutX() + 70, Main.player.getEntityView().getLayoutY() + 55);
+        Bounds hitboxPlayer = player.getHitbox(player.getEntityView().getLayoutX() + 70, player.getEntityView().getLayoutY() + 55);
         Bounds hitboxForestSpirit = forestSpirit.getBoundsInParent();
         if(hitboxPlayer.intersects(hitboxForestSpirit)) {
             if(!questReceived){
-                System.out.println(Main.guardian.getRandomQuest().toString());
-                howMuch = Main.guardian.getQuestReceived().getHowMuch();
+                System.out.println(guardian.getRandomQuest().toString());
+                howMuch = guardian.getQuestReceived().getHowMuch();
                 questReceived = true;
             }
         }
     }
     public static void questCompletedControl(){
         if(questReceived){
-            if(Main.orcEncountered.getExperience().getLevel() == Main.guardian.getQuestReceived().getLevel() && Main.guardian.getQuestReceived().getHowMuch() >= 1){
+            if(orcEncountered.getExperience().getLevel() == guardian.getQuestReceived().getLevel() && guardian.getQuestReceived().getHowMuch() >= 1){
                 howMuch--;
                 if(howMuch < 1) {
                     System.out.println("Hai completato la quest");
-                    Main.player.getInventory().addPotion(Main.guardian.getPotionReward(Main.guardian.getQuestReceived().getPotionRewardLevel()));
+                    player.getInventory().addPotion(guardian.getPotionReward(guardian.getQuestReceived().getPotionRewardLevel()));
                     questReceived = false;
                 }
             }
