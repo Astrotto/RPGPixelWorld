@@ -6,7 +6,6 @@ import static it.unicam.cs.mpgc.rpg129851.Launch.ChangerMap.changeMap;
 import static it.unicam.cs.mpgc.rpg129851.Launch.Main.*;
 import static it.unicam.cs.mpgc.rpg129851.Timeline.CooldownActivator.*;
 import static it.unicam.cs.mpgc.rpg129851.View.LevelView.showLevel;
-
 import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.ButtonLoader.*;
 import it.unicam.cs.mpgc.rpg129851.Model.*;
 import it.unicam.cs.mpgc.rpg129851.System.*;
@@ -96,8 +95,6 @@ public class BattleController extends LoaderController {
         }
         cooldownActivation(btnRun, btnAttack, 1.5);
     }
-
-
 
     @FXML
     private void usePotionInBattle(MouseEvent event){
