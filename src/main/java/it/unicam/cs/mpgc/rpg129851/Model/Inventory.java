@@ -13,23 +13,16 @@ public class Inventory {
     public void addPotion(Potion potion) {
         if(potion == null){
             throw new NullPointerException("Potion is null");
-        }else{
-            inventory.add(potion);
         }
+        inventory.add(potion);
     }
     public Potion getPotion(int level) {
-        Potion potion = null;
-        if(inventory.isEmpty() || this.getPotionAmount(level) <= 0){
-            return null;
-        }
         for(int i = 0; i < inventory.size(); i++) {
             if(inventory.get(i).getLevel() == level) {
-                potion = inventory.get(i);
-                inventory.remove(i);
-                break;
+                return inventory.remove(i);
             }
         }
-        return potion;
+        return null;
     }
     public int getPotionAmount(int level) {
         int counter = 0;

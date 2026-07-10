@@ -9,7 +9,7 @@ public class Player extends Entity {
 
     public Player(int level, int experience, double speed) {
         super("Player", experience, level);
-        if(speed == 0 || level <= 0 || level > 3) {
+        if(speed == 0 || level <= 0 || level > this.getExperience().getLevel().getMaxLevel()) {
             throw new IllegalArgumentException("Player invalid");
         }
         this.speed = speed;

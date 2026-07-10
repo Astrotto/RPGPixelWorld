@@ -25,8 +25,8 @@ public class Experience extends Statistic{
         }
         this.setStatistic(currentEXP);
     }
-    public int getLevel(){
-        return this.level.getLevel();
+    public Level getLevel(){
+        return this.level;
     }
 
 

@@ -10,7 +10,7 @@ public class Orc extends Entity {
 
     public Orc(int level) {
         super("Orc", 0, level);
-        if(level <= 0 || level > 3){
+        if(level <= 0 || level > this.getExperience().getLevel().getMaxLevel()){
             throw new IllegalArgumentException("Lvl must be between 1 and 3");
         }
         updateStatistic(level, 0);

@@ -1,6 +1,7 @@
 package it.unicam.cs.mpgc.rpg129851.Model;
 
 public class Level {
+    private static final int MAX_LEVEL = 3;
     private int level;
 
     public Level(int level){
@@ -10,9 +11,13 @@ public class Level {
         return level;
     }
     public boolean increaseLevel() {
-        if(this.getLevel() + 1 <= 3) {
+        if(this.level + 1 <= MAX_LEVEL) {
             this.level++;
             return true;
-        }else return false;
+        }
+        return false;
+    }
+    public int getMaxLevel() {
+        return MAX_LEVEL;
     }
 }
