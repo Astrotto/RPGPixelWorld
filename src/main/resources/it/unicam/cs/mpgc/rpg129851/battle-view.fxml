@@ -38,7 +38,7 @@
         <ImageView fx:id="potionLV3View" onMousePressed="#usePotionInBattle" fitHeight="43.0" fitWidth="43.0" layoutX="219.0" layoutY="720.0" pickOnBounds="true" preserveRatio="true" />
 
         <ImageView fx:id="btnAttack" fitHeight="200.0" fitWidth="200.0" layoutX="400.0" layoutY="640.0" onMousePressed="#attackTurn" />
-        <ImageView fx:id="btnRun" fitHeight="200.0" fitWidth="200.0" layoutX="600.0" layoutY="640.0" onMousePressed="#run" />
+        <ImageView fx:id="btnRun" fitHeight="200.0" fitWidth="200.0" layoutX="600.0" layoutY="640.0" onMousePressed="#chanceToEscape" />
     </Pane>
     <Pane mouseTransparent="true">
         <Text fx:id="amountLV1" fill="WHITE" layoutX="90.0" layoutY="760.0" smooth="false" stroke="WHITE" strokeType="OUTSIDE" strokeWidth="0.8" text="0" />

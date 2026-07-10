@@ -10,6 +10,7 @@ import it.unicam.cs.mpgc.rpg129851.ImagesLoader.ButtonLoader;
 import it.unicam.cs.mpgc.rpg129851.Model.*;
 import it.unicam.cs.mpgc.rpg129851.System.CombatSystem;
 import it.unicam.cs.mpgc.rpg129851.System.DeathSystem;
+import it.unicam.cs.mpgc.rpg129851.System.EscapeSystem;
 import javafx.animation.AnimationTimer;
 import javafx.animation.PauseTransition;
 
@@ -20,15 +21,14 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import javafx.util.Duration;
-import java.util.Random;
 
 public class BattleController extends LoaderController {
 
-    int percentageOfEscape = 25;
     AnimationTimer timer;
     private boolean potionsCooldown = false;
     private CombatSystem combatSystem = new CombatSystem();
     private DeathSystem deathSystem = new DeathSystem();
+    private EscapeSystem escapeSystem = new EscapeSystem();
     private ButtonLoader buttonLoader;
 
 
@@ -88,15 +88,12 @@ public class BattleController extends LoaderController {
     }
 
 
-
-    public void run() {
-        Random random = new Random();
-        if(random.nextInt(100) < percentageOfEscape){
-            System.out.println("Sei scappato dall'orco");
+    @FXML
+    public void chanceToEscape() {
+        if(escapeSystem.escape()){
             timer.stop();
             changeMap((Stage) player.getEntityView().getView().getScene().getWindow(), "forest");
         }else{
-            percentageOfEscape += 15;
             combatSystem.attack(orcEncountered, player);
         }
         cooldownActivation(btnRun, btnAttack, 1.5);
