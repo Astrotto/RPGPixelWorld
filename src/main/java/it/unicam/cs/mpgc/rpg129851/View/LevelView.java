@@ -7,21 +7,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class LevelView {
-    private static Rectangle level;
+    private static final int[] OFFSETS = {138, 154, 170};
 
-    public static void showLevel(Entity entity ,HealthBar healthBar, Pane levelPane){
-        switch (entity.getExperience().getLevel()) {
-            case 1 ->
-                loadLevel(healthBar, createLevel(levelPane), 138);
-            case 2 -> {
-                loadLevel(healthBar, createLevel(levelPane), 138);
-                loadLevel(healthBar, createLevel(levelPane), 154);
-            }
-            case 3 -> {
-                loadLevel(healthBar, createLevel(levelPane), 138);
-                loadLevel(healthBar, createLevel(levelPane), 154);
-                loadLevel(healthBar, createLevel(levelPane), 170);
-            }
+    public static void showLevel(Entity entity, HealthBar healthBar, Pane levelPane){
+        int level = entity.getExperience().getLevel();
+        for(int i = 0; i < level && i < OFFSETS.length; i++){
+            loadLevel(healthBar, createLevel(levelPane), OFFSETS[i]);
         }
     }
     public static void loadLevel(HealthBar healthBar, Rectangle level, int x){
@@ -30,12 +21,11 @@ public class LevelView {
         level.setLayoutY(healthBar.getProgressBarView().getLayoutY() + 121);
     }
     public static Rectangle createLevel(Pane levelPane){
-        level = new Rectangle(8.0, 9.0);
+        Rectangle level = new Rectangle(8.0, 9.0);
         levelPane.getChildren().add(level);
         level.setArcWidth(5.0);
         level.setArcHeight(5.0);
         level.setFill(Color.web("#FFDB58"));
-
         return level;
     }
 
