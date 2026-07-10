@@ -8,6 +8,7 @@ public class ExperienceBar extends GameProgressBar{
         super(entity);
     }
 
+    @Override
     public void showGameProgressBar(){
         this.loadGameProgressBar(this.getEntity().getExperience(), 85, 45, 122);
     }

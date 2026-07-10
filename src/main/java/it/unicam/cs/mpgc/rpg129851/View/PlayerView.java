@@ -1,7 +1,6 @@
 package it.unicam.cs.mpgc.rpg129851.View;
-import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.PlayerLoader.getImagePlayerAttack;
-
 import javafx.geometry.Rectangle2D;
+import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.PlayerLoader.getImagePlayerAttack;
 
 public class PlayerView extends EntityView {
     public void loadPlayerAnimation(long actualHour) {

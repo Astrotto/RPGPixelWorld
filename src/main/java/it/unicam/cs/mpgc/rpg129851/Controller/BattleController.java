@@ -1,30 +1,40 @@
 package it.unicam.cs.mpgc.rpg129851.Controller;
 
-import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.OrcLoader.*;
-import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.BackgroundLoader.*;
-import static it.unicam.cs.mpgc.rpg129851.Launch.ChangerMap.changeMap;
-import static it.unicam.cs.mpgc.rpg129851.Launch.Main.*;
-import static it.unicam.cs.mpgc.rpg129851.Timeline.CooldownActivator.*;
-import static it.unicam.cs.mpgc.rpg129851.View.LevelView.showLevel;
-import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.ButtonLoader.*;
-import it.unicam.cs.mpgc.rpg129851.Model.*;
-import it.unicam.cs.mpgc.rpg129851.System.*;
+import it.unicam.cs.mpgc.rpg129851.Model.Entity;
+import it.unicam.cs.mpgc.rpg129851.System.CombatSystem;
+import it.unicam.cs.mpgc.rpg129851.System.DeathSystem;
+import it.unicam.cs.mpgc.rpg129851.System.EscapeSystem;
+import it.unicam.cs.mpgc.rpg129851.System.HealSystem;
+import it.unicam.cs.mpgc.rpg129851.View.ViewRegister;
 import javafx.animation.AnimationTimer;
-
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
+import javafx.scene.shape.Rectangle;
 
+import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.BackgroundLoader.setBackgroundView;
+import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.ButtonLoader.loadButtonImages;
+import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.ButtonLoader.loadButtons;
+import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.OrcLoader.loadOrcImages;
+import static it.unicam.cs.mpgc.rpg129851.Launch.ChangerMap.changeMap;
+import static it.unicam.cs.mpgc.rpg129851.Launch.Main.*;
+import static it.unicam.cs.mpgc.rpg129851.Timeline.CooldownActivator.cooldownActivation;
+import static it.unicam.cs.mpgc.rpg129851.Timeline.CooldownActivator.getPotionsCooldown;
+import static it.unicam.cs.mpgc.rpg129851.View.LevelView.showLevel;
 
 public class BattleController extends LoaderController {
 
-    AnimationTimer timer;
-    private CombatSystem combatSystem = new CombatSystem();
-    private DeathSystem deathSystem = new DeathSystem();
-    private HealSystem healSystem = new HealSystem();
-    private EscapeSystem escapeSystem = new EscapeSystem();
+    @FXML
+    protected ImageView orcView, progressBarViewOrc, btnAttack, btnRun;
+    @FXML
+    protected Rectangle healthBarOrc, experienceBarOrc;
 
+    private AnimationTimer timer;
+    private final CombatSystem combatSystem = new CombatSystem();
+    private final DeathSystem deathSystem = new DeathSystem();
+    private final HealSystem healSystem = new HealSystem();
+    private final EscapeSystem escapeSystem = new EscapeSystem();
 
     public void initialize(){
         super.initialize();
@@ -35,13 +45,12 @@ public class BattleController extends LoaderController {
                 orcExperienceBar.showGameProgressBar();
                 playerHealthBar.showGameProgressBar();
                 playerExperienceBar.showGameProgressBar();
-                player.getEntityView().getAttackView().executeAttackView(now, player);
-                orcEncountered.getEntityView().getAttackView().executeAttackView(now, orcEncountered);
+                ViewRegister.of(player).getAttackView().executeAttackView(now, player);
+                ViewRegister.of(orcEncountered).getAttackView().executeAttackView(now, orcEncountered);
                 deathControl(player, orcEncountered);
                 deathControl(orcEncountered, player);
-
                 setPotionObtained();
-                loadButtons(btnAttack,  btnRun);
+                loadButtons(btnAttack, btnRun);
             }
         };
         loadButtonImages();
@@ -49,24 +58,23 @@ public class BattleController extends LoaderController {
         potionLV2View.setUserData(2);
         potionLV3View.setUserData(3);
 
-
-        orcEncountered.getEntityView().setView(orcView);
-        orcHealthBar.setBar(progressBarViewOrc,healthBarOrc);
-        orcExperienceBar.setBar(progressBarViewOrc,experienceBarOrc);
+        ViewRegister.ofOrc(orcEncountered).setView(orcView);
+        orcHealthBar.setBar(progressBarViewOrc, healthBarOrc);
+        orcExperienceBar.setBar(progressBarViewOrc, experienceBarOrc);
         showLevel(orcEncountered, orcHealthBar, levelPane);
-        player.getEntityView().loadPlayerView();
+        ViewRegister.ofPlayer(player).loadPlayerView();
         setBackgroundView("battleMap.png", backgroundView);
         loadOrcImages(orcEncountered);
-        orcEncountered.getEntityView().loadOrcInBattle();
+        ViewRegister.ofOrc(orcEncountered).loadOrcInBattle();
         timer.start();
     }
 
     @FXML
     public void attackTurn() {
         combatSystem.attack(player, orcEncountered);
-        player.getEntityView().getFrame().setActualFrame(0);
+        ViewRegister.of(player).getFrame().setActualFrame(0);
         combatSystem.attack(orcEncountered, player);
-        orcEncountered.getEntityView().getFrame().setActualFrame(0);
+        ViewRegister.of(orcEncountered).getFrame().setActualFrame(0);
         cooldownActivation(btnRun, btnAttack, 1.5);
     }
 
@@ -78,9 +86,8 @@ public class BattleController extends LoaderController {
                 changeMap("forest");
             }
             if(deathSystem.deathPlayerControl(attacker, defender)){
-                //da cambiare
                 timer.stop();
-                System.exit(0);
+                Platform.exit();
             }
         }
     }
@@ -102,9 +109,7 @@ public class BattleController extends LoaderController {
             ImageView clicked = (ImageView) event.getSource();
             int level = (int) clicked.getUserData();
             healSystem.potionPressed(clicked, level);
-            combatSystem.executeAttack(orcEncountered.getAttack(), player);
+            combatSystem.attack(orcEncountered, player);
         }
     }
-
-
 }

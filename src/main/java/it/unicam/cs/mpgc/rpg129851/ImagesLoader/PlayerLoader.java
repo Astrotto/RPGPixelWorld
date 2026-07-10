@@ -1,16 +1,19 @@
 package it.unicam.cs.mpgc.rpg129851.ImagesLoader;
 
+import it.unicam.cs.mpgc.rpg129851.View.ViewRegister;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
+
 import java.util.Objects;
+
 import static it.unicam.cs.mpgc.rpg129851.Launch.Main.player;
 
 public class PlayerLoader {
     private static Image imageWalk, imagePlayerAttack;
 
     public static void loadPlayerView(){
-        player.getEntityView().setViewport(new Rectangle2D(0,0,100,100));
-        player.getEntityView().setSmooth(false);
+        ViewRegister.ofPlayer(player).setViewport(new Rectangle2D(0,0,100,100));
+        ViewRegister.ofPlayer(player).setSmooth(false);
     }
     public static void loadPlayerImages(){
         String playerName = switch (player.getExperience().getLevel()) {

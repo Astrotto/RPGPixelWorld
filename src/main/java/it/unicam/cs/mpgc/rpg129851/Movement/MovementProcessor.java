@@ -1,8 +1,9 @@
 package it.unicam.cs.mpgc.rpg129851.Movement;
 
+import javafx.scene.input.KeyCode;
+
 import static it.unicam.cs.mpgc.rpg129851.Launch.Main.player;
 import static it.unicam.cs.mpgc.rpg129851.Movement.KeyDetector.*;
-import javafx.scene.input.KeyCode;
 
 
 public class MovementProcessor {
@@ -18,20 +19,22 @@ public class MovementProcessor {
         updateLocation("X", newX, KeyCode.A, KeyCode.LEFT);
         updateLocation("X", newX, KeyCode.D, KeyCode.RIGHT);
     }
-    private void updateLocation(String coordinate, double direction , KeyCode keyCode1, KeyCode keyCode2) {
+    private void updateLocation(String coordinate, double direction, KeyCode keyCode1, KeyCode keyCode2) {
         MovementInput input = new MovementInput(keyDetector.getKeyPressed());
         switch(coordinate){
             case "X" -> {
-                if(input.getDirectionX(keyCode1, keyCode2) > 0)
+                double moveX = input.moveX(keyCode1, keyCode2);
+                if(moveX > 0)
                     direction += player.getSpeed();
-                else if(input.getDirectionX(keyCode1, keyCode2) < 0)
+                else if(moveX < 0)
                     direction -= player.getSpeed();
                 setNewX(direction);
             }
             case "Y" -> {
-                if(input.getDirectionY(keyCode1, keyCode2) > 0)
+                double moveY = input.moveY(keyCode1, keyCode2);
+                if(moveY > 0)
                     direction += player.getSpeed();
-                else if(input.getDirectionY(keyCode1, keyCode2) < 0)
+                else if(moveY < 0)
                     direction -= player.getSpeed();
                 setNewY(direction);
             }

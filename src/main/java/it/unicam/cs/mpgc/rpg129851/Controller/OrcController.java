@@ -1,28 +1,34 @@
 package it.unicam.cs.mpgc.rpg129851.Controller;
-import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.OrcLoader.*;
-import static it.unicam.cs.mpgc.rpg129851.Launch.Main.*;
+
 import it.unicam.cs.mpgc.rpg129851.Model.Orc;
+import it.unicam.cs.mpgc.rpg129851.View.ViewRegister;
+import it.unicam.cs.mpgc.rpg129851.View.OrcView;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
+
 import java.util.Random;
 
+import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.OrcLoader.loadOrcImages;
+import static it.unicam.cs.mpgc.rpg129851.Launch.Main.orcs;
+
 public class OrcController {
-    private static Random rand = new Random();
+    private static final Random rand = new Random();
 
     public static void placeOrcRandomlyInACorner(Rectangle spawnCorner, Pane orcSpawn) {
         int numeroOrchi = rand.nextInt(4) + 1;
         for (int i = 0; i < numeroOrchi; i++) {
             Orc orcSpawned = spawnOrc();
-            //orcView.setVisible(false);
             placeOrc(orcSpawned, spawnCorner);
-            orcSpawn.getChildren().add(orcSpawned.getEntityView().getView());
+            orcSpawn.getChildren().add(ViewRegister.ofOrc(orcSpawned).getView());
         }
     }
     private static Orc spawnOrc(){
         Orc orc = generateOrc();
         loadOrcImages(orc);
-        orc.getEntityView().setOrcView();
+        OrcView view = new OrcView();
+        ViewRegister.register(orc, view);
+        view.setOrcView();
         orcs.add(orc);
         return orc;
     }
@@ -36,13 +42,12 @@ public class OrcController {
         }else{
             lvlOrc = 3;
         }
-        Orc orc = new Orc(lvlOrc);
-
-        return orc;
+        return new Orc(lvlOrc);
     }
     private static void placeOrc(Orc orc, Rectangle spawnCorner){
-        orc.getEntityView().setLayoutX(setXOrc(spawnCorner, orc.getEntityView().getView()));
-        orc.getEntityView().setLayoutY(setYOrc(spawnCorner, orc.getEntityView().getView()));
+        OrcView view = ViewRegister.ofOrc(orc);
+        view.setLayoutX(setXOrc(spawnCorner, view.getView()));
+        view.setLayoutY(setYOrc(spawnCorner, view.getView()));
     }
     private static double setXOrc(Rectangle spawnCorner, ImageView orcView){
         double orcWidth = orcView.getBoundsInParent().getWidth();
@@ -56,6 +61,4 @@ public class OrcController {
         double maxY = minY + spawnCorner.getHeight() - orcHeight;
         return minY + (maxY - minY) * rand.nextDouble();
     }
-
-
 }

@@ -1,8 +1,8 @@
 package it.unicam.cs.mpgc.rpg129851.View;
 
-import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.OrcLoader.*;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
+import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.OrcLoader.*;
 
 public class OrcView extends EntityView {
 

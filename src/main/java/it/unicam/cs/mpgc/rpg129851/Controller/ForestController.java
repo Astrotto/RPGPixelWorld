@@ -1,35 +1,34 @@
 package it.unicam.cs.mpgc.rpg129851.Controller;
 
-import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.ExclamationLoader.loadExclamation;
-import static it.unicam.cs.mpgc.rpg129851.Launch.Main.*;
-
-import static it.unicam.cs.mpgc.rpg129851.Controller.OrcController.*;
-import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.BackgroundLoader.setBackgroundView;
-import static it.unicam.cs.mpgc.rpg129851.Launch.ChangerMap.changeMap;
-import static it.unicam.cs.mpgc.rpg129851.Movement.KeyDetector.*;
-import static it.unicam.cs.mpgc.rpg129851.Movement.SpawnPoint.*;
-
 import it.unicam.cs.mpgc.rpg129851.Model.Orc;
 import it.unicam.cs.mpgc.rpg129851.Movement.KeyDetector;
-import static it.unicam.cs.mpgc.rpg129851.Timeline.ChangeSceneTransition.*;
-import javafx.animation.*;
+import it.unicam.cs.mpgc.rpg129851.PrintLog.PrintGameLog;
+import it.unicam.cs.mpgc.rpg129851.View.ViewRegister;
+import it.unicam.cs.mpgc.rpg129851.View.OrcView;
+import it.unicam.cs.mpgc.rpg129851.View.PlayerView;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.util.*;
+import java.util.List;
+
+import static it.unicam.cs.mpgc.rpg129851.Controller.OrcController.placeOrcRandomlyInACorner;
+import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.BackgroundLoader.setBackgroundView;
+import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.ExclamationLoader.loadExclamation;
+import static it.unicam.cs.mpgc.rpg129851.Launch.ChangerMap.changeMap;
+import static it.unicam.cs.mpgc.rpg129851.Launch.Main.*;
+import static it.unicam.cs.mpgc.rpg129851.Movement.KeyDetector.*;
+import static it.unicam.cs.mpgc.rpg129851.Movement.SpawnPoint.*;
+import static it.unicam.cs.mpgc.rpg129851.Timeline.ChangeSceneTransition.startTransition;
 
 public class ForestController extends EntityController {
     @FXML
-    public AnchorPane forestPane;
+    private AnchorPane forestPane;
     @FXML
     private ImageView exclamation;
     @FXML
@@ -44,13 +43,13 @@ public class ForestController extends EntityController {
     private static boolean questReceived = false;
     private static int howMuch;
 
-
     public void initialize() {
         super.initialize();
         setKeyDetector();
         loadBoundsHitbox();
         setBackgroundView("forestMap.png", backgroundView);
         orcs.clear();
+        ViewRegister.clearOrcs();
         placeOrcRandomly();
     }
     public void setKeyDetector() {
@@ -69,14 +68,11 @@ public class ForestController extends EntityController {
     public void exitCollision(Bounds exit, double x, double y){
         if(player.getHitbox(getNewX() + 70, getNewY() + 55).intersects(exit)) {
             timer.stop();
-
-            //getKeyPressed().clear();
-
             startTransition(blackScreen, Duration.seconds(1.5),
-                ()-> {
-                    changeMap("map");
-                    setSpawnPoint(x, y);
-                }
+                    ()-> {
+                        changeMap("map");
+                        setSpawnPoint(x, y);
+                    }
             );
         }
     }
@@ -92,16 +88,15 @@ public class ForestController extends EntityController {
         placeOrcRandomlyInACorner(spawnRightUpCorner, orcSpawn);
         placeOrcRandomlyInACorner(spawnRightDownCorner, orcSpawn);
     }
-
-
-
     private void orcCollisionDetection(List<Orc> orcList){
-        Bounds hitboxPlayer = player.getHitbox(player.getEntityView().getLayoutX() + 70, player.getEntityView().getLayoutY() + 55);
+        PlayerView view = ViewRegister.ofPlayer(player);
+        Bounds hitboxPlayer = player.getHitbox(view.getLayoutX() + 70, view.getLayoutY() + 55);
         orcList.forEach((orc) -> {
-            Bounds hitboxOrc = orc.getHitbox(orc.getEntityView().getLayoutX() + 70, orc.getEntityView().getLayoutY() + 55);
+            OrcView orcBody = ViewRegister.ofOrc(orc);
+            Bounds hitboxOrc = orc.getHitbox(orcBody.getLayoutX() + 70, orcBody.getLayoutY() + 55);
             if(hitboxPlayer.intersects(hitboxOrc)) {
                 setOrcEncountered(orc);
-                encounterEntity(orc.getEntityView().getView());
+                encounterEntity(orcBody.getView());
             }
         });
     }
@@ -112,18 +107,17 @@ public class ForestController extends EntityController {
         timer.stop();
         startTransition(blackScreen, Duration.seconds(1.5), this::startBattle);
     }
-
     private void startBattle() {
         exclamation.setVisible(false);
         changeMap("battle");
     }
-
     private void meetForestSpirit(){
-        Bounds hitboxPlayer = player.getHitbox(player.getEntityView().getLayoutX() + 70, player.getEntityView().getLayoutY() + 55);
+        PlayerView view = ViewRegister.ofPlayer(player);
+        Bounds hitboxPlayer = player.getHitbox(view.getLayoutX() + 70, view.getLayoutY() + 55);
         Bounds hitboxForestSpirit = forestSpirit.getBoundsInParent();
         if(hitboxPlayer.intersects(hitboxForestSpirit)) {
             if(!questReceived){
-                System.out.println(guardian.getRandomQuest().toString());
+                PrintGameLog.info(guardian.getRandomQuest().toString());
                 howMuch = guardian.getQuestReceived().getHowMuch();
                 questReceived = true;
             }
@@ -134,12 +128,11 @@ public class ForestController extends EntityController {
             if(orcEncountered.getExperience().getLevel() == guardian.getQuestReceived().getLevel() && guardian.getQuestReceived().getHowMuch() >= 1){
                 howMuch--;
                 if(howMuch < 1) {
-                    System.out.println("Hai completato la quest");
+                    PrintGameLog.info("Hai completato la quest");
                     player.getInventory().addPotion(guardian.getPotionReward(guardian.getQuestReceived().getPotionRewardLevel()));
                     questReceived = false;
                 }
             }
         }
     }
-
 }

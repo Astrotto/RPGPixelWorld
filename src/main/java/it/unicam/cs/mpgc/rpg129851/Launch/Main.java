@@ -23,7 +23,7 @@ import java.util.List;
 
     @Override
     public void start(Stage primaryStage) {
-        setNewScene(primaryStage, "forest");
+        setNewScene(primaryStage, "map");
     }
     public static void setOrcEncountered(Orc orc){
         orcEncountered = orc;

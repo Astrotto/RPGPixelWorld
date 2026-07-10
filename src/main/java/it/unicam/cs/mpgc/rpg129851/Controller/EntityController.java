@@ -1,19 +1,27 @@
 package it.unicam.cs.mpgc.rpg129851.Controller;
 
-import static it.unicam.cs.mpgc.rpg129851.Collision.MapBoundaryChecker.*;
-import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.PlayerLoader.*;
-import static it.unicam.cs.mpgc.rpg129851.Launch.Main.*;
+import it.unicam.cs.mpgc.rpg129851.Movement.MovementProcessor;
+import it.unicam.cs.mpgc.rpg129851.View.ViewRegister;
+import javafx.animation.AnimationTimer;
+import javafx.fxml.FXML;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
+
+import static it.unicam.cs.mpgc.rpg129851.Collision.MapBoundaryChecker.mapCollisionDetection;
+import static it.unicam.cs.mpgc.rpg129851.Collision.ObstacleCollisionChecker.obstacleCollisionDetection;
+import static it.unicam.cs.mpgc.rpg129851.Collision.ObstacleCollisionChecker.worldCollisionDetection;
+import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.PlayerLoader.getImageWalk;
+import static it.unicam.cs.mpgc.rpg129851.Launch.Main.player;
 import static it.unicam.cs.mpgc.rpg129851.Movement.KeyDetector.*;
-import static it.unicam.cs.mpgc.rpg129851.Collision.ObstacleCollisionChecker.*;
 import static it.unicam.cs.mpgc.rpg129851.Movement.SpawnPoint.*;
 
-
-import it.unicam.cs.mpgc.rpg129851.Movement.MovementProcessor;
-import javafx.animation.AnimationTimer;
-
-
 public class EntityController extends LoaderController {
-    public AnimationTimer timer;
+    @FXML
+    protected Pane gameWorld;
+    @FXML
+    protected Rectangle home, graveyard;
+
+    protected AnimationTimer timer;
     private MovementProcessor movementProcessor;
 
     public void initialize() {
@@ -23,21 +31,21 @@ public class EntityController extends LoaderController {
             public void handle(long now) {
                 updatePlayerLocation();
                 setPotionObtained();
-                player.getEntityView().loadPlayerAnimation(now);
+                ViewRegister.ofPlayer(player).loadPlayerAnimation(now);
                 if(getSpawnX() != -1 || getSpawnY() != -1) {
                     setSpawnPoint(getSpawnX(), getSpawnY());
                 }
             }
         };
         movementProcessor = new MovementProcessor();
-        player.getEntityView().setImage(getImageWalk());
+        ViewRegister.ofPlayer(player).setImage(getImageWalk());
         timer.start();
     }
 
     public void updatePlayerLocation() {
-        setNewX(player.getEntityView().getLayoutX());
-        setNewY(player.getEntityView().getLayoutY());
-        player.getEntityView().setIsMoving(false);
+        setNewX(ViewRegister.ofPlayer(player).getLayoutX());
+        setNewY(ViewRegister.ofPlayer(player).getLayoutY());
+        ViewRegister.ofPlayer(player).setIsMoving(false);
         movementProcessor.processMovement();
         mapCollisionDetection();
         worldCollisionDetection(player, gameWorld, getNewX(), getNewY());
@@ -46,9 +54,4 @@ public class EntityController extends LoaderController {
         }else
             obstacleCollisionDetection(player, graveyard, getNewX(), getNewY());
     }
-
-
-
-
-
 }
