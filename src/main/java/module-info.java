@@ -19,4 +19,5 @@ module it.unicam.cs.mpgc.rpg129851 {
     exports it.unicam.cs.mpgc.rpg129851.ImagesLoader;
     opens it.unicam.cs.mpgc.rpg129851.ImagesLoader to javafx.fxml;
     opens it.unicam.cs.mpgc.rpg129851.System to gson;
+    opens it.unicam.cs.mpgc.rpg129851.View to gson;
 }

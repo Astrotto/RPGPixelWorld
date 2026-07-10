@@ -1,8 +1,11 @@
-package it.unicam.cs.mpgc.rpg129851.Model;
+package it.unicam.cs.mpgc.rpg129851.System;
+
+import it.unicam.cs.mpgc.rpg129851.Model.Attack;
+import it.unicam.cs.mpgc.rpg129851.Model.Entity;
 
 import java.util.Random;
 
-public class DamageCalculator {
+public class DamageCalculatorSystem {
     private Random rand = new Random();
 
     public void calculateFinalDamage(Attack attacker, Entity defender){

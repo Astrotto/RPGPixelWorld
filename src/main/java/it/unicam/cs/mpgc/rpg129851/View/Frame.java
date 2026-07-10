@@ -1,8 +1,10 @@
-package it.unicam.cs.mpgc.rpg129851.Model;
+package it.unicam.cs.mpgc.rpg129851.View;
 
 public class Frame {
     private long lastChangeFrame;
     private int actualFrame;
+    public final int FRAME_WIDTH = 100;
+    public final int FRAME_HEIGHT = 100;
 
     public Frame(){
         this.lastChangeFrame = 0;
@@ -19,5 +21,11 @@ public class Frame {
     }
     public void setActualFrame(int actualFrame) {
         this.actualFrame = actualFrame;
+    }
+    public int getFrameWidth(){
+        return FRAME_WIDTH;
+    }
+    public int getFrameHeight(){
+        return FRAME_HEIGHT;
     }
 }

@@ -41,8 +41,8 @@ public class BattleController extends LoaderController {
                 orcExperienceBar.showExperienceBar();
                 playerHealthBar.showHealthBar();
                 playerExperienceBar.showExperienceBar();
-                player.getEntityView().updateAnimation(now, player);
-                orcEncountered.getEntityView().updateAnimation(now, orcEncountered);
+                player.getEntityView().getAttackView().executeAttackView(now, player);
+                orcEncountered.getEntityView().getAttackView().executeAttackView(now, orcEncountered);
                 deathControl(player, orcEncountered);
                 deathControl(orcEncountered, player);
 
