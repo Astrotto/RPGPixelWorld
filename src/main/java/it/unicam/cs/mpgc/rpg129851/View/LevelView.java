@@ -10,7 +10,7 @@ public class LevelView {
     private static final int[] OFFSETS = {138, 154, 170};
 
     public static void showLevel(Entity entity, HealthBar healthBar, Pane levelPane){
-        int level = entity.getExperience().getLevel();
+        int level = entity.getExperience().getLevel().getActualLevel();
         for(int i = 0; i < level && i < OFFSETS.length; i++){
             loadLevel(healthBar, createLevel(levelPane), OFFSETS[i]);
         }

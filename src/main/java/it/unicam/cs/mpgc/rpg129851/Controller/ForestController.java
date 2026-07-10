@@ -125,7 +125,7 @@ public class ForestController extends EntityController {
     }
     public static void questCompletedControl(){
         if(questReceived){
-            if(orcEncountered.getExperience().getLevel() == guardian.getQuestReceived().getLevel() && guardian.getQuestReceived().getHowMuch() >= 1){
+            if(orcEncountered.getExperience().getLevel().getActualLevel() == guardian.getQuestReceived().getLevel() && guardian.getQuestReceived().getHowMuch() >= 1){
                 howMuch--;
                 if(howMuch < 1) {
                     PrintGameLog.info("Hai completato la quest");

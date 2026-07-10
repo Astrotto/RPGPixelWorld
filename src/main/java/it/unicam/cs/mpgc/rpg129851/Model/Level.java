@@ -7,7 +7,7 @@ public class Level {
     public Level(int level){
         this.level = level;
     }
-    public int getLevel() {
+    public int getActualLevel() {
         return level;
     }
     public boolean increaseLevel() {

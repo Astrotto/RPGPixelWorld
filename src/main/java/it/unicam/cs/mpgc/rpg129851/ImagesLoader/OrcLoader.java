@@ -9,7 +9,7 @@ public class OrcLoader {
     private static Image imageOrc, imageOrcAttack;
 
     public static void loadOrcImages(Orc orc){
-        String orcName = switch (orc.getExperience().getLevel()) {
+        String orcName = switch (orc.getExperience().getLevel().getActualLevel()) {
             case 1 -> "armored";
             case 2 -> "elite";
             case 3 -> "rider";

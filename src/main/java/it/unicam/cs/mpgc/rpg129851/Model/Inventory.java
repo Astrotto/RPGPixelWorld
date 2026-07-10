@@ -18,7 +18,7 @@ public class Inventory {
     }
     public Potion getPotion(int level) {
         for(int i = 0; i < inventory.size(); i++) {
-            if(inventory.get(i).getLevel() == level) {
+            if(inventory.get(i).getLevel().getActualLevel() == level) {
                 return inventory.remove(i);
             }
         }
@@ -27,7 +27,7 @@ public class Inventory {
     public int getPotionAmount(int level) {
         int counter = 0;
         for(Potion potion : inventory) {
-            if(potion.getLevel() == level)
+            if(potion.getLevel().getActualLevel() == level)
                 counter++;
         }
         return counter;

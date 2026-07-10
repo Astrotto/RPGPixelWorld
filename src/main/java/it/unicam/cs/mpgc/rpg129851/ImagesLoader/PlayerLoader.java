@@ -16,7 +16,7 @@ public class PlayerLoader {
         ViewRegister.ofPlayer(player).setSmooth(false);
     }
     public static void loadPlayerImages(){
-        String playerName = switch (player.getExperience().getLevel()) {
+        String playerName = switch (player.getExperience().getLevel().getActualLevel()) {
             case 1 -> "knight";
             case 2 -> "templarKnight";
             case 3 -> "lancer";
