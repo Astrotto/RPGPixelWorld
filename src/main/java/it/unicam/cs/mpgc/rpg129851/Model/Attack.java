@@ -1,12 +1,14 @@
 package it.unicam.cs.mpgc.rpg129851.Model;
+
 import java.util.Random;
 
 public class Attack {
-    private Attribute strength;
+    private final Attribute strength;
+    private final Random rand = new Random();
     private int baseDamage;
     private int finalDamage;
-    private boolean isAttacking, criticalHit;
-    private Random rand = new Random();
+    private boolean isAttacking;
+    private boolean criticalHit;
 
     public Attack(Attribute strength){ this.strength = strength; }
 
@@ -22,19 +24,22 @@ public class Attack {
     public int getFinalDamage() {
         return finalDamage;
     }
-    public boolean isCriticalHit(){
-        if(rand.nextInt(100) < 6)
-            setCriticalHit(true);
+    public void rollCriticalHit() {
+        this.criticalHit = rand.nextInt(100) < 6;
+    }
+    public boolean isCriticalHit() {
         return criticalHit;
     }
-    public void setCriticalHit(boolean criticalHit){
+    public void setCriticalHit(boolean criticalHit) {
         this.criticalHit = criticalHit;
     }
     public Attribute getStrength() {
         return strength;
     }
-    public boolean isAttacking(){ return isAttacking; }
-    public void setAttacking(boolean attacking){
+    public boolean isAttacking() {
+        return isAttacking;
+    }
+    public void setAttacking(boolean attacking) {
         isAttacking = attacking;
     }
 }

@@ -1,8 +1,10 @@
 package it.unicam.cs.mpgc.rpg129851.System;
+
 import it.unicam.cs.mpgc.rpg129851.Model.Attack;
 import it.unicam.cs.mpgc.rpg129851.Model.Entity;
 
-import static it.unicam.cs.mpgc.rpg129851.PrintLog.PrintLogAttack.*;
+import static it.unicam.cs.mpgc.rpg129851.PrintLog.PrintLogAttack.printCriticalDamage;
+import static it.unicam.cs.mpgc.rpg129851.PrintLog.PrintLogAttack.printDamage;
 
 public class CombatSystem {
     private final DamageCalculatorSystem damageCalculator = new DamageCalculatorSystem();
@@ -19,6 +21,7 @@ public class CombatSystem {
         }
     }
     public void executeAttack(Attack attacker, Entity defender) {
+        attacker.rollCriticalHit();
         damageCalculator.calculateFinalDamage(attacker, defender);
         defender.getHealth().takeDamage(attacker.getFinalDamage());
     }
