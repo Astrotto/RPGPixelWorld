@@ -9,7 +9,6 @@ ogni nemico alla morte "droppa" dei punti esperienza che si accumulano al player
 
 ### Prerequisiti
 - Java 25
-- 
 - Gradle
 
 ### Istruzioni
