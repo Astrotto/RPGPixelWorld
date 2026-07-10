@@ -1,5 +1,4 @@
 package it.unicam.cs.mpgc.rpg129851.System;
-import it.unicam.cs.mpgc.rpg129851.Model.Player;
 import java.util.Random;
 
 import static it.unicam.cs.mpgc.rpg129851.PrintLog.PrintLogEscape.printEscape;
