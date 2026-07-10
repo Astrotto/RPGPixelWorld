@@ -4,7 +4,8 @@ import javafx.animation.PauseTransition;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
-import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.ButtonLoader.*;
+import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.ButtonLoader.loadButtonDisabled;
+import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.ButtonLoader.loadButtonImages;
 
 public class CooldownActivator {
     private static boolean potionsCooldown = false;

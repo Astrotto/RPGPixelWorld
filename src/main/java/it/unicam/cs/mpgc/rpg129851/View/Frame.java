@@ -25,7 +25,5 @@ public class Frame {
     public int getFrameWidth(){
         return frameWidth;
     }
-    public int getFrameHeight(){
-        return frameHeight;
-    }
+    public int getFrameHeight(){ return frameHeight; }
 }

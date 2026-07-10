@@ -1,7 +1,6 @@
 package it.unicam.cs.mpgc.rpg129851.System;
-import it.unicam.cs.mpgc.rpg129851.Model.Entity;
-import it.unicam.cs.mpgc.rpg129851.Model.Orc;
-import it.unicam.cs.mpgc.rpg129851.Model.Player;
+
+import it.unicam.cs.mpgc.rpg129851.Model.*;
 import static it.unicam.cs.mpgc.rpg129851.PrintLog.PrintLogDeath.*;
 
 public class DeathSystem {
