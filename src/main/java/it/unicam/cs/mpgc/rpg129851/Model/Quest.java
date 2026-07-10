@@ -21,6 +21,7 @@ public class Quest {
     public int getPotionRewardLevel(){
         return potionRewardLevel;
     }
+    @Override
     public String toString(){
         return "La quest e': " + this.getTask() + " " + this.getHowMuch() + " " +
                 this.getWho() + " LV" + this.getLevel() + " per ricevere una pozione LV" + this.getPotionRewardLevel();

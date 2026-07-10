@@ -8,16 +8,14 @@ public class Statistic {
     public Statistic(int statistic, int maxStatistic) {
         if(statistic < 0 || maxStatistic < 0 || maxStatistic < statistic)
             throw new IllegalArgumentException("Statistic, maxStatistic can't be negative or maxStatistic can't be < statistic");
-        else {
-            this.statistic = statistic;
-            this.maxStatistic = maxStatistic;
-        }
+        this.statistic = statistic;
+        this.maxStatistic = maxStatistic;
     }
     public Statistic(int statistic) {
         if(statistic < 0)
             throw new IllegalArgumentException("Statistic can't be < 0");
-        else
-            this.statistic = statistic;
+        this.statistic = statistic;
+        this.maxStatistic = statistic;
     }
     public double getStatisticPercentage() {
         return (double) this.getStatistic() / this.getMaxStatistic();
@@ -31,10 +29,11 @@ public class Statistic {
     public void setStatistic(int statistic) {
         this.statistic = statistic;
     }
-    public void setMaxStatistic(int maxStatistic) { this.maxStatistic = maxStatistic; }
+    public void setMaxStatistic(int maxStatistic) {
+        this.maxStatistic = maxStatistic;
+    }
     public void setBothStatistic(Statistic statistic) {
         this.statistic = statistic.getStatistic();
         this.maxStatistic = statistic.getMaxStatistic();
     }
-
 }
