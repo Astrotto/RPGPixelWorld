@@ -25,13 +25,8 @@ public abstract class Entity {
         this.entityView = entityView;
     }
     public abstract Bounds getHitbox(double x, double y);
-    public abstract void setInitialStatistic(int level);
-    public void updateStatistic() {
-        this.getHealth().setStatistic(this.getHealth().getStatistic() + 10);
-        this.getHealth().setMaxStatistic(this.getHealth().getMaxStatistic() + 10);
-        this.getAttack().getStrength().setAttribute(this.getAttack().getStrength().getAttribute() + 10);
-        this.getDefense().setAttribute(this.getDefense().getAttribute() + 10);
-    }
+    public abstract void updateStatistic(int level);
+
     public String getName() {
         return this.name;
     }

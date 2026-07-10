@@ -18,7 +18,7 @@ public class Player extends Entity {
             this.speed = speed;
             this.inventory = new Inventory();
             this.setEntityView(new PlayerView());
-            setInitialStatistic(level);
+            updateStatistic(level);
         }
     }
     @Override
@@ -26,26 +26,12 @@ public class Player extends Entity {
         return (PlayerView)this.entityView;
     }
 
-    @Override
-    public void setInitialStatistic(int level) {
-        switch (level){
-            case 1 -> {
-                this.getHealth().setBothStatistic(new Health(100, 100));
-                this.getAttack().getStrength().setAttribute(25);
-                this.getDefense().setAttribute(15);
-            }
-            case 2 -> {
-                this.getHealth().setBothStatistic(new Health(110, 110));
-                this.getAttack().getStrength().setAttribute(35);
-                this.getDefense().setAttribute(25);
-            }
-            case 3 -> {
-                this.getHealth().setBothStatistic(new Health(120, 120));
-                this.getAttack().getStrength().setAttribute(45);
-                this.getDefense().setAttribute(35);
-            }
-        }
+    public void updateStatistic(int level){
+        this.getHealth().setBothStatistic(new Health(100 * level, 100 * level));
+        this.getAttack().getStrength().setAttribute(25 * level);
+        this.getDefense().setAttribute(15 * level);
     }
+
     public Inventory getInventory() {
         return inventory;
     }

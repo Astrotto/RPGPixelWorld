@@ -9,9 +9,7 @@ public class Experience extends Statistic{
     }
     public void earnExperience(Entity entity, int experience) {
         if (experience <= 0) return;
-
         int currentEXP = this.getStatistic() + experience;
-
         while (currentEXP >= this.getMaxStatistic()) {
 
             if (level.increaseLevel()) {
@@ -19,7 +17,7 @@ public class Experience extends Statistic{
 
                 this.setMaxStatistic(this.getMaxStatistic() + 50);
 
-                entity.updateStatistic();
+                entity.updateStatistic(this.level.getLevel());
             } else {
                 currentEXP = this.getMaxStatistic();
                 break;

@@ -43,8 +43,6 @@ public class BattleController extends LoaderController {
                 playerExperienceBar.showExperienceBar();
                 player.getEntityView().updateAnimation(now, player);
                 orcEncountered.getEntityView().updateAnimation(now, orcEncountered);
-                deathControl(player);
-                deathControl(orcEncountered);
                 setPotionObtained();
                 buttonLoader.loadButtons();
             }
@@ -65,6 +63,7 @@ public class BattleController extends LoaderController {
     public void attackTurn() {
         combatSystem.attack(player, orcEncountered);
         player.getEntityView().getFrame().setActualFrame(0);
+        deathControl(player, orcEncountered);
 
         combatSystem.attack(orcEncountered, player);
         orcEncountered.getEntityView().getFrame().setActualFrame(0);
@@ -72,20 +71,12 @@ public class BattleController extends LoaderController {
         cooldownActivation(btnRun, btnAttack, 1.5);
     }
 
-    public void deathControl(Entity entity){
-        if(!entity.isAlive()){
-            if(entity instanceof Player){
-                System.exit(0);
-            }
-            System.out.println(entity.getName() + " e morto!");
-            if(entity instanceof Orc){
+    public void deathControl(Entity attacker, Entity defender){
+        if(deathSystem.deathControl(defender)){
+            if(deathSystem.deathOrcControl(attacker, defender)){
                 ForestController.questCompletedControl();
-                System.out.println(entity.getName() + " ha droppato " + entity.getExperience().getStatistic() + " punti esperienza");
-                player.getExperience().earnExperience(player, entity.getExperience().getStatistic());
-                player.getHealth().heal(20);
-                player.getAttack().setAttacking(false);
                 timer.stop();
-                changeMap((Stage) player.getEntityView().getView().getScene().getWindow(), "forest");
+                changeMap((Stage) attacker.getEntityView().getView().getScene().getWindow(), "forest");
             }
         }
     }

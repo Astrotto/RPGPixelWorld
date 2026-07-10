@@ -9,13 +9,15 @@ public class CombatSystem {
     private final DamageCalculator damageCalculator = new DamageCalculator();
 
     public void attack(Entity attacker, Entity defender){
-        this.executeAttack(attacker.getAttack(), defender);
-        attacker.getAttack().setAttacking(true);
-        if(attacker.getAttack().isCriticalHit()) {
-            printCriticalDamage(attacker, defender);
-            attacker.getAttack().setCriticalHit(false);
-        }else
-            printDamage(attacker, defender);
+        if(attacker.isAlive()){
+            this.executeAttack(attacker.getAttack(), defender);
+            attacker.getAttack().setAttacking(true);
+            if(attacker.getAttack().isCriticalHit()) {
+                printCriticalDamage(attacker, defender);
+                attacker.getAttack().setCriticalHit(false);
+            }else
+                printDamage(attacker, defender);
+        }
     }
     public void executeAttack(Attack attacker, Entity defender) {
         damageCalculator.calculateFinalDamage(attacker, defender);

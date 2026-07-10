@@ -5,15 +5,21 @@ import static it.unicam.cs.mpgc.rpg129851.PrintLog.PrintLogDeath.*;
 
 public class DeathSystem {
 
-    public void deathControl(Entity defender){
-        if(defender.getHealth().getStatistic() <= 0){
+    public boolean deathControl(Entity defender){
+        if(!defender.isAlive()){
             printDeath(defender);
+            return true;
         }
+        return false;
     }
-    public void deathOrcControl(Entity orc){
-        if(orc instanceof Orc && orc.getHealth().getStatistic() <= 0){
-            printDeath(orc);
-            printExperienceDrop(orc);
+    public boolean deathOrcControl(Entity attacker, Entity defender){
+        if(defender instanceof Orc && !defender.isAlive()){
+            printExperienceDrop(defender);
+            attacker.getExperience().earnExperience(attacker, defender.getExperience().getStatistic());
+            attacker.getHealth().heal(20);
+            attacker.getAttack().setAttacking(false);
+            return true;
         }
+        return false;
     }
 }
