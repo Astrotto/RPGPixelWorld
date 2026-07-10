@@ -39,7 +39,7 @@ L'uso dell'AI è stato limitato, e principalmente a scopi di apprendimento su Ja
   * suggerimenti su struttura del codice
 
 * Utilizzato Claude per:
-  * code-review per controllare di rispettare tutti i principi SOLID
+  * verificare che tutti i principi SOLID siano stati rispettati
  
 ---
 
