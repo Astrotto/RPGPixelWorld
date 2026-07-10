@@ -22,7 +22,7 @@ import java.util.List;
 
     @Override
     public void start(Stage primaryStage) {
-        changeMap(primaryStage, "map");
+        changeMap(primaryStage, "forest");
     }
     public static void setOrcEncountered(Orc orc){
         orcEncountered = orc;

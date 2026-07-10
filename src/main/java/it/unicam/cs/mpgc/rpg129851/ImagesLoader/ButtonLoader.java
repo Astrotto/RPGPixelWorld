@@ -7,38 +7,32 @@ import javafx.scene.image.ImageView;
 import java.util.Objects;
 
 public class ButtonLoader {
-    private final ImageView btnAttack;
-    private final ImageView btnRun;
-    private Image imageBtnAttack, imageBtnRun;
-    public ButtonLoader(ImageView btnAttack, ImageView btnRun) {
-        this.btnAttack = btnAttack;
-        this.btnRun = btnRun;
-        loadButtonImages();
-    }
-    public Image getImageBtnAttackDisabled() {
+    private static Image imageBtnAttack, imageBtnRun;
+
+    public static Image getImageBtnAttackDisabled() {
         return new Image(Objects.requireNonNull(ButtonLoader.class.getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/btnAttackDisabled.png")));
     }
-    public Image getImageBtnAttack() {
+    public static Image getImageBtnAttack() {
          return new Image(Objects.requireNonNull(ButtonLoader.class.getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/btnAttack.png")));
     }
-    public Image getImageBtnRunDisabled() {
+    public static Image getImageBtnRunDisabled() {
         return new Image(Objects.requireNonNull(ButtonLoader.class.getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/btnRunDisabled.png")));
     }
-    public Image getImageBtnRun() {
+    public static Image getImageBtnRun() {
         return new Image(Objects.requireNonNull(ButtonLoader.class.getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/btnRun.png")));
     }
-    public void loadButtonImages() {
+    public static void loadButtonImages() {
         imageBtnAttack = getImageBtnAttack();
         imageBtnRun = getImageBtnRun();
     }
-    public void loadButtonDisabled() {
+    public static void loadButtonDisabled() {
         imageBtnAttack = getImageBtnAttackDisabled();
         imageBtnRun = getImageBtnRunDisabled();
     }
-    public void loadButtons(){
-        btnAttack.setImage(imageBtnAttack);
-        btnAttack.setSmooth(false);
-        btnRun.setImage(imageBtnRun);
-        btnRun.setSmooth(false);
+    public static void loadButtons(ImageView button1, ImageView button2) {
+        button1.setImage(imageBtnAttack);
+        button1.setSmooth(false);
+        button2.setImage(imageBtnRun);
+        button2.setSmooth(false);
     }
 }
