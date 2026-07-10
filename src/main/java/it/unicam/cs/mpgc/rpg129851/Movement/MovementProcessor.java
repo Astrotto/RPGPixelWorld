@@ -17,7 +17,7 @@ public class MovementProcessor {
         updateLocation("X", newX, KeyCode.A, KeyCode.LEFT);
         updateLocation("X", newX, KeyCode.D, KeyCode.RIGHT);
     }
-    public void updateLocation(String coordinate, double direction , KeyCode keyCode1, KeyCode keyCode2) {
+    private void updateLocation(String coordinate, double direction , KeyCode keyCode1, KeyCode keyCode2) {
         MovementInput input = new MovementInput(keyDetector.getKeyPressed());
         switch(coordinate){
             case "X" -> {

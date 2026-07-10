@@ -4,6 +4,7 @@ import it.unicam.cs.mpgc.rpg129851.Launch.Main;
 
 import static it.unicam.cs.mpgc.rpg129851.Controller.OrcController.*;
 import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.BackgroundLoader.setBackgroundView;
+import static it.unicam.cs.mpgc.rpg129851.Launch.ChangerMap.changeMap;
 import static it.unicam.cs.mpgc.rpg129851.Movement.KeyDetector.*;
 
 import it.unicam.cs.mpgc.rpg129851.Model.Orc;

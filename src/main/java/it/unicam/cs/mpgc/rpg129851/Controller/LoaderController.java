@@ -6,18 +6,12 @@ import static it.unicam.cs.mpgc.rpg129851.Launch.Main.*;
 import static it.unicam.cs.mpgc.rpg129851.View.LevelView.*;
 import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.PotionLoader.*;
 
-
-import it.unicam.cs.mpgc.rpg129851.ImagesLoader.InventoryLoader;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 public class LoaderController {
 
@@ -74,17 +68,5 @@ public class LoaderController {
 
 
 
-    public void changeMap(Stage actualStage, String map){
-        try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(("/it/unicam/cs/mpgc/rpg129851/" + map + "-view.fxml")));
-            Parent root = loader.load();
-            Stage stage = actualStage;
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-            root.requestFocus();
-        }catch(Exception e){
-            System.err.println("Loading error of the " + map + " scene");
-        }
-    }
+
 }

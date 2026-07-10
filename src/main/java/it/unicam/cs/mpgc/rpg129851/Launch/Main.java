@@ -1,20 +1,15 @@
- package it.unicam.cs.mpgc.rpg129851.Launch;
+package it.unicam.cs.mpgc.rpg129851.Launch;
 
+import static it.unicam.cs.mpgc.rpg129851.Launch.ChangerMap.changeMap;
 import it.unicam.cs.mpgc.rpg129851.Model.*;
 import it.unicam.cs.mpgc.rpg129851.View.ExperienceBar;
 import it.unicam.cs.mpgc.rpg129851.View.HealthBar;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import java.io.IOException;
 import java.util.ArrayList;
-
 import java.util.List;
 
-public class Main extends Application {
+ public class Main extends Application {
 
     public static Player player = new Player(1, 84, 2);
     public static List<Orc> orcs = new ArrayList<>();
@@ -25,18 +20,9 @@ public class Main extends Application {
     public static HealthBar orcHealthBar;
     public static ExperienceBar orcExperienceBar;
 
-
-
-    public static boolean criticalHit = false;
     @Override
-    public void start(Stage primaryStage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/it/unicam/cs/mpgc/rpg129851/forest-view.fxml"));
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("PixelWorld");
-        primaryStage.show();
-        root.requestFocus();
+    public void start(Stage primaryStage) {
+        changeMap(primaryStage, "map");
     }
     public static void setOrcEncountered(Orc orc){
         orcEncountered = orc;

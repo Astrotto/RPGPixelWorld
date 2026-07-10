@@ -1,5 +1,6 @@
 package it.unicam.cs.mpgc.rpg129851.Controller;
 
+import static it.unicam.cs.mpgc.rpg129851.Launch.ChangerMap.changeMap;
 import static it.unicam.cs.mpgc.rpg129851.Launch.Main.*;
 import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.BackgroundLoader.*;
 
