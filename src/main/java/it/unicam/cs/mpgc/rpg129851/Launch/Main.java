@@ -1,16 +1,21 @@
 package it.unicam.cs.mpgc.rpg129851.Launch;
 
-import static it.unicam.cs.mpgc.rpg129851.Launch.ChangerMap.setNewScene;
-
-import it.unicam.cs.mpgc.rpg129851.Model.*;
+import it.unicam.cs.mpgc.rpg129851.Model.ForestSpirit;
+import it.unicam.cs.mpgc.rpg129851.Model.Orc;
+import it.unicam.cs.mpgc.rpg129851.Model.Player;
+import it.unicam.cs.mpgc.rpg129851.View.ViewRegister;
 import it.unicam.cs.mpgc.rpg129851.View.ExperienceBar;
 import it.unicam.cs.mpgc.rpg129851.View.HealthBar;
+import it.unicam.cs.mpgc.rpg129851.View.PlayerView;
 import javafx.application.Application;
 import javafx.stage.Stage;
+
 import java.util.ArrayList;
 import java.util.List;
 
- public class Main extends Application {
+import static it.unicam.cs.mpgc.rpg129851.Launch.ChangerMap.setNewScene;
+
+public class Main extends Application {
 
     public static Player player = new Player(3, 0, 2);
     public static List<Orc> orcs = new ArrayList<>();
@@ -23,7 +28,8 @@ import java.util.List;
 
     @Override
     public void start(Stage primaryStage) {
-        setNewScene(primaryStage, "map");
+        ViewRegister.register(player, new PlayerView());
+        setNewScene(primaryStage, "forest");
     }
     public static void setOrcEncountered(Orc orc){
         orcEncountered = orc;
