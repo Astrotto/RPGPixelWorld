@@ -2,22 +2,17 @@ package it.unicam.cs.mpgc.rpg129851.Controller;
 
 import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.OrcLoader.*;
 import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.BackgroundLoader.*;
-import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.PotionLoader.*;
 import static it.unicam.cs.mpgc.rpg129851.Launch.ChangerMap.changeMap;
 import static it.unicam.cs.mpgc.rpg129851.Launch.Main.*;
 import static it.unicam.cs.mpgc.rpg129851.View.LevelView.showLevel;
 
 import it.unicam.cs.mpgc.rpg129851.ImagesLoader.ButtonLoader;
 import it.unicam.cs.mpgc.rpg129851.Model.*;
-import it.unicam.cs.mpgc.rpg129851.System.CombatSystem;
-import it.unicam.cs.mpgc.rpg129851.System.DeathSystem;
-import it.unicam.cs.mpgc.rpg129851.System.EscapeSystem;
+import it.unicam.cs.mpgc.rpg129851.System.*;
 import javafx.animation.AnimationTimer;
 import javafx.animation.PauseTransition;
 
 import javafx.fxml.FXML;
-
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
@@ -29,6 +24,7 @@ public class BattleController extends LoaderController {
     private boolean potionsCooldown = false;
     private CombatSystem combatSystem = new CombatSystem();
     private DeathSystem deathSystem = new DeathSystem();
+    private HealSystem healSystem = new HealSystem();
     private EscapeSystem escapeSystem = new EscapeSystem();
     private ButtonLoader buttonLoader;
 
@@ -38,10 +34,10 @@ public class BattleController extends LoaderController {
         timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                orcHealthBar.showHealthBar();
-                orcExperienceBar.showExperienceBar();
-                playerHealthBar.showHealthBar();
-                playerExperienceBar.showExperienceBar();
+                orcHealthBar.showGameProgressBar();
+                orcExperienceBar.showGameProgressBar();
+                playerHealthBar.showGameProgressBar();
+                playerExperienceBar.showGameProgressBar();
                 player.getEntityView().getAttackView().executeAttackView(now, player);
                 orcEncountered.getEntityView().getAttackView().executeAttackView(now, orcEncountered);
                 deathControl(player, orcEncountered);
@@ -52,7 +48,7 @@ public class BattleController extends LoaderController {
             }
         };
         buttonLoader = new ButtonLoader(btnAttack, btnRun);
-        orcEncountered.getEntityView().setEntityView(orcView);
+        orcEncountered.getEntityView().setView(orcView);
         orcHealthBar.setBar(progressBarViewOrc,healthBarOrc);
         orcExperienceBar.setBar(progressBarViewOrc,experienceBarOrc);
         showLevel(orcEncountered, orcHealthBar, levelPane);
@@ -69,7 +65,6 @@ public class BattleController extends LoaderController {
         player.getEntityView().getFrame().setActualFrame(0);
         combatSystem.attack(orcEncountered, player);
         orcEncountered.getEntityView().getFrame().setActualFrame(0);
-
         cooldownActivation(btnRun, btnAttack, 1.5);
     }
 
@@ -87,7 +82,6 @@ public class BattleController extends LoaderController {
             }
         }
     }
-
 
     @FXML
     public void chanceToEscape() {
@@ -114,24 +108,15 @@ public class BattleController extends LoaderController {
         potionsCooldown = false;
         cooldown.play();
     }
+
     @FXML
     private void usePotionInBattle(){
         if(!(player.getHealth().getStatistic() == player.getHealth().getMaxStatistic()) && !player.getAttack().isAttacking() && !orcEncountered.getAttack().isAttacking() && !potionsCooldown){
-            potionSelected(potionLV1View, 1, getNoPotionImage(1));
-            potionSelected(potionLV2View, 2, getNoPotionImage(2));
-            potionSelected(potionLV3View, 3, getNoPotionImage(3));
+            healSystem.potionPressed(potionLV1View, 1);
+            healSystem.potionPressed(potionLV2View, 2);
+            healSystem.potionPressed(potionLV3View, 3);
+        }
+    }
 
-        }
-    }
-    private void potionSelected(ImageView potionView, int level, Image potionImage) {
-        if (potionView.isPressed()) {
-            if (player.getInventory().getPotionAmount(level) >= 1) {
-                player.getHealth().heal(player.getInventory().getPotion(level));
-                combatSystem.attack(orcEncountered, player);
-                cooldownActivation(btnRun, btnAttack, 1.5);
-            }
-            if (player.getInventory().getPotionAmount(level) == 0)
-                setPotionsView(potionView, potionImage);
-        }
-    }
+
 }

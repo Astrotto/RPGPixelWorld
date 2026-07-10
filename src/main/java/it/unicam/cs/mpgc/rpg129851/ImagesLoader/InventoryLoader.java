@@ -7,6 +7,9 @@ import java.util.Objects;
 
 
 public class InventoryLoader {
+
+
+
     public static void loadInventory(ImageView slotPotionView, ImageView potionView, Image noPotion){
         setSlotInventory(slotPotionView);
         setPotionsView(potionView, noPotion);
@@ -17,9 +20,9 @@ public class InventoryLoader {
     }
 
 
-    public static void setSlotInventory(ImageView slotinventory){
-        slotinventory.setImage(getInventoryImage());
-        slotinventory.setSmooth(false);
+    public static void setSlotInventory(ImageView slotInventory){
+        slotInventory.setImage(getInventoryImage());
+        slotInventory.setSmooth(false);
     }
 
 }

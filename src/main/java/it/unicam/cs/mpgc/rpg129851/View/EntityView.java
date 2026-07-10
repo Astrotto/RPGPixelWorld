@@ -23,7 +23,7 @@ public class EntityView {
     public ImageView getView() {
         return this.entityView;
     }
-    public void setEntityView(ImageView entityView) {
+    public void setView(ImageView entityView) {
         this.entityView = entityView;
     }
     public void setImage(Image image){

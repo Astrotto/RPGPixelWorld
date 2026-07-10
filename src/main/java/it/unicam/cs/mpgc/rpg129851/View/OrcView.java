@@ -13,7 +13,7 @@ public class OrcView extends EntityView {
         this.setSmooth(false);
     }
     public void setOrcView(){
-        this.setEntityView(new ImageView(getImageOrc()));
+        this.setView(new ImageView(getImageOrc()));
         this.setViewport(new Rectangle2D(0, 0 , this.getFrame().getFrameWidth(), this.getFrame().getFrameHeight()));
         this.getView().setFitWidth(260);
         this.getView().setFitHeight(260);

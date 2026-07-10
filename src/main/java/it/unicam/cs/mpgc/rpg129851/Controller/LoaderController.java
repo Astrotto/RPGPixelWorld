@@ -6,6 +6,7 @@ import static it.unicam.cs.mpgc.rpg129851.Launch.Main.*;
 import static it.unicam.cs.mpgc.rpg129851.View.LevelView.*;
 import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.PotionLoader.*;
 
+import it.unicam.cs.mpgc.rpg129851.View.GameProgressBar;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -33,29 +34,29 @@ public class LoaderController {
     public Pane gameWorld, levelPane;
 
     public void initialize() {
-        player.getEntityView().setEntityView(playerView);
-        playerHealthBar.setBar(progressBarViewPlayer, healthBarPlayer);
-        playerExperienceBar.setBar(progressBarViewPlayer, experienceBarPlayer);
+        player.getEntityView().setView(playerView);
+        showGameProgressBar(playerHealthBar, progressBarViewPlayer, healthBarPlayer);
+        showGameProgressBar(playerExperienceBar, progressBarViewPlayer, experienceBarPlayer);
 
-        playerHealthBar.showHealthBar();
-        playerExperienceBar.showExperienceBar();
         loadPlayerImages();
         showLevel(player, playerHealthBar, levelPane);
         loadPlayerView();
         setInventory();
     }
 
+    private void showGameProgressBar(GameProgressBar gameProgressBar, ImageView progressBarView, Rectangle progressBar) {
+        gameProgressBar.setBar(progressBarView, progressBar);
+        gameProgressBar.showGameProgressBar();
+    }
     private void setInventory(){
         loadInventory(slotPotionLV1View, potionLV1View, getNoPotionImage(1));
         loadInventory(slotPotionLV2View, potionLV2View, getNoPotionImage(2));
         loadInventory(slotPotionLV3View, potionLV3View, getNoPotionImage(3));
-
     }
     public void setPotionObtained(){
         loadPotionObtained(potionLV1View, amountLV1, 1);
         loadPotionObtained(potionLV2View, amountLV2, 2);
         loadPotionObtained(potionLV3View, amountLV3, 3);
-
     }
 
 

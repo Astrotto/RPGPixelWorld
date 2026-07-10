@@ -8,7 +8,7 @@ import javafx.scene.shape.Rectangle;
 
 import java.util.Objects;
 
-public class GameProgressBar {
+public abstract class GameProgressBar {
     private ImageView progressBarView;
     private Rectangle progressBar;
     private final Entity entity;
@@ -48,4 +48,5 @@ public class GameProgressBar {
         this.getProgressBar().setLayoutY(this.getProgressBarView().getLayoutY() + y);
         this.getProgressBarView().setSmooth(false);
     }
+    public abstract void showGameProgressBar();
 }

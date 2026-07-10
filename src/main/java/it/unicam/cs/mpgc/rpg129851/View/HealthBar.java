@@ -9,7 +9,8 @@ public class HealthBar extends GameProgressBar{
         super(entity);
     }
 
-    public void showHealthBar(){
+    @Override
+    public void showGameProgressBar(){
         this.loadGameProgressBar(this.getEntity().getHealth() ,130, 50, 113);
         changeColorProgressBar();
     }
