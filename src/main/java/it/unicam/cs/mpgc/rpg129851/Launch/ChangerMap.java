@@ -5,9 +5,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class ChangerMap {
+import static it.unicam.cs.mpgc.rpg129851.Launch.Main.player;
 
-    public static void changeMap(Stage actualStage, String map){
+public class ChangerMap {
+    public static void changeMap(String mapName){
+        setNewScene((Stage)player.getEntityView().getView().getScene().getWindow(), mapName);
+    }
+
+    public static void setNewScene(Stage actualStage, String map){
         try{
             FXMLLoader loader = new FXMLLoader(ChangerMap.class.getResource(("/it/unicam/cs/mpgc/rpg129851/" + map + "-view.fxml")));
             Parent root = loader.load();

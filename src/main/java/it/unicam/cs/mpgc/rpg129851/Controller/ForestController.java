@@ -1,5 +1,6 @@
 package it.unicam.cs.mpgc.rpg129851.Controller;
 
+import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.ExclamationLoader.loadExclamation;
 import static it.unicam.cs.mpgc.rpg129851.Launch.Main.*;
 
 import static it.unicam.cs.mpgc.rpg129851.Controller.OrcController.*;
@@ -73,7 +74,7 @@ public class ForestController extends EntityController {
 
             startTransition(blackScreen, Duration.seconds(1.5),
                 ()-> {
-                    changeMap((Stage) player.getEntityView().getView().getScene().getWindow(), "map");
+                    changeMap("map");
                     setSpawnPoint(x, y);
                 }
             );
@@ -105,7 +106,7 @@ public class ForestController extends EntityController {
         });
     }
     private void encounterEntity(ImageView orcView) {
-        loadExclamation();
+        loadExclamation(exclamation);
         orcView.setVisible(true);
         keyPressed.clear();
         timer.stop();
@@ -114,17 +115,9 @@ public class ForestController extends EntityController {
 
     private void startBattle() {
         exclamation.setVisible(false);
-        changeMap((Stage)player.getEntityView().getView().getScene().getWindow(), "battle");
+        changeMap("battle");
     }
-    private void loadExclamation(){
-        exclamation.setX(player.getEntityView().getLayoutX() + 90);
-        exclamation.setY(player.getEntityView().getLayoutY() + 55);
-        exclamation.setRotate(5);
-        exclamation.setImage(loadExclamationImage());
-    }
-    private Image loadExclamationImage(){
-        return new Image(Objects.requireNonNull(getClass().getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/exclamation.png")));
-    }
+
     private void meetForestSpirit(){
         Bounds hitboxPlayer = player.getHitbox(player.getEntityView().getLayoutX() + 70, player.getEntityView().getLayoutY() + 55);
         Bounds hitboxForestSpirit = forestSpirit.getBoundsInParent();

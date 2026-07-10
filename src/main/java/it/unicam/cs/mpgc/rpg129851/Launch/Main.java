@@ -1,6 +1,7 @@
 package it.unicam.cs.mpgc.rpg129851.Launch;
 
-import static it.unicam.cs.mpgc.rpg129851.Launch.ChangerMap.changeMap;
+import static it.unicam.cs.mpgc.rpg129851.Launch.ChangerMap.setNewScene;
+
 import it.unicam.cs.mpgc.rpg129851.Model.*;
 import it.unicam.cs.mpgc.rpg129851.View.ExperienceBar;
 import it.unicam.cs.mpgc.rpg129851.View.HealthBar;
@@ -22,7 +23,7 @@ import java.util.List;
 
     @Override
     public void start(Stage primaryStage) {
-        changeMap(primaryStage, "forest");
+        setNewScene(primaryStage, "forest");
     }
     public static void setOrcEncountered(Orc orc){
         orcEncountered = orc;

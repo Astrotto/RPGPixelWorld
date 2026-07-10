@@ -75,7 +75,7 @@ public class BattleController extends LoaderController {
             if(deathSystem.deathOrcControl(attacker, defender)){
                 ForestController.questCompletedControl();
                 timer.stop();
-                changeMap((Stage) attacker.getEntityView().getView().getScene().getWindow(), "forest");
+                changeMap("forest");
             }
             if(deathSystem.deathPlayerControl(attacker, defender)){
                 //da cambiare
@@ -89,7 +89,7 @@ public class BattleController extends LoaderController {
     public void chanceToEscape() {
         if(escapeSystem.escape()){
             timer.stop();
-            changeMap((Stage) player.getEntityView().getView().getScene().getWindow(), "forest");
+            changeMap("forest");
         }else{
             combatSystem.attack(orcEncountered, player);
         }

@@ -7,12 +7,10 @@ import static it.unicam.cs.mpgc.rpg129851.Movement.SpawnPoint.setSpawnPoint;
 import static it.unicam.cs.mpgc.rpg129851.Timeline.ChangeSceneTransition.startTransition;
 
 import it.unicam.cs.mpgc.rpg129851.Movement.KeyDetector;
-import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 
@@ -41,14 +39,11 @@ public class MapController extends EntityController {
         Bounds hitboxPlayer = player.getHitbox(player.getEntityView().getLayoutX() + 70, player.getEntityView().getLayoutY() + 55);
         Bounds hitboxForest = forest.getBoundsInParent();
         if(hitboxPlayer.intersects(hitboxForest)){
-            //getKeyPressed().clear();
             timer.stop();
-            startTransition(blackScreen, Duration.seconds(1.5), this::joinForest);
+            startTransition(blackScreen, Duration.seconds(1.5), () -> changeMap("forest"));
         }
     }
-    private void joinForest(){
-        changeMap((Stage)player.getEntityView().getView().getScene().getWindow(), "forest");
-    }
+
 
     private void loadHitboxHome(){
         home.setLayoutX(590);
