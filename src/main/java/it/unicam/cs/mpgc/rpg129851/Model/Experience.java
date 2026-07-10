@@ -17,7 +17,7 @@ public class Experience extends Statistic{
 
                 this.setMaxStatistic(this.getMaxStatistic() + 50);
 
-                entity.updateStatistic(this.level.getLevel());
+                entity.updateStatistic(this.level.getLevel(), this.getStatistic());
             } else {
                 currentEXP = this.getMaxStatistic();
                 break;

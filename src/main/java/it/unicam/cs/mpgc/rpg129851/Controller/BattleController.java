@@ -14,6 +14,7 @@ import javafx.animation.PauseTransition;
 
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import javafx.util.Duration;
@@ -26,6 +27,7 @@ public class BattleController extends LoaderController {
     private DeathSystem deathSystem = new DeathSystem();
     private HealSystem healSystem = new HealSystem();
     private EscapeSystem escapeSystem = new EscapeSystem();
+
     private ButtonLoader buttonLoader;
 
 
@@ -47,6 +49,11 @@ public class BattleController extends LoaderController {
                 buttonLoader.loadButtons();
             }
         };
+        potionLV1View.setUserData(1);
+        potionLV2View.setUserData(2);
+        potionLV3View.setUserData(3);
+
+
         buttonLoader = new ButtonLoader(btnAttack, btnRun);
         orcEncountered.getEntityView().setView(orcView);
         orcHealthBar.setBar(progressBarViewOrc,healthBarOrc);
@@ -110,11 +117,11 @@ public class BattleController extends LoaderController {
     }
 
     @FXML
-    private void usePotionInBattle(){
+    private void usePotionInBattle(MouseEvent event){
         if(!(player.getHealth().getStatistic() == player.getHealth().getMaxStatistic()) && !player.getAttack().isAttacking() && !orcEncountered.getAttack().isAttacking() && !potionsCooldown){
-            healSystem.potionPressed(potionLV1View, 1);
-            healSystem.potionPressed(potionLV2View, 2);
-            healSystem.potionPressed(potionLV3View, 3);
+            ImageView clicked = (ImageView) event.getSource();
+            int level = (int) clicked.getUserData();
+            healSystem.potionPressed(clicked, level);
         }
     }
 

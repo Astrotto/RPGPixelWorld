@@ -25,7 +25,7 @@ public abstract class Entity {
         this.entityView = entityView;
     }
     public abstract Bounds getHitbox(double x, double y);
-    public abstract void updateStatistic(int level);
+    public abstract void updateStatistic(int level, int experience);
 
     public String getName() {
         return this.name;

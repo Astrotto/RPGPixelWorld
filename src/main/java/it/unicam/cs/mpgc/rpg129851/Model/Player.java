@@ -19,7 +19,7 @@ public class Player extends Entity {
             this.speed = speed;
             this.inventory = new Inventory();
             this.setEntityView(new PlayerView());
-            updateStatistic(level);
+            updateStatistic(level, experience);
         }
     }
     @Override
@@ -27,10 +27,11 @@ public class Player extends Entity {
         return (PlayerView)this.entityView;
     }
 
-    public void updateStatistic(int level){
+    public void updateStatistic(int level, int experience) {
         this.getHealth().setBothStatistic(new Health(100 * level, 100 * level));
         this.getAttack().getStrength().setAttribute(25 * level);
         this.getDefense().setAttribute(15 * level);
+        this.getExperience().setBothStatistic(new Statistic(experience, 85 * level));
     }
 
     public Inventory getInventory() {

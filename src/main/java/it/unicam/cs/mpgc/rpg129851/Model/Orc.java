@@ -13,7 +13,7 @@ public class Orc extends Entity {
             throw new IllegalArgumentException("Lvl must be between 1 and 3");
         }else{
             this.setEntityView(new OrcView());
-            updateStatistic(level);
+            updateStatistic(level, 0);
         }
     }
     @Override
@@ -21,7 +21,7 @@ public class Orc extends Entity {
         return (OrcView)this.entityView;
     }
     @Override
-    public void updateStatistic(int level){
+    public void updateStatistic(int level, int experience){
         Random random = new Random();
         this.getHealth().setBothStatistic(new Health(70 * level, 70 * level));
         this.getAttack().getStrength().setAttribute(20 * level);

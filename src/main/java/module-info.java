@@ -10,7 +10,6 @@ module it.unicam.cs.mpgc.rpg129851 {
     requires org.json;
     requires gson;
     requires java.sql;
-    requires it.unicam.cs.mpgc.rpg129851;
 
     opens it.unicam.cs.mpgc.rpg129851.Model to gson;
     exports it.unicam.cs.mpgc.rpg129851.Launch;
