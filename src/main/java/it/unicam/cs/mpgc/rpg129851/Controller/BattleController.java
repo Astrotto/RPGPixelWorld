@@ -1,6 +1,5 @@
 package it.unicam.cs.mpgc.rpg129851.Controller;
 
-import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.PlayerLoader.*;
 import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.OrcLoader.*;
 import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.BackgroundLoader.*;
 import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.PotionLoader.*;
@@ -14,8 +13,6 @@ import javafx.animation.PauseTransition;
 
 import javafx.fxml.FXML;
 
-import javafx.geometry.Rectangle2D;
-
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -26,11 +23,10 @@ import java.util.Random;
 public class BattleController extends LoaderController {
 
     int percentageOfEscape = 25;
-    private final int FRAME_WIDTH = 100;
-    private final int FRAME_HEIGHT = 100;
     AnimationTimer timer;
     private boolean potionsCooldown = false;
     private CombatSystem combatSystem = new CombatSystem();
+    private DeathSystem deathSystem = new DeathSystem();
     private ButtonLoader buttonLoader;
 
 
@@ -63,13 +59,12 @@ public class BattleController extends LoaderController {
         timer.start();
     }
 
-    public void attack() {
+    @FXML
+    public void attackTurn() {
         combatSystem.attack(player, orcEncountered);
-        player.getAttack().setAttacking(true);
         player.getEntityView().getFrame().setActualFrame(0);
 
         combatSystem.attack(orcEncountered, player);
-        orcEncountered.getAttack().setAttacking(true);
         orcEncountered.getEntityView().getFrame().setActualFrame(0);
 
         cooldownActivation(btnRun, btnAttack, 1.5);
