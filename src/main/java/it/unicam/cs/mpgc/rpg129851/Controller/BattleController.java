@@ -43,6 +43,9 @@ public class BattleController extends LoaderController {
                 playerExperienceBar.showExperienceBar();
                 player.getEntityView().updateAnimation(now, player);
                 orcEncountered.getEntityView().updateAnimation(now, orcEncountered);
+                deathControl(player, orcEncountered);
+                deathControl(orcEncountered, player);
+
                 setPotionObtained();
                 buttonLoader.loadButtons();
             }
@@ -63,8 +66,6 @@ public class BattleController extends LoaderController {
     public void attackTurn() {
         combatSystem.attack(player, orcEncountered);
         player.getEntityView().getFrame().setActualFrame(0);
-        deathControl(player, orcEncountered);
-
         combatSystem.attack(orcEncountered, player);
         orcEncountered.getEntityView().getFrame().setActualFrame(0);
 
@@ -78,10 +79,13 @@ public class BattleController extends LoaderController {
                 timer.stop();
                 changeMap((Stage) attacker.getEntityView().getView().getScene().getWindow(), "forest");
             }
+            if(deathSystem.deathPlayerControl(attacker, defender)){
+                //da cambiare
+                timer.stop();
+                System.exit(0);
+            }
         }
     }
-
-
 
 
 
@@ -94,7 +98,6 @@ public class BattleController extends LoaderController {
         }else{
             percentageOfEscape += 15;
             combatSystem.attack(orcEncountered, player);
-            orcEncountered.getAttack().setAttacking(true);
         }
         cooldownActivation(btnRun, btnAttack, 1.5);
     }
@@ -127,7 +130,6 @@ public class BattleController extends LoaderController {
             if (player.getInventory().getPotionAmount(level) >= 1) {
                 player.getHealth().heal(player.getInventory().getPotion(level));
                 combatSystem.attack(orcEncountered, player);
-                orcEncountered.getAttack().setAttacking(true);
                 cooldownActivation(btnRun, btnAttack, 1.5);
             }
             if (player.getInventory().getPotionAmount(level) == 0)
