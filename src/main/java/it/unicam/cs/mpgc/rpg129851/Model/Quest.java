@@ -1,11 +1,11 @@
 package it.unicam.cs.mpgc.rpg129851.Model;
 
 public class Quest {
-    public String task;
-    public int howMuch;
-    public String who;
-    public int level;
-    public int potionRewardLevel;
+    private String task;
+    private int howMuch;
+    private String who;
+    private int level;
+    private int potionRewardLevel;
     public Quest(){}
 
     public String getTask(){return task;}

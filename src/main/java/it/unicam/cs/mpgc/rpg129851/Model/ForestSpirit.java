@@ -2,7 +2,6 @@ package it.unicam.cs.mpgc.rpg129851.Model;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
-import com.sun.tools.javac.Main;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +15,7 @@ public class ForestSpirit {
     }
     private void loadQuests() {
         Gson gson = new Gson();
-        try (InputStream is = Main.class.getClassLoader().getResourceAsStream("quests.json")) {
+        try (InputStream is = getClass().getClassLoader().getResourceAsStream("quests.json")) {
             if (is == null) {
                 System.err.println("Errore: quests.json non trovato!");
                 return;

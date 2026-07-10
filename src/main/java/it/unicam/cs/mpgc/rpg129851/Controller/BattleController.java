@@ -8,6 +8,8 @@ import static it.unicam.cs.mpgc.rpg129851.View.LevelView.showLevel;
 
 import it.unicam.cs.mpgc.rpg129851.ImagesLoader.ButtonLoader;
 import it.unicam.cs.mpgc.rpg129851.Model.*;
+import it.unicam.cs.mpgc.rpg129851.System.CombatSystem;
+import it.unicam.cs.mpgc.rpg129851.System.DeathSystem;
 import javafx.animation.AnimationTimer;
 import javafx.animation.PauseTransition;
 
