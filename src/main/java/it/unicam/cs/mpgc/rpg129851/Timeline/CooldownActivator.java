@@ -19,8 +19,8 @@ public class CooldownActivator {
             loadButtonImages();
             button1.setDisable(false);
             button2.setDisable(false);
+            setPotionsCooldown(false);
         });
-        setPotionsCooldown(false);
         cooldown.play();
     }
     public static void setPotionsCooldown(boolean cooldown){
