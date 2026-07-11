@@ -4,16 +4,15 @@ import javafx.scene.image.ImageView;
 import java.util.Objects;
 
 public class ButtonLoader {
-    private static Image imageBtnAttack, imageBtnRun;
+    private static Image imageBtnAttack, imageBtnRun, imageBtnStart, imageBtnQuit;
     public static void loadButtonImages() {
-        imageBtnAttack = getImageBtnAttack();
-        imageBtnRun = getImageBtnRun();
+        imageBtnAttack = getBtnImage("Attack");
+        imageBtnRun = getBtnImage("Run");
+        imageBtnStart = getBtnImage("Start");
+        imageBtnQuit = getBtnImage("Quit");
     }
-    public static Image getImageBtnAttack() {
-        return new Image(Objects.requireNonNull(ButtonLoader.class.getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/btnAttack.png")));
-    }
-    public static Image getImageBtnRun() {
-        return new Image(Objects.requireNonNull(ButtonLoader.class.getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/btnRun.png")));
+    public static Image getBtnImage(String buttonName) {
+        return new Image(Objects.requireNonNull(ButtonLoader.class.getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/btn" + buttonName + ".png")));
     }
     public static void loadButtonDisabled() {
         imageBtnAttack = getImageBtnAttackDisabled();
