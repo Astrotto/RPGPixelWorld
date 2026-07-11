@@ -78,7 +78,8 @@ Per questo progetto è stato fatto uso del pattern MVC (Model | View | Controlle
 - Barra dei dialoghi (per vedere durante il combattimento i danni, missioni ecc)
 
 ### Pianificati
-- Main Menu / Pause Menu
+- Pause Menu
+- Nuove difficoltà (mettendo gli orchi invisibili)
 - Animazione dei personaggi alla morte
 - Nuova area di gioco (Cimitero, con nuove creature ostili)
 
