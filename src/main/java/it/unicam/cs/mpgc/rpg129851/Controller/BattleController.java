@@ -84,12 +84,12 @@ public class BattleController extends LoaderController {
             if(deathSystem.deathControl(attacker, defender)){
                 ForestController.questCompletedControl();
                 timer.stop();
-                if(defender instanceof Player)
-                    Platform.exit();
-                else
+                if(defender instanceof Player) {
+                    changeMap("menu");
+                    //Platform.exit();
+                }else
                     changeMap("forest");
             }
-
         }
     }
 
