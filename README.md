@@ -74,6 +74,7 @@ Per questo progetto è stato fatto uso del pattern MVC (Model | View | Controlle
 
 ### In Sviluppo
 - Meccanismo di salvataggio e restore usando JSON
+- Barra dei dialoghi (per vedere durante il combattimento i danni, missioni ecc)
 
 ### Pianificati
 - Main Menu / Pause Menu
