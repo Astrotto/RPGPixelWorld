@@ -31,16 +31,15 @@ cd RPGPixelWorld
 ---
 
 ## 🤖 Uso di strumenti di AI
-L'uso dell'AI è stato limitato, e principalmente a scopi di apprendimento su JavaFx, code-review, nessuna parte di codice del progetto è stata generata da AI.
+L'uso dell'AI è stato limitato, e principalmente a scopi di apprendimento su JavaFx e code-review, nessuna parte di codice del progetto è stata generata interamente da AI.
 
 * Utilizzato Gemini per:
-  * idee su possibili funzionalità del gioco
+  * ideare possibili funzionalità del gioco
   * comprendere al meglio l'utilizzo del file FXML
-  * suggerimenti su struttura del codice
 
 * Utilizzato Claude per:
   * verificare che tutti i principi SOLID siano stati rispettati
- 
+  * scoprire come fare delle transition stile pokemon
 ---
 
 
