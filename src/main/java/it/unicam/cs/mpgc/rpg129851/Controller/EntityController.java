@@ -32,6 +32,7 @@ public class EntityController extends LoaderController {
                 updatePlayerLocation();
                 setPotionObtained();
                 ViewRegister.ofPlayer(player).loadPlayerAnimation(now);
+                statsControl();
                 if(getSpawnX() != -1 || getSpawnY() != -1) {
                     setSpawnPoint(getSpawnX(), getSpawnY());
                 }
@@ -40,6 +41,12 @@ public class EntityController extends LoaderController {
         movementProcessor = new MovementProcessor();
         ViewRegister.ofPlayer(player).setImage(getImageWalk());
         timer.start();
+    }
+    public void statsControl(){
+        if(player.getExperience().getLevel().levelUp()) {
+            player.updateStatistic(player.getExperience().getLevel().getActualLevel(), player.getExperience().getStatistic());
+            player.getExperience().getLevel().setLevelUp(false);
+        }
     }
 
     public void updatePlayerLocation() {

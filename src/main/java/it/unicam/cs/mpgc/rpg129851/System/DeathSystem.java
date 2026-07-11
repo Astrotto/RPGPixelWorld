@@ -12,19 +12,11 @@ public class DeathSystem {
         }
         return false;
     }
-    public boolean deathOrcControl(Entity attacker, Entity defender){
-        if(defender instanceof Orc && !defender.isAlive()){
+    public boolean deathControl(Entity attacker, Entity defender){
+        if(!defender.isAlive()){
             printExperienceDrop(defender);
-            attacker.getExperience().earnExperience(attacker, defender.getExperience().getStatistic());
+            attacker.getExperience().earnExperience(defender.getExperience().getStatistic());
             attacker.getHealth().heal(20);
-            attacker.getAttack().setAttacking(false);
-            return true;
-        }
-        return false;
-    }
-    public boolean deathPlayerControl(Entity attacker, Entity defender){
-        if(defender instanceof Player && !defender.isAlive()){
-            printExperienceDrop(defender);
             attacker.getAttack().setAttacking(false);
             return true;
         }

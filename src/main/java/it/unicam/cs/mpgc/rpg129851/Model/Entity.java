@@ -14,7 +14,7 @@ public abstract class Entity {
             throw new IllegalArgumentException("Entity invalid");
         }
         this.name = name;
-        this.experience = new Experience(level, experience, 85);
+        this.experience = new Experience(level, experience, 85 * level);
     }
 
     public abstract Bounds getHitbox(double x, double y);

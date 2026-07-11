@@ -1,6 +1,7 @@
 package it.unicam.cs.mpgc.rpg129851.Controller;
 
 import it.unicam.cs.mpgc.rpg129851.Model.Entity;
+import it.unicam.cs.mpgc.rpg129851.Model.Player;
 import it.unicam.cs.mpgc.rpg129851.System.CombatSystem;
 import it.unicam.cs.mpgc.rpg129851.System.DeathSystem;
 import it.unicam.cs.mpgc.rpg129851.System.EscapeSystem;
@@ -80,15 +81,15 @@ public class BattleController extends LoaderController {
 
     public void deathControl(Entity attacker, Entity defender){
         if(deathSystem.deathControl(defender)){
-            if(deathSystem.deathOrcControl(attacker, defender)){
+            if(deathSystem.deathControl(attacker, defender)){
                 ForestController.questCompletedControl();
                 timer.stop();
-                changeMap("forest");
+                if(defender instanceof Player)
+                    Platform.exit();
+                else
+                    changeMap("forest");
             }
-            if(deathSystem.deathPlayerControl(attacker, defender)){
-                timer.stop();
-                Platform.exit();
-            }
+
         }
     }
 

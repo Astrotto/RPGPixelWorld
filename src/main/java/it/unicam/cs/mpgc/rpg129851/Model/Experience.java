@@ -1,5 +1,7 @@
 package it.unicam.cs.mpgc.rpg129851.Model;
 
+import static it.unicam.cs.mpgc.rpg129851.Launch.Main.player;
+
 public class Experience extends Statistic{
     private Level level;
 
@@ -7,17 +9,13 @@ public class Experience extends Statistic{
         super(currentExperience, maxExperience);
         this.level = new Level(level);
     }
-    public void earnExperience(Entity entity, int experience) {
+    public void earnExperience(int experience) {
         if (experience <= 0) return;
         int currentEXP = this.getStatistic() + experience;
         while (currentEXP >= this.getMaxStatistic()) {
-
             if (level.increaseLevel()) {
                 currentEXP -= this.getMaxStatistic();
-
                 this.setMaxStatistic(this.getMaxStatistic() + 50);
-
-                entity.updateStatistic(this.level.getActualLevel(), this.getStatistic());
             } else {
                 currentEXP = this.getMaxStatistic();
                 break;
