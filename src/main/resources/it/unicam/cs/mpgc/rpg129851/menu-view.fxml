@@ -11,7 +11,7 @@
     <Pane>
         <ImageView fx:id="btnStart" fitHeight="300.0" fitWidth="300.0" layoutX="620.0" layoutY="200.0" onMousePressed="#startGame" />
         <ImageView fx:id="btnQuit" fitHeight="300.0" fitWidth="300.0" layoutX="620.0" layoutY="400.0" onMousePressed="#quiGame" />
-      <Text fx:id="deathText" fill="WHITE" layoutX="680.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sei Morto!" visible="false">
+      <Text fx:id="textMenu" fill="WHITE" layoutX="294.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="951.0150146484375">
          <font>
             <Font name="Elephant" size="35.0" />
          </font>
