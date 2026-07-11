@@ -86,7 +86,6 @@ public class BattleController extends LoaderController {
                 timer.stop();
                 if(defender instanceof Player) {
                     changeMap("menu");
-                    //Platform.exit();
                 }else
                     changeMap("forest");
             }
@@ -111,6 +110,7 @@ public class BattleController extends LoaderController {
             int level = (int) clicked.getUserData();
             healSystem.potionPressed(clicked, level);
             combatSystem.attack(orcEncountered, player);
+            cooldownActivation(btnRun, btnAttack, 1.5);
         }
     }
 }

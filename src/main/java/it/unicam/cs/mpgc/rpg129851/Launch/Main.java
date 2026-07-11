@@ -17,7 +17,7 @@ import static it.unicam.cs.mpgc.rpg129851.Launch.ChangerMap.setNewScene;
 
 public class Main extends Application {
 
-    public static Player player = new Player(1, 0, 2);
+    public static Player player = new Player(2, 0, 2);
     public static List<Orc> orcs = new ArrayList<>();
     public static Orc orcEncountered;
     public static ForestSpirit guardian = new ForestSpirit();
@@ -29,7 +29,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         ViewRegister.register(player, new PlayerView());
-        setNewScene(primaryStage, "menu");
+        setNewScene(primaryStage, "forest");
     }
     public static void setOrcEncountered(Orc orc){
         orcEncountered = orc;

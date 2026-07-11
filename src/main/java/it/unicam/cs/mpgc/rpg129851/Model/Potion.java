@@ -5,10 +5,10 @@ public class Potion {
     private final Health health;
 
     public Potion(int level){
+        this.level = new Level(level);
         if(level < 1 || level > this.getLevel().getMaxLevel()){
             throw new IllegalArgumentException("Potion invalid");
         }
-        this.level = new Level(level);
         this.health = new Health(healAmount(level));
     }
     private int healAmount(int level){
