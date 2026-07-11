@@ -11,20 +11,20 @@ public class ButtonLoader {
         imageBtnStart = getBtnImage("Start");
         imageBtnQuit = getBtnImage("Quit");
     }
+    public static void loadButton(ImageView button, String buttonName) {
+        button.setImage(getBtnImage(buttonName));
+    }
     public static Image getBtnImage(String buttonName) {
         return new Image(Objects.requireNonNull(ButtonLoader.class.getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/btn" + buttonName + ".png")));
     }
     public static void loadButtonDisabled() {
-        imageBtnAttack = getImageBtnAttackDisabled();
-        imageBtnRun = getImageBtnRunDisabled();
+        imageBtnAttack = getImageBtnDisabled("Attack");
+        imageBtnRun = getImageBtnDisabled("Run");
     }
-    public static Image getImageBtnAttackDisabled() {
-        return new Image(Objects.requireNonNull(ButtonLoader.class.getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/btnAttackDisabled.png")));
+    public static Image getImageBtnDisabled(String buttonName) {
+        return new Image(Objects.requireNonNull(ButtonLoader.class.getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/btn" + buttonName+ "Disabled.png")));
     }
 
-    public static Image getImageBtnRunDisabled() {
-        return new Image(Objects.requireNonNull(ButtonLoader.class.getResourceAsStream("/it/unicam/cs/mpgc/rpg129851/utilsImages/btnRunDisabled.png")));
-    }
     public static void loadButtons(ImageView button1, ImageView button2) {
         button1.setImage(imageBtnAttack);
         button1.setSmooth(false);
