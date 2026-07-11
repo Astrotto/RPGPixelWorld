@@ -17,6 +17,7 @@ import javafx.util.Duration;
 
 import java.util.List;
 
+import static it.unicam.cs.mpgc.rpg129851.Controller.GuardianController.meetForestSpirit;
 import static it.unicam.cs.mpgc.rpg129851.Controller.OrcController.placeOrcRandomlyInACorner;
 import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.BackgroundLoader.setBackgroundView;
 import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.ExclamationLoader.loadExclamation;
@@ -40,8 +41,7 @@ public class ForestController extends EntityController {
             leftExit, rightExit, upExit, downExit,
             spawnLeftDownCorner, spawnLeftUpCorner, spawnRightUpCorner, spawnRightDownCorner;
     private Bounds rightExitHitbox, leftExitHitbox, upExitHitbox, downExitHitbox;
-    private static boolean questReceived = false;
-    private static int howMuch;
+
 
     public void initialize() {
         super.initialize();
@@ -63,7 +63,7 @@ public class ForestController extends EntityController {
         exitCollision(upExitHitbox, 65, 185);
         exitCollision(downExitHitbox, 82, 430);
         orcCollisionDetection(orcs);
-        meetForestSpirit();
+        meetForestSpirit(forestSpirit);
     }
     public void exitCollision(Bounds exit, double x, double y){
         if(player.getHitbox(getNewX() + 70, getNewY() + 55).intersects(exit)) {
@@ -111,28 +111,5 @@ public class ForestController extends EntityController {
         exclamation.setVisible(false);
         changeMap("battle");
     }
-    private void meetForestSpirit(){
-        PlayerView view = ViewRegister.ofPlayer(player);
-        Bounds hitboxPlayer = player.getHitbox(view.getLayoutX() + 70, view.getLayoutY() + 55);
-        Bounds hitboxForestSpirit = forestSpirit.getBoundsInParent();
-        if(hitboxPlayer.intersects(hitboxForestSpirit)) {
-            if(!questReceived){
-                PrintGameLog.info(guardian.getRandomQuest().toString());
-                howMuch = guardian.getQuestReceived().getHowMuch();
-                questReceived = true;
-            }
-        }
-    }
-    public static void questCompletedControl(){
-        if(questReceived){
-            if(orcEncountered.getExperience().getLevel().getActualLevel() == guardian.getQuestReceived().getLevel() && guardian.getQuestReceived().getHowMuch() >= 1){
-                howMuch--;
-                if(howMuch < 1) {
-                    PrintGameLog.info("Hai completato la quest");
-                    player.getInventory().addPotion(guardian.getPotionReward(guardian.getQuestReceived().getPotionRewardLevel()));
-                    questReceived = false;
-                }
-            }
-        }
-    }
+
 }

@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 
+import static it.unicam.cs.mpgc.rpg129851.Controller.GuardianController.questCompletedControl;
 import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.BackgroundLoader.setBackgroundView;
 import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.ButtonLoader.loadButtonImages;
 import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.ButtonLoader.loadButtons;
@@ -82,7 +83,7 @@ public class BattleController extends LoaderController {
     public void deathControl(Entity attacker, Entity defender){
         if(deathSystem.deathControl(defender)){
             if(deathSystem.deathControl(attacker, defender)){
-                ForestController.questCompletedControl();
+                questCompletedControl();
                 timer.stop();
                 if(defender instanceof Player) {
                     changeMap("menu");
@@ -108,9 +109,10 @@ public class BattleController extends LoaderController {
         if(!(player.getHealth().getStatistic() == player.getHealth().getMaxStatistic()) && !player.getAttack().isAttacking() && !orcEncountered.getAttack().isAttacking() && !getPotionsCooldown()){
             ImageView clicked = (ImageView) event.getSource();
             int level = (int) clicked.getUserData();
-            healSystem.potionPressed(clicked, level);
-            combatSystem.attack(orcEncountered, player);
-            cooldownActivation(btnRun, btnAttack, 1.5);
+            if(healSystem.potionPressed(clicked, level)) {
+                combatSystem.attack(orcEncountered, player);
+                cooldownActivation(btnRun, btnAttack, 1.5);
+            }
         }
     }
 }
