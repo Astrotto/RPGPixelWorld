@@ -73,6 +73,7 @@ Per questo progetto è stato fatto uso del pattern MVC (Model | View | Controlle
 ## TODO
 
 ### In Sviluppo
+- SpawnPoint all'interno della foresta in base ll'entrata presa
 - Meccanismo di salvataggio e restore usando JSON
 - Barra dei dialoghi (per vedere durante il combattimento i danni, missioni ecc)
 
