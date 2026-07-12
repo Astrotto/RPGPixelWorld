@@ -1,5 +1,6 @@
 package it.unicam.cs.mpgc.rpg129851.Controller;
 
+import it.unicam.cs.mpgc.rpg129851.Interface.GameLogger;
 import it.unicam.cs.mpgc.rpg129851.PrintLog.PrintGameLog;
 import it.unicam.cs.mpgc.rpg129851.View.PlayerView;
 import it.unicam.cs.mpgc.rpg129851.View.ViewRegister;
@@ -13,6 +14,8 @@ import static it.unicam.cs.mpgc.rpg129851.Launch.Main.player;
 public class GuardianController {
     private static boolean questReceived = false;
     private static int howMuch;
+    static GameLogger questLoad = new PrintGameLog();
+
 
     public static void meetForestSpirit(Circle forestSpirit) {
         PlayerView view = ViewRegister.ofPlayer(player);
@@ -20,7 +23,7 @@ public class GuardianController {
         Bounds hitboxForestSpirit = forestSpirit.getBoundsInParent();
         if(hitboxPlayer.intersects(hitboxForestSpirit)) {
             if(!questReceived){
-                PrintGameLog.info(guardian.getRandomQuest().toString());
+                questLoad.info(guardian.getRandomQuest().toString());
                 howMuch = guardian.getQuestReceived().getHowMuch();
                 questReceived = true;
             }
@@ -31,7 +34,7 @@ public class GuardianController {
             if(orcEncountered.getExperience().getLevel().getActualLevel() == guardian.getQuestReceived().getLevel() && guardian.getQuestReceived().getHowMuch() >= 1){
                 howMuch--;
                 if(howMuch < 1) {
-                    PrintGameLog.info("Hai completato la quest");
+                    questLoad.info("Hai completato la quest");
                     player.getInventory().addPotion(guardian.getPotionReward(guardian.getQuestReceived().getPotionRewardLevel()));
                     questReceived = false;
                 }

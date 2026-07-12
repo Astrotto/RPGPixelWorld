@@ -1,17 +1,20 @@
 package it.unicam.cs.mpgc.rpg129851.System;
 
 import it.unicam.cs.mpgc.rpg129851.Interface.ActionSystem;
+import it.unicam.cs.mpgc.rpg129851.Interface.GameLogger;
 import it.unicam.cs.mpgc.rpg129851.Model.Attack;
 import it.unicam.cs.mpgc.rpg129851.Model.Entity;
+import it.unicam.cs.mpgc.rpg129851.PrintLog.PrintGameLog;
 
-import static it.unicam.cs.mpgc.rpg129851.PrintLog.PrintLogAttack.printCriticalDamage;
-import static it.unicam.cs.mpgc.rpg129851.PrintLog.PrintLogAttack.printDamage;
+import static it.unicam.cs.mpgc.rpg129851.PrintLog.BattleLogger.*;
 
 public class CombatSystem implements ActionSystem {
     private final DamageCalculatorSystem damageCalculator = new DamageCalculatorSystem();
     private final Entity attacker;
     private final Entity defender;
+    GameLogger consoleLogger;
     public CombatSystem(Entity attacker, Entity defender) {
+        consoleLogger = new PrintGameLog();
         this.attacker = attacker;
         this.defender = defender;
     }
@@ -20,10 +23,10 @@ public class CombatSystem implements ActionSystem {
             this.executeAttack(attacker.getAttack(), defender);
             attacker.getAttack().setAttacking(true);
             if(attacker.getAttack().isCriticalHit()) {
-                printCriticalDamage(attacker, defender);
+                consoleLogger.info(criticalDamage(attacker, defender));
                 attacker.getAttack().setCriticalHit(false);
             }else
-                printDamage(attacker, defender);
+                consoleLogger.info(damage(attacker, defender));
             return true;
         }
         return false;

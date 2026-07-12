@@ -1,5 +1,6 @@
 package it.unicam.cs.mpgc.rpg129851.Launch;
 
+import it.unicam.cs.mpgc.rpg129851.Interface.GameLogger;
 import it.unicam.cs.mpgc.rpg129851.PrintLog.PrintGameLog;
 import it.unicam.cs.mpgc.rpg129851.View.ViewRegister;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +11,7 @@ import javafx.stage.Stage;
 import static it.unicam.cs.mpgc.rpg129851.Launch.Main.player;
 
 public class ChangerMap {
+    static GameLogger loadGameLog = new PrintGameLog();
     public static void changeMap(String mapName){
         setNewScene((Stage) ViewRegister.ofPlayer(player).getView().getScene().getWindow(), mapName);
     }
@@ -23,7 +25,7 @@ public class ChangerMap {
             actualStage.show();
             root.requestFocus();
         }catch(Exception e){
-            PrintGameLog.error("Loading error of the " + map + " scene");
+            loadGameLog.error("Loading error of the " + map + " scene");
         }
     }
 }
