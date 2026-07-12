@@ -1,6 +1,5 @@
 package it.unicam.cs.mpgc.rpg129851.System;
 
-import it.unicam.cs.mpgc.rpg129851.Interface.ActionSystem;
 import it.unicam.cs.mpgc.rpg129851.Interface.GameLogger;
 import it.unicam.cs.mpgc.rpg129851.Model.Attack;
 import it.unicam.cs.mpgc.rpg129851.Model.Entity;
@@ -8,7 +7,7 @@ import it.unicam.cs.mpgc.rpg129851.PrintLog.PrintGameLog;
 
 import static it.unicam.cs.mpgc.rpg129851.PrintLog.BattleLogger.*;
 
-public class CombatSystem implements ActionSystem {
+public class CombatSystem {
     private final DamageCalculatorSystem damageCalculator = new DamageCalculatorSystem();
     private final Entity attacker;
     private final Entity defender;
@@ -18,7 +17,7 @@ public class CombatSystem implements ActionSystem {
         this.attacker = attacker;
         this.defender = defender;
     }
-    public boolean execute(){
+    public void attack(){
         if(attacker.isAlive()){
             this.executeAttack(attacker.getAttack(), defender);
             attacker.getAttack().setAttacking(true);
@@ -27,9 +26,7 @@ public class CombatSystem implements ActionSystem {
                 attacker.getAttack().setCriticalHit(false);
             }else
                 consoleLogger.info(damage(attacker, defender));
-            return true;
         }
-        return false;
     }
     public void executeAttack(Attack attacker, Entity defender) {
         attacker.rollCriticalHit();

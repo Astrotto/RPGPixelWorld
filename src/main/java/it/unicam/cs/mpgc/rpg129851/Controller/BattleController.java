@@ -1,15 +1,11 @@
 package it.unicam.cs.mpgc.rpg129851.Controller;
 
-import it.unicam.cs.mpgc.rpg129851.Interface.ActionSystem;
-import it.unicam.cs.mpgc.rpg129851.Model.Entity;
-import it.unicam.cs.mpgc.rpg129851.Model.Player;
 import it.unicam.cs.mpgc.rpg129851.System.CombatSystem;
 import it.unicam.cs.mpgc.rpg129851.System.DeathSystem;
 import it.unicam.cs.mpgc.rpg129851.System.EscapeSystem;
 import it.unicam.cs.mpgc.rpg129851.System.HealSystem;
 import it.unicam.cs.mpgc.rpg129851.View.ViewRegister;
 import javafx.animation.AnimationTimer;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -35,10 +31,11 @@ public class BattleController extends LoaderController {
     protected Rectangle healthBarOrc, experienceBarOrc;
 
     private AnimationTimer timer;
-    ActionSystem playerAttack = new CombatSystem(player, orcEncountered);
-    ActionSystem orcAttack = new CombatSystem(orcEncountered, player);
-    ActionSystem orcDeath = new DeathSystem(player, orcEncountered);
-    ActionSystem playerDeath = new DeathSystem(orcEncountered, player);
+    CombatSystem playerAttack = new CombatSystem(player, orcEncountered);
+    CombatSystem orcAttack = new CombatSystem(orcEncountered, player);
+    DeathSystem orcDeath = new DeathSystem(player, orcEncountered);
+    DeathSystem playerDeath = new DeathSystem(orcEncountered, player);
+    EscapeSystem escapeSystem = new EscapeSystem();
 
     public void initialize(){
         super.initialize();
@@ -74,17 +71,16 @@ public class BattleController extends LoaderController {
 
     @FXML
     public void attackTurn() {
-
-        playerAttack.execute();
+        playerAttack.attack();
         ViewRegister.of(player).getFrame().setActualFrame(0);
-        orcAttack.execute();
+        orcAttack.attack();
         ViewRegister.of(orcEncountered).getFrame().setActualFrame(0);
         cooldownActivation(btnRun, btnAttack, 1.5);
     }
     public void deathControl() {
-        if (orcDeath.execute()) {
+        if (orcDeath.checkDeath()) {
             handleOrcDefeated();
-        } else if (playerDeath.execute()) {
+        } else if (playerDeath.checkDeath()) {
             handlePlayerDefeated();
         }
     }
@@ -102,12 +98,11 @@ public class BattleController extends LoaderController {
 
     @FXML
     public void chanceToEscape() {
-        ActionSystem escapeSystem = new EscapeSystem();
-        if(escapeSystem.execute()){
+        if(escapeSystem.tryEscape()){
             timer.stop();
             changeMap("forest");
         }else{
-            orcAttack.execute();
+            orcAttack.attack();
         }
         cooldownActivation(btnRun, btnAttack, 1.5);
     }
@@ -116,10 +111,10 @@ public class BattleController extends LoaderController {
     private void usePotionInBattle(MouseEvent event){
         ImageView clicked = (ImageView) event.getSource();
         int level = (int) clicked.getUserData();
-        ActionSystem healSystem = new HealSystem(clicked, level);
+        HealSystem healSystem = new HealSystem(clicked, level);
         if(!(player.getHealth().getStatistic() == player.getHealth().getMaxStatistic()) && !player.getAttack().isAttacking() && !orcEncountered.getAttack().isAttacking() && !getPotionsCooldown()){
-            if(healSystem.execute()) {
-                orcAttack.execute();
+            if(healSystem.usePotion()) {
+                orcAttack.attack();
                 cooldownActivation(btnRun, btnAttack, 1.5);
             }
         }

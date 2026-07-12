@@ -6,7 +6,7 @@ import it.unicam.cs.mpgc.rpg129851.PrintLog.PrintGameLog;
 
 import static it.unicam.cs.mpgc.rpg129851.PrintLog.BattleLogger.*;
 
-public class DeathSystem implements ActionSystem {
+public class DeathSystem {
     private final Entity attacker;
     private final Entity defender;
     GameLogger consoleLogger;
@@ -17,7 +17,7 @@ public class DeathSystem implements ActionSystem {
         consoleLogger = new PrintGameLog();
     }
 
-    public boolean execute(){
+    public boolean checkDeath(){
         if(!defender.isAlive()){
             consoleLogger.error(death(defender));
             this.deathControl();
