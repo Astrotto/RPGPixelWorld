@@ -17,7 +17,7 @@ import static it.unicam.cs.mpgc.rpg129851.Launch.ChangerMap.setNewScene;
 
 public class Main extends Application {
 
-    public static Player player = new Player(1, 0, 2);
+    public static Player player = new Player(2, 50, 2);
     public static List<Orc> orcs = new ArrayList<>();
     public static Orc orcEncountered;
     public static ForestSpirit guardian = new ForestSpirit();

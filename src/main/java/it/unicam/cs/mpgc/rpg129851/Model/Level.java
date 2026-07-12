@@ -23,6 +23,7 @@ public class Level {
         this.levelUp = levelUp;
     }
     public boolean levelUp(){ return this.levelUp; }
+    public void setLevel(int level) { this.level = level; }
     public int getMaxLevel() {
         return MAX_LEVEL;
     }

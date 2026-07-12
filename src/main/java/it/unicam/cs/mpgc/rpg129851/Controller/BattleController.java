@@ -1,5 +1,6 @@
 package it.unicam.cs.mpgc.rpg129851.Controller;
 
+import it.unicam.cs.mpgc.rpg129851.Interface.ActionSystem;
 import it.unicam.cs.mpgc.rpg129851.Model.Entity;
 import it.unicam.cs.mpgc.rpg129851.Model.Player;
 import it.unicam.cs.mpgc.rpg129851.System.CombatSystem;
@@ -15,6 +16,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 
 import static it.unicam.cs.mpgc.rpg129851.Controller.GuardianController.questCompletedControl;
+import static it.unicam.cs.mpgc.rpg129851.Controller.GuardianController.removeQuest;
 import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.BackgroundLoader.setBackgroundView;
 import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.ButtonLoader.loadButtonImages;
 import static it.unicam.cs.mpgc.rpg129851.ImagesLoader.ButtonLoader.loadButtons;
@@ -33,10 +35,8 @@ public class BattleController extends LoaderController {
     protected Rectangle healthBarOrc, experienceBarOrc;
 
     private AnimationTimer timer;
-    private final CombatSystem combatSystem = new CombatSystem();
-    private final DeathSystem deathSystem = new DeathSystem();
-    private final HealSystem healSystem = new HealSystem();
-    private final EscapeSystem escapeSystem = new EscapeSystem();
+    ActionSystem playerAttack = new CombatSystem(player, orcEncountered);
+    ActionSystem orcAttack = new CombatSystem(orcEncountered, player);
 
     public void initialize(){
         super.initialize();
@@ -49,8 +49,7 @@ public class BattleController extends LoaderController {
                 playerExperienceBar.showGameProgressBar();
                 ViewRegister.of(player).getAttackView().executeAttackView(now, player);
                 ViewRegister.of(orcEncountered).getAttackView().executeAttackView(now, orcEncountered);
-                deathControl(player, orcEncountered);
-                deathControl(orcEncountered, player);
+                deathControl();
                 setPotionObtained();
                 loadButtons(btnAttack, btnRun);
             }
@@ -73,44 +72,49 @@ public class BattleController extends LoaderController {
 
     @FXML
     public void attackTurn() {
-        combatSystem.attack(player, orcEncountered);
+
+        playerAttack.execute();
         ViewRegister.of(player).getFrame().setActualFrame(0);
-        combatSystem.attack(orcEncountered, player);
+        orcAttack.execute();
         ViewRegister.of(orcEncountered).getFrame().setActualFrame(0);
         cooldownActivation(btnRun, btnAttack, 1.5);
     }
 
-    public void deathControl(Entity attacker, Entity defender){
-        if(deathSystem.deathControl(defender)){
-            if(deathSystem.deathControl(attacker, defender)){
-                questCompletedControl();
-                timer.stop();
-                if(defender instanceof Player) {
-                    changeMap("menu");
-                }else
-                    changeMap("forest");
-            }
+    public void deathControl() {
+        ActionSystem orcDeath = new DeathSystem(player, orcEncountered);
+        ActionSystem playerDeath = new DeathSystem(orcEncountered, player);
+
+        if (orcDeath.execute()) {
+            questCompletedControl();
+            timer.stop();
+            changeMap("forest");
+        } else if (playerDeath.execute()) {
+            removeQuest();
+            timer.stop();
+            changeMap("menu");
         }
     }
 
     @FXML
     public void chanceToEscape() {
-        if(escapeSystem.escape()){
+        ActionSystem escapeSystem = new EscapeSystem();
+        if(escapeSystem.execute()){
             timer.stop();
             changeMap("forest");
         }else{
-            combatSystem.attack(orcEncountered, player);
+            orcAttack.execute();
         }
         cooldownActivation(btnRun, btnAttack, 1.5);
     }
 
     @FXML
     private void usePotionInBattle(MouseEvent event){
+        ImageView clicked = (ImageView) event.getSource();
+        int level = (int) clicked.getUserData();
+        ActionSystem healSystem = new HealSystem(clicked, level);
         if(!(player.getHealth().getStatistic() == player.getHealth().getMaxStatistic()) && !player.getAttack().isAttacking() && !orcEncountered.getAttack().isAttacking() && !getPotionsCooldown()){
-            ImageView clicked = (ImageView) event.getSource();
-            int level = (int) clicked.getUserData();
-            if(healSystem.potionPressed(clicked, level)) {
-                combatSystem.attack(orcEncountered, player);
+            if(healSystem.execute()) {
+                orcAttack.execute();
                 cooldownActivation(btnRun, btnAttack, 1.5);
             }
         }

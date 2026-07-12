@@ -38,4 +38,7 @@ public class GuardianController {
             }
         }
     }
+    public static void removeQuest(){
+        questReceived = false;
+    }
 }
