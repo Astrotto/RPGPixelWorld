@@ -13,9 +13,9 @@ public class Potion {
     }
     private int healAmount(int level){
         return switch (level) {
-            case 1 -> 10;
-            case 2 -> 20;
-            case 3 -> 40;
+            case 1 -> 20;
+            case 2 -> 40;
+            case 3 -> 60;
             default -> 0;
         };
     }
