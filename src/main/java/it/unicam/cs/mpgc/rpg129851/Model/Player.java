@@ -24,13 +24,6 @@ public class Player extends Entity {
         this.getDefense().setAttribute(15 * level);
         this.getExperience().setBothStatistic(new Statistic(experience, 85 * level));
     }
-    public void resetStats() {
-        this.getExperience().getLevel().setLevel(1);
-        this.getHealth().setBothStatistic(new Health(100, 100));
-        this.getAttack().getStrength().setAttribute(25);
-        this.getDefense().setAttribute(15);
-        this.getExperience().setBothStatistic(new Statistic(0, 85));
-    }
     public Inventory getInventory() {
         return inventory;
     }

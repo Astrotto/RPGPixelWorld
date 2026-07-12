@@ -51,7 +51,7 @@ public class MenuGameController {
     public void startGame(MouseEvent event){
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         if(isDeath){
-            player.resetStats();
+            player.updateStatistic(1, 0);
             player.getAttack().setAttacking(false);
             isDeath = false;
         }
