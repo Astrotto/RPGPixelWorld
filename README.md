@@ -85,3 +85,4 @@ Per questo progetto è stato fatto uso del pattern MVC (Model | View | Controlle
 
 ### Possibili Miglioramenti Futuri
 - Nuove classi di personaggi (Mago, arciere, ...)
+- Muri invisibili sugli ostacoli quali alberi, rocce, ecc
