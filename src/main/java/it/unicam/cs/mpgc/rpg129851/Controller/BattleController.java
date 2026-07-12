@@ -37,6 +37,8 @@ public class BattleController extends LoaderController {
     private AnimationTimer timer;
     ActionSystem playerAttack = new CombatSystem(player, orcEncountered);
     ActionSystem orcAttack = new CombatSystem(orcEncountered, player);
+    ActionSystem orcDeath = new DeathSystem(player, orcEncountered);
+    ActionSystem playerDeath = new DeathSystem(orcEncountered, player);
 
     public void initialize(){
         super.initialize();
@@ -79,20 +81,23 @@ public class BattleController extends LoaderController {
         ViewRegister.of(orcEncountered).getFrame().setActualFrame(0);
         cooldownActivation(btnRun, btnAttack, 1.5);
     }
-
     public void deathControl() {
-        ActionSystem orcDeath = new DeathSystem(player, orcEncountered);
-        ActionSystem playerDeath = new DeathSystem(orcEncountered, player);
-
         if (orcDeath.execute()) {
-            questCompletedControl();
-            timer.stop();
-            changeMap("forest");
+            handleOrcDefeated();
         } else if (playerDeath.execute()) {
-            removeQuest();
-            timer.stop();
-            changeMap("menu");
+            handlePlayerDefeated();
         }
+    }
+
+    private void handleOrcDefeated() {
+        questCompletedControl();
+        timer.stop();
+        changeMap("forest");
+    }
+    private void handlePlayerDefeated() {
+        removeQuest();
+        timer.stop();
+        changeMap("menu");
     }
 
     @FXML
